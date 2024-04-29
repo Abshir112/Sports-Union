@@ -1,17 +1,27 @@
-import express from "express";
-import dotenv from "dotenv";
+import express from 'express';
+import memberRouter from './routes/memberRoute.js';
+import activityRouter from './routes/activityRoute.js';
+import {connectDB} from './controllers/db.js';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware to connect to the database
+connectDB();
 
 
-app.get("/", (req, res) => {
-    res.send("Welcome to Home");
+// Body parser middleware
+app.use(express.json());
+
+app.use('/member', memberRouter);
+
+app.use('/activity', activityRouter);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Server is running on ${port}`);
-});
