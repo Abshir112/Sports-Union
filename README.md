@@ -17,7 +17,7 @@ npm install
 
 5. Create a .env file in the backend directory and add the following
 ```bash
-PORT=5000
+PORT=3000
 ```
 
 6. Back to the root directory
