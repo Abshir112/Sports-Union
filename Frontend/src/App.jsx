@@ -1,8 +1,9 @@
 import React from 'react';
-import {Hero} from './components/pages/landingPage/Hero';
+import {Hero} from './pages/Hero';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import Navbar from './components/Navbar';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Footer from './components/Footer';
 
 const theme = createTheme({
   palette: {
@@ -24,7 +25,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Helvetica Neue", Arial, sans-serif', 
+    fontFamily: '"Vollkorn SC", Arial, sans-serif', 
     h3: {
       fontWeight: 700, 
     },
@@ -58,7 +59,7 @@ function App() {
           <Route path="/contact"  />
           <Route path="/faq" />
         </Routes>
-        
+        <Footer />
       </Router>
 
     </ThemeProvider>
