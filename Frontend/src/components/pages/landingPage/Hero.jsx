@@ -9,6 +9,7 @@ export const Hero = () => {
       padding: 8, 
       textAlign: 'center', 
       color: '#fff', 
+      marginTop: 12,
   
     }}>
       <Typography variant="h3" component="h1" sx={{

@@ -1,37 +1,46 @@
+import React, { useState } from "react";
 import {
-AppBar,
-Toolbar,
-CssBaseline,
-Box
+  AppBar,
+  Toolbar,
+  useMediaQuery,
+  useTheme,
+    Box,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import AdbIcon from '@mui/icons-material/Adb'
+import DrawerComp from "./Drawer";
+import Logo from "./Logo";
   
 function Navbar() {
-return (
-    <nav>   
-        <AppBar position="static" >
-            <CssBaseline />
-            <Toolbar sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                backgroundColor: '#000',
-                width: '100%',
-            }}>
-                <Link href="/">
-                    <AdbIcon sx={{
-                        color: '#fff',
-                        fontSize: 40,
-                        marginX: 15
-                    }} />
-                </Link>
+    const theme = useTheme();
+    console.log(theme);
+    const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+    console.log(isMatch);
+  
+    return (
+      <React.Fragment>
 
-                <Box sx={{
-                    display: 'flex',
-                    gap: 10,
-                    marginX: 15,
-                    flexWrap: 'wrap'
-                }} >
+        <AppBar sx={{ background: "#000"
+    }}>
+          <Toolbar>
+          <Logo />
+                
+            {isMatch ? (
+              <>
+                <DrawerComp />
+              </>
+            ) : (
+              <>
+                <Box
+                  sx={{ marginLeft: "auto",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "50%",
+                      marginRight: "5em",
+                      
+                    }}
+                  indicatorColor="primary"
+                  textColor="inherit"
+                >
                         <Link to="/" style={{ textDecoration: 'none', color: '#fff' }}>
                             Home
                         </Link>
@@ -44,14 +53,15 @@ return (
                         <Link to="/Members" style={{ textDecoration: 'none', color: '#fff' }}>
                             Members
                         </Link>
-                        <Link to="/Stories" style={{ textDecoration: 'none', color: '#fff' }}>
+                        <Link to="/Stories" style={{ textDecoration: 'none', color: '#fff'}}>
                             Stories
                         </Link>
                 </Box>
-
-            </Toolbar>
+              </>
+            )}
+          </Toolbar>
         </AppBar>
-    </nav>
-);
-}
+      </React.Fragment>
+    );
+  };
 export default Navbar;
