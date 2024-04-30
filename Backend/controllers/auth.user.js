@@ -3,11 +3,10 @@ import bcrypt from 'bcryptjs';
 import Member from '../models/member.model.js';
 // Function: Sign up and Sign in for the user
 export const signUp = async (req,res) => {
-    const {name, email,phone,personalNumber,password} = req.body;
-    const hashPassword = bcrypt.hashSync(password, 10)
-    const newEmployee = await Member.create({name, email,phone,personalNumber,password:hashPassword});
+    const {name, email, phone, personalNumber, password} = req.body;
+    const hashPassword = bcrypt.hashSync(password, 10);
     try {
-        newEmployee.save();
+        const newEmployee = await Member.create({name, email, phone, personalNumber, password: hashPassword});
         return res.status(201).json(newEmployee);
     } catch (error) {
         return res.status(500).json({ error: error.message });
