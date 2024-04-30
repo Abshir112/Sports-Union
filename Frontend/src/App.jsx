@@ -1,12 +1,12 @@
 import React from 'react';
-import {Hero} from './components/landingPage/Hero';
+import {Hero} from './components/pages/landingPage/Hero';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import Navbar from './components/Navbar';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
     primary: {
       main: '#ffffff', 
       contrastText: '#000', 
@@ -15,8 +15,8 @@ const theme = createTheme({
       main: '#f50057', 
     },
     background: {
-      default: '#121212', 
-      paper: '#1e1e1e',
+      default: '#000', 
+      paper: '#fff',
     },
     text: {
       primary: '#ffffff',
@@ -51,7 +51,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Navbar />
+        <Navbar/>
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/about"  />
