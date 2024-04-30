@@ -1,6 +1,8 @@
 import React from 'react';
 import {Hero} from './components/landingPage/Hero';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import Navbar from './components/Navbar';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -48,7 +50,17 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Hero />
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/about"  />
+          <Route path="/contact"  />
+          <Route path="/faq" />
+        </Routes>
+        
+      </Router>
+
     </ThemeProvider>
   );
 }
