@@ -50,3 +50,9 @@ npm start
 
 11. Open your browser and navigate to http://localhost:8080 to see the client running
 
+Contributors:
+@Abshir112 
+@Ahmedradwancs
+@Alloush95
+@JwanMardini
+@lakshmivishal9496
