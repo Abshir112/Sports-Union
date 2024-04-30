@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllMembers, createMember, connectDB } from '../controllers/db.js';
+import { getAllMembers, createMember, connectDB, signUp } from '../controllers/db.js';
 
 const memberRouter = express.Router();
 
@@ -18,9 +18,22 @@ memberRouter.get('/', async (req, res) => {
 });
 
 // Route handler to create a new member
-memberRouter.post('/', async (req, res) => {
+memberRouter.post('/sign-up', async (req, res) => {
     try {
         const newMember = await createMember(req.body);
+        res.status(201).json(newMember);
+    } catch (error) {
+        if (error.message === 'Email is already in use') {
+            res.status(400).json({ error: 'Email is already in use' });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
+    }
+});
+//
+memberRouter.post('/sign-in', async (req, res) => {
+    try {
+        const newMember = await signUp(req.body);
         res.status(201).json(newMember);
     } catch (error) {
         if (error.message === 'Email is already in use') {
