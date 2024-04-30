@@ -2,6 +2,7 @@ import Member from "../models/member.js";
 import Activity from "../models/activity.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
 
@@ -32,18 +33,36 @@ export const getAllMembers = async () => {
 
 // Function to create a new member with validation
 export const createMember = async (memberData) => {
+    
+    const {name, email,phone,personalNumber,password } = memberData;
+        const hashPassword = bcrypt.hashSync(password, 10)
+        const newEmployee = await Member.create({name, email,phone,personalNumber,password:hashPassword});
     try {
-        // Check if the email is already in use
-        const existingEmployee = await Member.findOne({ email: employeeData.email });
-        if (existingEmployee) {
-            throw new Error('Email is already in use');
-        }
-        const newEmployee = await Employee.create(employeeData);
+        newEmployee.save();
         return newEmployee;
     } catch (error) {
         throw new Error('Failed to add the new employee', error); // Rethrow the error for handling in the caller
     }
 };
+
+
+// Function to login a member with validation
+export const signUp = async (memberData) => {
+    const {email,password } = memberData;
+    try {
+        const user = await Member.findOne({email:email});
+        if(!user){
+            return {error:"User username or password is incorrect"}
+        }
+        const validePassword = await bcrypt.compare(password, user.password);
+        if(!validePassword) return {error:"User username or password is incorrect"}
+        return user;
+    } catch (error) {
+        throw new Error('Failed to add the new employee', error); // Rethrow the error for handling in the caller
+    }
+};
+
+
 
 // Function to retrieve all activities
 export const getAllActivities = async () => {
@@ -64,6 +83,3 @@ export const createActivity = async (activityData) => {
         throw new Error('Failed to add the new activity', error); // Rethrow the error for handling in the caller
     }
 };
-
-
-
