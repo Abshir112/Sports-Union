@@ -52,7 +52,7 @@ npm start
 
 Contributors:
 @Abshir112 (https://github.com/abshir112)
-@Ahmedradwancs
-@Alloush95
-@JwanMardini
+@Ahmedradwancs (https://github.com/ahmedradwancs)
+@Alloush95 (https://github.com/Alloush95)
+@JwanMardini (https://github.com/JwanMardini)
 @lakshmivishal9496 (https://github.com/lakshmivishal9496)
