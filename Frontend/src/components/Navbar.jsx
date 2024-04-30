@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link as RouterLink } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -6,7 +7,7 @@ import {
   useTheme,
     Box,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import Link from "@mui/material/Link";
 import DrawerComp from "./Drawer";
 import Logo from "./Logo";
   
@@ -38,22 +39,20 @@ function Navbar() {
                       marginRight: "5em",
                       
                     }}
-                  indicatorColor="primary"
-                  textColor="inherit"
                 >
-                        <Link to="/" style={{ textDecoration: 'none', color: '#fff' }}>
+                        <Link component={RouterLink} to="/" underline="hover">
                             Home
                         </Link>
-                        <Link to="/about" style={{ textDecoration: 'none', color: '#fff' }}>
+                        <Link component={RouterLink} to="/about" underline="hover">
                             About
                         </Link>
-                        <Link to="/contact" style={{ textDecoration: 'none', color: '#fff' }}>
+                        <Link component={RouterLink} to="/contact" underline="hover">
                             Events
                         </Link>
-                        <Link to="/Members" style={{ textDecoration: 'none', color: '#fff' }}>
+                        <Link component={RouterLink} to="/Members" underline="hover">
                             Members
                         </Link>
-                        <Link to="/Stories" style={{ textDecoration: 'none', color: '#fff'}}>
+                        <Link component={RouterLink} to="/Stories" underline="hover">
                             Stories
                         </Link>
                 </Box>

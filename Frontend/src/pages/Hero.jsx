@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { SignUpBtn } from './Button.jsx'; 
+import { SignUpBtn } from '../components/Button.jsx'; 
 
 export const Hero = () => {
   return (
