@@ -13,7 +13,7 @@ const Footer = () => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     return (<>
         <hr />
-        <Container maxWidth="lg" component="footer" style={{display: "flex", justifyContent: "space-between"}}>
+        <Container maxWidth="lg" component="footer" style={{display: "flex", justifyContent: "space-between"}} sx={{marginBottom: 2}}>
             <Box>
                 <Typography gutterBottom variant="h6" fontSize={isSmallScreen ? "medium" : "large"} align="center" > Contact Us </Typography>
                 <Box>
