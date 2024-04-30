@@ -1,4 +1,4 @@
-import Member from "../models/member.js";
+import Member from "../models/member.model.js";
 import Activity from "../models/activity.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
