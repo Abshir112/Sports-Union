@@ -1,7 +1,7 @@
 import express from 'express';
-import memberRouter from './routes/memberRoute.js';
-import activityRouter from './routes/activityRoute.js';
-import {connectDB} from './controllers/db.js';
+import memberRouter from './routes/member.routes.js';
+import activityRouter from './routes/activity.routes.js';
+import {connectDB} from './controllers/db.connection.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
