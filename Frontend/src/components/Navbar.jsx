@@ -14,14 +14,12 @@ import { ButtonHandler } from "./Button";
   
 function Navbar() {
     const theme = useTheme();
-    console.log(theme);
     const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-    console.log(isMatch);
   
     return (
       <React.Fragment>
 
-        <AppBar sx={{ background: "#000"
+        <AppBar position="static" sx={{ background: "#000"
     }}>
           <Toolbar>
           <Logo />
@@ -37,8 +35,7 @@ function Navbar() {
                       display: "flex",
                       justifyContent: "space-between",
                       width: "50%",
-                      marginRight: "5em",
-                      
+                      marginRight: "5em"
                     }}
                 >
                         <Link component={RouterLink} to="/" underline="hover">
