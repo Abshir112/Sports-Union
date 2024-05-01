@@ -10,6 +10,7 @@ import {
 import Link from "@mui/material/Link";
 import DrawerComp from "./Drawer";
 import Logo from "./Logo";
+import { ButtonHandler } from "./Button";
   
 function Navbar() {
     const theme = useTheme();
@@ -55,6 +56,7 @@ function Navbar() {
                         <Link component={RouterLink} to="/Stories" underline="hover">
                             Stories
                         </Link>
+                        <ButtonHandler title="Sign In" link="/signIn"  py="0.5" />
                 </Box>
               </>
             )}
