@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
-export const SignUpBtn = () => {
+export const ButtonHandler = (props) => {
   return (
-    <Button variant="contained" sx={{
+    <Button component={RouterLink} to={props.link} variant="contained" sx={{
       backgroundColor: 'primary.main', 
       color: 'primary.contrastText', 
       textTransform: 'uppercase', 
@@ -12,13 +13,13 @@ export const SignUpBtn = () => {
       fontSize: '1rem', 
       letterSpacing: 1, 
       px: 5, 
-      py: 1.5, 
+      py: props.py || 2, 
       borderRadius: '4px', 
       '&:hover': {
         backgroundColor: 'primary.dark', 
       },
     }}>
-      Sign Up
+      {props.title}
     </Button>
   );
 };
