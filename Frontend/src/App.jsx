@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Footer from './components/Footer';
 import {theme} from './theme';
+import SignIn from './pages/SignIn';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
           <Route path="/" element={<Hero />} />
           <Route path="/about"  />
           <Route path="/contact"  />
-          <Route path="/faq" />
+          <Route path="/signIn" element={<SignIn/>} />
         </Routes>
         <Footer />
       </Router>

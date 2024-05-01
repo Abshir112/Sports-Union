@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
-import { SignUpBtn } from '../components/Button.jsx'; 
+import { Box, Link, Typography } from '@mui/material';
+import { ButtonHandler } from '../components/Button.jsx'; 
 
 export const Hero = () => {
   return (
@@ -36,7 +36,7 @@ export const Hero = () => {
       }}>
         "Compete with the best, train with the best, and become the best. At our sports union, you'll not only master your sport but also meet peers from around the globe. Discover new cultures, forge lasting friendships, and achieve greatness. Join us and make memories that will last a lifetime — this is where champions are made and horizons are expanded!"
       </Typography>
-        <SignUpBtn />
+      <ButtonHandler title="Sign Up" handleClick={() => {console.log("lkashdj")}} py="2" />
     </Box>
   );
 };
