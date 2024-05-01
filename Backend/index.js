@@ -1,5 +1,5 @@
 import express from 'express';
-import memberRouter from './routes/member.routes.js';
+import memberUnser from './routes/user.routes.js';
 import activityRouter from './routes/activity.routes.js';
 import {connectDB} from './controllers/db.connection.js';
 import dotenv from 'dotenv';
@@ -17,7 +17,7 @@ connectDB();
 // Body parser middleware
 app.use(express.json());
 
-app.use('/member', memberRouter);
+app.use('/users', memberUnser);
 
 app.use('/activity', activityRouter);
 
