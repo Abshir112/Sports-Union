@@ -36,7 +36,7 @@ export const Hero = () => {
       }}>
         "Compete with the best, train with the best, and become the best. At our sports union, you'll not only master your sport but also meet peers from around the globe. Discover new cultures, forge lasting friendships, and achieve greatness. Join us and make memories that will last a lifetime — this is where champions are made and horizons are expanded!"
       </Typography>
-      <ButtonHandler title="Sign Up" handleClick={() => {console.log("lkashdj")}} py="2" />
+      <ButtonHandler title="Sign Up" link="/signUp"  py="0.5" />
     </Box>
   );
 };
