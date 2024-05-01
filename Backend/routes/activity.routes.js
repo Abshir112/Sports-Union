@@ -1,5 +1,4 @@
 import express from 'express';
-import { connectDB } from '../controllers/db.connection.js';
 import { getAllActivities, createActivity } from '../controllers/activity.controller.js';
 
 const activityRouter = express.Router();

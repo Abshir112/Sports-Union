@@ -1,6 +1,5 @@
 import express from 'express';
 import { signUp, signIn } from '../controllers/auth.user.js';
-import { connectDB } from '../controllers/db.connection.js';
 import { getAllMembers } from '../controllers/user.controller.js';
 
 
