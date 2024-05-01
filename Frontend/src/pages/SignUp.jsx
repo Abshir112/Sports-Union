@@ -85,7 +85,7 @@ function SignUp() {
               Sign Up
             </Button>
             <Typography>
-             Already have an account?  <Link component={RouterLink} to="/singIn" underline="hover">Login</Link>
+             Already have an account?  <Link component={RouterLink} to="/signIn" underline="hover">Login</Link>
              </Typography>
           </form>
         </Grid>
