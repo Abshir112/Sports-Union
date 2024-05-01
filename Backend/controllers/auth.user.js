@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
+import Member from '../models/user.model.js';
 
-import Member from '../models/member.model.js';
+
 // Function: Sign up and Sign in for the user
 export const signUp = async (req,res) => {
     const {name, email, phone, personalNumber, password} = req.body;
@@ -12,7 +13,6 @@ export const signUp = async (req,res) => {
         return res.status(500).json({ error: error.message });
     }
 }
-
 
 
 
