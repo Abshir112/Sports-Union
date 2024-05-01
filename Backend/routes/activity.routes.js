@@ -1,10 +1,8 @@
 import express from 'express';
-import { getAllActivities, createActivity, connectDB } from '../controllers/db.js';
+import { getAllActivities, createActivity } from '../controllers/activity.controller.js';
 
 const activityRouter = express.Router();
 
-// Call connectDB function
-connectDB();
 
 // Route handler to get all activities
 activityRouter.get('/', async (req, res) => {

@@ -6,8 +6,8 @@ const memberSchema = new mongoose.Schema({
     phone: { type: String, required: true, unique: true},
     personalNumber: { type: String, required: true, unique: true},
     password: { type: String, required: true },
-}, { collection: 'Member' });
+}, { collection: 'User' });
 
-const Member = mongoose.model('Member', memberSchema);
+const Member = mongoose.model('User', memberSchema);
 
 export default Member;
