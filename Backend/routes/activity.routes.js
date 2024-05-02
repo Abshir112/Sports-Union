@@ -1,28 +1,19 @@
 import express from 'express';
-import { getAllActivities, createActivity } from '../controllers/activity.controller.js';
+import { getAllActivities, createActivity, updateActivity, deleteActivity} from '../controllers/activity.controller.js';
 
 const activityRouter = express.Router();
 
 
 // Route handler to get all activities
-activityRouter.get('/', async (req, res) => {
-    try {
-        const activities = await getAllActivities();
-        res.json(activities);
-    } catch (error) {
-        console.error('Error fetching activities:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+activityRouter.get('/', getAllActivities);
 
 // Route handler to create a new activity
-activityRouter.post('/', async (req, res) => {
-    try {
-        const newActivity = await createActivity(req.body);
-        res.status(201).json(newActivity);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to create activity' });
-    }
-});
+activityRouter.post('/', createActivity);
+
+// Route handler to update an activity
+activityRouter.put('/:id', updateActivity);
+
+// Route handler to delete an activity
+activityRouter.delete('/:id', deleteActivity);
 
 export default activityRouter;
