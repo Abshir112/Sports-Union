@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Container, TextField, Button, Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
+import axios from 'axios';
 
 
 function SignUp() {
@@ -40,11 +41,33 @@ function SignUp() {
       const handleSubmit = (event) => {
         event.preventDefault();
         if (validate()) {
-          console.log('Form is valid');
-          // Proceed with submitting the form data to a server or API
-        } else {
-          console.log('Form is invalid');
-        }
+            console.log('Form is valid');
+        
+            // Define the API endpoint
+            const apiUrl = 'http://localhost:3000/sign-up';
+        
+            // Call the API to add the new member
+            axios.post(apiUrl, values)
+              .then(response => {
+                console.log('User registered:', response.data);
+                // Optionally redirect the user or clear the form
+                setValues({
+                  firstName: '',
+                  lastName: '',
+                  email: '',
+                  phone: '',
+                  personnummer: '',
+                  password: ''
+                });
+                // Redirect or show success message
+              })
+              .catch(error => {
+                console.error('There was an error registering the user:', error);
+                // Optionally show error message to the user
+              });
+          } else {
+            console.log('Form is invalid');
+          }
       };
       
       
