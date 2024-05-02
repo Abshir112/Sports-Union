@@ -3,20 +3,20 @@ import { signUp, signIn } from '../controllers/auth.user.js';
 import { deleteUser, getAllUsers, updateUser } from '../controllers/user.controller.js';
 
 
-const memberRouter = express.Router();
+const userRouter = express.Router();
 
 
-// Route handler to get all members
-memberRouter.get('/', getAllUsers);
+// Route handler to get all users
+userRouter.get('/', getAllUsers);
 
-// Route handler to create a new member
-memberRouter.post('/sign-up',signUp);
+// Route handler to create a new user
+userRouter.post('/sign-up',signUp);
 
-//  Route handler to login a member
-memberRouter.post('/sign-in', signIn);
-// Route handler to update a member
-memberRouter.put('/update-user/:id', updateUser);
-// Route handler to delete a member
-memberRouter.delete('/delete-user/:id', deleteUser);
+//  Route handler to login a user
+userRouter.post('/sign-in', signIn);
+// Route handler to update a user
+userRouter.put('/update-user/:id', updateUser);
+// Route handler to delete a user
+userRouter.delete('/delete-user/:id', deleteUser);
 
-export default memberRouter;
+export default userRouter;
