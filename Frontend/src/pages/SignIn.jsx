@@ -12,7 +12,7 @@ function SignIn() {
           <Typography component="h1" variant="h5" align='center'>
             Log In
           </Typography>
-          <form style={{ marginTop: '10px' }}>
+          <form style={{ marginTop: '10px' }} method='POST'>
             <TextField
               variant="standard"
               margin="normal"

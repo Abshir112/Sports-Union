@@ -5,8 +5,8 @@ import { Link as RouterLink } from 'react-router-dom';
 export const ButtonHandler = (props) => {
   return (
     <Button component={RouterLink} to={props.link} variant="contained" onClick={props.onClick} sx={{
-      backgroundColor: 'primary.main', 
-      color: 'primary.contrastText', 
+      backgroundColor: 'background.default', 
+      color: 'primary.main', 
       textTransform: 'uppercase', 
       fontFamily: '"Vollkorn SC", Arial, sans-serif',
       fontWeight: 'bold', 

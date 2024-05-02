@@ -19,7 +19,7 @@ function Navbar() {
     return (
       <React.Fragment>
 
-        <AppBar position="static" sx={{ background: "#000"
+        <AppBar position="static" sx={{ backgroundColor: "background.default"
     }}>
           <Toolbar>
           <Logo />
@@ -31,11 +31,14 @@ function Navbar() {
             ) : (
               <>
                 <Box
+                color='#000'
+                // backgroundColor= "red"
                   sx={{ marginLeft: "auto",
                       display: "flex",
                       justifyContent: "space-between",
                       width: "50%",
-                      marginRight: "5em"
+                      marginRight: "5em",
+                      
                     }}
                 >
                         <Link component={RouterLink} to="/" underline="hover">

@@ -5,11 +5,11 @@ import { ButtonHandler } from '../components/Button.jsx';
 export const Hero = () => {
   return (
     <Box sx={{
-      backgroundColor: '#000', 
+      backgroundColor: '#eedbc4', 
       padding: 8, 
       textAlign: 'center', 
-      color: '#fff', 
-      marginTop: 12,
+      color: '#000', 
+      marginTop: 1,
   
     }}>
       <Typography variant="h3" component="h1" sx={{
@@ -18,14 +18,14 @@ export const Hero = () => {
         mb: 4, 
         letterSpacing: 1,
       }}>
-        ELEVATE YOUR SPORTS PASSION
+        ELEVATE YOUR <span style={{color: '#f09951'}}>SPORTS PASSION</span>
       </Typography>
-      <Typography variant="h5" sx={{
+      <Typography variant="h3" sx={{
         fontFamily: '"Vollkorn SC", Arial, sans-serif',
-        fontWeight: 'normal', 
+        fontWeight: 'bold', 
         mb: 3, 
         letterSpacing: 2, 
-        color: 'rgba(255, 255, 255, 0.7)', 
+        // color: 'rgba(255, 255, 255, 0.7)', 
       }}>
         BEYOND BOUNDARIES
       </Typography>
