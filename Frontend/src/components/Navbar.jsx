@@ -37,26 +37,26 @@ function Navbar() {
                       display: "flex",
                       justifyContent: "space-between",
                       width: "50%",
-                      marginRight: "5em",
+                      marginRight: "3em",
+                      alignItems: "center"
                       
                     }}
                 >
-                        <Link component={RouterLink} to="/" underline="hover">
+                        <Link component={RouterLink} to="/" underline="hover" mr={1}>
                             Home
                         </Link>
-                        <Link component={RouterLink} to="/about" underline="hover">
+                        <Link component={RouterLink} to="/about" underline="hover" mr={1}>
                             About
                         </Link>
-                        <Link component={RouterLink} to="/contact" underline="hover">
+                        <Link component={RouterLink} to="/contact" underline="hover" mr={1}>
                             Events
                         </Link>
-                        <Link component={RouterLink} to="/Members" underline="hover">
+                        <Link component={RouterLink} to="/Members" underline="hover" mr={1}>
                             Members
                         </Link>
                         <Link component={RouterLink} to="/Stories" underline="hover">
                             Stories
                         </Link>
-                        <ButtonHandler title="Sign In" link="/signIn"  py="0.5" />
                 </Box>
               </>
             )}
