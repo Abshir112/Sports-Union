@@ -13,17 +13,17 @@ export const getAllUsers = async (req, res) => {
 };
 
 // Function to create a new User with validation
-export const createUser = async (UserData) => {
-    const {name, email,phone,personalNumber,password, role } = UserData;
-    const hashPassword = bcrypt.hashSync(password, 10)
-    const newUser = await User.create({name, email,phone,personalNumber,password:hashPassword, role });
-    try {
-        newUser.save();
-        return newUser;
-    } catch (error) {
-        throw new Error('Failed to add the new employee', error); // Rethrow the error for handling in the caller
-    }
-};
+// export const createUser = async (UserData) => {
+//     const {name, email,phone,personalNumber,password, role } = UserData;
+//     const hashPassword = bcrypt.hashSync(password, 10)
+//     const newUser = await User.create({name, email,phone,personalNumber,password:hashPassword, role });
+//     try {
+//         newUser.save();
+//         return newUser;
+//     } catch (error) {
+//         throw new Error('Failed to add the new employee', error); // Rethrow the error for handling in the caller
+//     }
+// };
 
 
 // Function to update a User by ID

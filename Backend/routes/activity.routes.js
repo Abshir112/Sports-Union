@@ -1,7 +1,11 @@
 import express from 'express';
 import { getAllActivities, createActivity, updateActivity, deleteActivity} from '../controllers/activity.controller.js';
+import requireAuth from '../middlewares/requireAuth.js'
 
 const activityRouter = express.Router();
+
+// Middleware to verify the token
+activityRouter.use(requireAuth);
 
 
 // Route handler to get all activities
