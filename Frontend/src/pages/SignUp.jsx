@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import { Container, TextField, Button, Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
-import axios from 'axios';
+import { useSignup } from '../hooks/useSignup';
+
 
 
 function SignUp() {
@@ -15,8 +16,9 @@ function SignUp() {
         personnummer: '',
         password: ''
     });
+
+    const { error, isLoading, signup } = useSignup();
     
-    const [errors, setErrors] = useState({});
 
     const handleChange = (event) => {
     const { name, value } = event.target;
@@ -26,48 +28,11 @@ function SignUp() {
     });
     };
 
-    const validate = () => {
-        let tempErrors = {};
-        tempErrors.firstName = values.firstName ? "" : "First Name is required";
-        tempErrors.lastName = values.lastName ? "" : "Last Name is required";
-        tempErrors.email = values.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) ? "" : "Email is not valid";
-        tempErrors.phone = values.phone.match(/^[0-9]{10}$/) ? "" : "Phone number is not valid";
-        tempErrors.personnummer = values.personnummer.match(/^[0-9]{12}$/) ? "" : "Personnummer must be 12 digits";
-        tempErrors.password = values.password.length >= 6 ? "" : "Password must be at least 6 characters long";
-        setErrors(tempErrors);
-        return Object.values(tempErrors).every(x => x === "");
-      };
-
-      const handleSubmit = (event) => {
+      const handleSubmit = async (event) => {
         event.preventDefault();
-        if (validate()) {
-            console.log('Form is valid');
-        
-            // Define the API endpoint
-            const apiUrl = 'http://localhost:3000/sign-up';
-        
-            // Call the API to add the new member
-            axios.post(apiUrl, values)
-              .then(response => {
-                console.log('User registered:', response.data);
-                // Optionally redirect the user or clear the form
-                setValues({
-                  firstName: '',
-                  lastName: '',
-                  email: '',
-                  phone: '',
-                  personnummer: '',
-                  password: ''
-                });
-                // Redirect or show success message
-              })
-              .catch(error => {
-                console.error('There was an error registering the user:', error);
-                // Optionally show error message to the user
-              });
-          } else {
-            console.log('Form is invalid');
-          }
+        await signup(values.email, values.password, values.firstName + ' ' + values.lastName, values.phone, values.personnummer);
+        console.log(error);
+
       };
       
       
@@ -94,16 +59,20 @@ function SignUp() {
                 autoComplete={key}
                 value={values[key]}
                 onChange={handleChange}
-                helperText={errors[key]}
                 />
             ))}
-            <Button type="submit" fullWidth variant="contained" color="primary" style={{ margin: '24px 0 16px' }}>
+            <Button disabled={isLoading} type="submit" fullWidth variant="contained" color="primary" style={{ margin: '24px 0 16px' }}>
                 Sign Up
             </Button>
             <Typography>
                 Already have an account?  <Link component={RouterLink} to="/signIn" underline="hover">Login</Link>
             </Typography>
             </form>
+            {error && (
+            <Typography variant="body1" style={{ color: 'red', textAlign: 'center' }}>
+              {error}
+            </Typography>
+          )}
         </Grid>
         {/* Image Section */}
         <Grid item xs={12} md={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

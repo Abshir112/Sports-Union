@@ -1,12 +1,10 @@
-import React from 'react';
 import { Box, Typography, Container, useTheme, useMediaQuery } from '@mui/material';
-import { ButtonHandler } from '../components/Button.jsx'; 
+import { ButtonHandler } from '../components/Button.jsx';
 
 export const Hero = () => {
 
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down("md"));
-  console.log(isSmall);
 
   return (
     <>
@@ -39,8 +37,9 @@ export const Hero = () => {
           fontFamily: '"Vollkorn SC", Arial, sans-serif',
           fontWeight: 'light',
           mb: 6, 
-        }}>
-          "Compete with the best, train with the best, and become the best. At our sports union, you'll not only master your sport but also meet peers from around the globe. Discover new cultures, forge lasting friendships, and achieve greatness. Join us and make memories that will last a lifetime — this is where champions are made and horizons are expanded!"
+        }}
+        // eslint-disable-next-line
+        >"Compete with the best, train with the best, and become the best. At our sports union, you'll not only master your sport but also meet peers from around the globe. Discover new cultures, forge lasting friendships, and achieve greatness. Join us and make memories that will last a lifetime — this is where champions are made and horizons are expanded!"
         </Typography>
         <ButtonHandler title="Sign Up" link="/signUp"  py="0.5" />
         <ButtonHandler title="Sign In" link="/signIn"  py="0.5" />

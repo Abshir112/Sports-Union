@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container, TextField, Button, Typography, Grid} from '@mui/material';
+import { useLogin } from '../hooks/useLogin';
 
 function SignIn() {
   const [values, setValues] = useState({
     email: '',
     password: ''
   });
-  
-  const [errors, setErrors] = useState({});
+  const { error, isLoading, login } = useLogin();
   
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -17,22 +17,11 @@ function SignIn() {
     });
   };
   
-  const validate = () => {
-    let tempErrors = {};
-    tempErrors.email = values.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) ? "" : "Email is not valid";
-    tempErrors.password = values.password.length >= 6 ? "" : "Password must be at least 6 characters long";
-    setErrors(tempErrors);
-    return Object.values(tempErrors).every(x => x === "");
-  };
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validate()) {
-      console.log('Form is valid');
 
-    } else {
-      console.log('Form is invalid');
-    }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await login(values.email, values.password);
+    console.log(error);
   };
   return (
     <Container component="main" maxWidth="md" style={{ marginTop: '20px', marginBottom: '40px' }}>
@@ -54,8 +43,6 @@ function SignIn() {
               autoComplete="email"
               value={values.email}
               onChange={handleChange}
-              error={!!errors.email}
-              helperText={errors.email}
             />
             <TextField
               variant="standard"
@@ -69,8 +56,6 @@ function SignIn() {
               autoComplete="current-password"
               value={values.password}
               onChange={handleChange}
-              error={!!errors.password}
-              helperText={errors.password}
             />
             <Button
               type="submit"
@@ -78,10 +63,17 @@ function SignIn() {
               variant="contained"
               color="primary"
               style={{ margin: '24px 0 16px' }}
+              disabled={isLoading}
             >
               Sign In
             </Button>
           </form>
+           {/* Error Display */}
+          {error && (
+            <Typography variant="body1" style={{ color: 'red', textAlign: 'center' }}>
+              {error}
+            </Typography>
+          )}
         </Grid>
         {/* Image Section */}
         <Grid item xs={12} md={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
