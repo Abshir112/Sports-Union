@@ -57,6 +57,7 @@ function SignUp() {
                 name={key}
                 label={key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1').trim()}
                 autoComplete={key}
+                type={key === 'password' ? 'password' : 'text'} // Set type to 'password' for password field
                 value={values[key]}
                 onChange={handleChange}
                 />
