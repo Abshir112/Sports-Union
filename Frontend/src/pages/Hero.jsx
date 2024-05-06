@@ -1,42 +1,57 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
-import { SignUpBtn } from '../components/Button.jsx'; 
+import { Box, Typography, Container, useTheme, useMediaQuery } from '@mui/material';
+import { ButtonHandler } from '../components/Button.jsx';
 
 export const Hero = () => {
+
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
-    <Box sx={{
-      backgroundColor: '#000', 
-      padding: 8, 
-      textAlign: 'center', 
-      color: '#fff', 
-      marginTop: 12,
-  
-    }}>
-      <Typography variant="h3" component="h1" sx={{
-        fontFamily: '"Vollkorn SC", Arial, sans-serif',
-        fontWeight: 'bold', 
-        mb: 4, 
-        letterSpacing: 1,
+    <>
+
+    <Container maxWidth={false}  sx={{backgroundColor: "#eedbc4", display: "flex", justifyContent: "space-between", marginTop: 1}}>
+      <Box sx={{
+        padding: 8, 
+        textAlign: 'left', 
+        color: '#000',
+        mt: 3,
+        width: "100%", 
       }}>
-        ELEVATE YOUR SPORTS PASSION
-      </Typography>
-      <Typography variant="h5" sx={{
-        fontFamily: '"Vollkorn SC", Arial, sans-serif',
-        fontWeight: 'normal', 
-        mb: 3, 
-        letterSpacing: 2, 
-        color: 'rgba(255, 255, 255, 0.7)', 
-      }}>
-        BEYOND BOUNDARIES
-      </Typography>
-      <Typography variant="body1" sx={{
-        fontFamily: '"Vollkorn SC", Arial, sans-serif',
-        fontWeight: 'light',
-        mb: 6, 
-      }}>
-        "Compete with the best, train with the best, and become the best. At our sports union, you'll not only master your sport but also meet peers from around the globe. Discover new cultures, forge lasting friendships, and achieve greatness. Join us and make memories that will last a lifetime — this is where champions are made and horizons are expanded!"
-      </Typography>
-        <SignUpBtn />
-    </Box>
+        <Typography variant="h3" component="h1" sx={{
+          fontFamily: '"Vollkorn SC", Arial, sans-serif',
+          fontWeight: 'bold', 
+          letterSpacing: 1,
+        }}>
+          ELEVATE YOUR <span style={{color: '#f09951'}}>SPORTS PASSION</span>
+        </Typography>
+        <Typography variant="h3" sx={{
+          fontFamily: '"Vollkorn SC", Arial, sans-serif',
+          fontWeight: 'bold', 
+          mb: 3, 
+          letterSpacing: 2, 
+          // color: 'rgba(255, 255, 255, 0.7)', 
+        }}>
+          BEYOND BOUNDARIES
+        </Typography>
+        <Typography variant="body1" sx={{
+          fontFamily: '"Vollkorn SC", Arial, sans-serif',
+          fontWeight: 'light',
+          mb: 6, 
+        }}
+        // eslint-disable-next-line
+        >"Compete with the best, train with the best, and become the best. At our sports union, you'll not only master your sport but also meet peers from around the globe. Discover new cultures, forge lasting friendships, and achieve greatness. Join us and make memories that will last a lifetime — this is where champions are made and horizons are expanded!"
+        </Typography>
+        <ButtonHandler title="Sign Up" link="/signUp"  py="0.5" />
+        <ButtonHandler title="Sign In" link="/signIn"  py="0.5" />
+      </Box>
+
+      {isSmall ? null : (
+        <Container sx={{ display: "flex", justifyContent:"center", alignItems: "center",  maxWidth: "100%", overflow: "hidden" }}>
+          <img src="../../../assets/landingpage.png" alt="climbing activity" />
+        </Container>
+      )}
+    </Container>
+    </>
+
   );
 };

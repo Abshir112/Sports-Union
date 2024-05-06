@@ -6,17 +6,19 @@ export const theme = createTheme({
       primary: {
         main: '#ffffff', 
         contrastText: '#000', 
+        txtColor: '#eedbc4',
       },
       secondary: {
         main: '#f50057', 
       },
       background: {
         default: '#000', 
-        paper: '#fff',
+        paper: '#eedbc4',
       },
       text: {
-        primary: '#ffffff',
+        primary: '#eedbc4',
         secondary: 'rgba(255, 255, 255, 0.7)',
+        
       },
     },
     typography: {
