@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Container, TextField, Button, Typography, Grid} from '@mui/material';
 import { useLogin } from '../hooks/useLogin';
+import { Link as RouterLink } from 'react-router-dom';
 
 function SignIn() {
   const [values, setValues] = useState({
@@ -67,6 +68,11 @@ function SignIn() {
             >
               Sign In
             </Button>
+
+            <Button component={RouterLink} to="/signUp"  fullWidth variant="contained" color="primary"  style={{ margin: '24px 0 16px' }}>
+            Sign Up
+            </Button>   
+            
           </form>
            {/* Error Display */}
           {error && (
