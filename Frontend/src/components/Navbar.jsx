@@ -56,13 +56,13 @@ function Navbar() {
                         <Link component={RouterLink} to="/about" underline="hover" mr={1}>
                             About
                         </Link>
-                        <Link component={RouterLink} to="/events" underline="hover" mr={1}>
+                        <Link component={RouterLink} to="/activities" underline="hover" mr={1}>
                             Events
                         </Link>
-                        <Link component={RouterLink} to="/Members" underline="hover" mr={1}>
+                        <Link component={RouterLink} to="/members" underline="hover" mr={1}>
                             Members
                         </Link>
-                        <Link component={RouterLink} to="/Stories" underline="hover">
+                        <Link component={RouterLink} to="/events" underline="hover">
                             Stories
                         </Link>
 
