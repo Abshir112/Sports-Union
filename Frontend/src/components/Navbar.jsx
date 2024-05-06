@@ -57,13 +57,13 @@ function Navbar() {
                             About
                         </Link>
                         <Link component={RouterLink} to="/activities" underline="hover" mr={1}>
-                            Events
+                            Activites
                         </Link>
                         <Link component={RouterLink} to="/members" underline="hover" mr={1}>
                             Members
                         </Link>
                         <Link component={RouterLink} to="/events" underline="hover">
-                            Stories
+                            Events
                         </Link>
 
                         {
