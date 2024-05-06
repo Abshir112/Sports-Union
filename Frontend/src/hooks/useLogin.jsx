@@ -10,27 +10,31 @@ export const useLogin = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch('http://localhost:3000/users/sign-in', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({email, password})
-        });
-        const json = await response.json();
-        if (!response.ok) {
-            setError(json.error);
+        try {
+            const response = await fetch('http://localhost:3000/users/sign-in', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+            const json = await response.json();
+            if (response.ok) {
+                localStorage.setItem('user', JSON.stringify(json));
+                dispatch({ type: 'LOGIN', payload: json });
+                setIsLoading(false);
+                return true;  // Login success
+            } else {
+                setError(json.error);
+                setIsLoading(false);
+                return false;  // Login failed
+            }
+        } catch (error) {
+            setError("Failed to connect to the server");
             setIsLoading(false);
+            return false;  // Network error or similar failure
         }
-
-        if(response.ok){
-            // save the user to local storage
-            localStorage.setItem('user', JSON.stringify(json));
-            // update the user in the context
-            dispatch({type: 'LOGIN', payload: json});
-            setIsLoading(false);
-        }
-    }
+    };
 
     return { error, isLoading, login };
-}
+};

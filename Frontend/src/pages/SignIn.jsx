@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Container, TextField, Button, Typography, Grid} from '@mui/material';
 import { useLogin } from '../hooks/useLogin';
 import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
+  const redirect = useNavigate();
   const [values, setValues] = useState({
     email: '',
     password: ''
@@ -21,9 +23,12 @@ function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await login(values.email, values.password);
-    console.log(error);
+    const success = await login(values.email, values.password);
+    if (success) {
+      redirect('/events');
+    }
   };
+
   return (
     <Container component="main" maxWidth="md" style={{ marginTop: '20px', marginBottom: '40px' }}>
       <Grid container spacing={2}>
