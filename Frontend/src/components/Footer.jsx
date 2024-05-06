@@ -17,15 +17,15 @@ const Footer = () => {
             <Box>
                 <Typography gutterBottom variant="h6" fontSize={isSmallScreen ? "medium" : "large"} align="center" > Contact Us </Typography>
                 <Box>
-                    <Link href="#">
+                    <Link href="https://www.instagram.com/hkif_skane/" target="_blank" rel="noopener noreferrer">
                         <InstagramIcon fontSize={isSmallScreen ? "small" : "large"} sx={{ mr: isSmallScreen ? 3 : 5 }} />
                     </Link>
 
-                    <Link href="#">
+                    <Link href="https://www.facebook.com/HKIFatHKR" target="_blank" rel="noopener noreferrer">
                         <FacebookIcon fontSize={isSmallScreen ? "small" : "large"} sx={{ mr: isSmallScreen ? 3 : 5 }}/>
                     </Link>
                        
-                    <Link href="#">
+                    <Link href="#" target="_blank" rel="noopener noreferrer">
                         <LinkedinIcon fontSize={isSmallScreen ? "small" : "large"} ></LinkedinIcon>
                     </Link>
                 </Box>

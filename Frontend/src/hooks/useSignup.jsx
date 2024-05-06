@@ -11,29 +11,30 @@ export const useSignup = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch('http://localhost:3000/users/sign-up', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({email, password, name, phone, personalNumber})
-        });
-        const json = await response.json();
-        console.log(json);
-        if (!response.ok) {
-            setError(json.error);
+        try {
+            const response = await fetch('http://localhost:3000/users/sign-up', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password, name, phone, personalNumber })
+            });
+            const json = await response.json();
+            if (response.ok) {
+                localStorage.setItem('user', JSON.stringify(json));
+                dispatch({ type: 'LOGIN', payload: json });
+                setIsLoading(false);
+                return true;  // Signify success
+            } else {
+                setError(json.error);
+                setIsLoading(false);
+                return false;  // Signify failure
+            }
+        } catch (error) {
+            setError("Failed to connect to the server");
             setIsLoading(false);
-            
+            return false;  // Signify failure on network error
         }
-
-        if(response.ok){
-            // save the user to local storage
-            localStorage.setItem('user', JSON.stringify(json));
-            // update the user in the context
-            dispatch({type: 'LOGIN', payload: json});
-            setIsLoading(false);
-        }
-    }
-
+    };
     return { error, isLoading, signup };
-}
+};

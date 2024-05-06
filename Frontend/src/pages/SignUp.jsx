@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
@@ -8,6 +9,7 @@ import { useSignup } from '../hooks/useSignup';
 
 function SignUp() {
     
+    const redirect = useNavigate();
     const [values, setValues] = useState({
         firstName: '',
         lastName: '',
@@ -30,8 +32,10 @@ function SignUp() {
 
       const handleSubmit = async (event) => {
         event.preventDefault();
-        await signup(values.email, values.password, values.firstName + ' ' + values.lastName, values.phone, values.personnummer);
-        console.log(error);
+        const success = await signup(values.email, values.password, values.firstName + ' ' + values.lastName, values.phone, values.personnummer);
+        if (success) {
+            redirect('/signIn');
+        }
 
       };
       
