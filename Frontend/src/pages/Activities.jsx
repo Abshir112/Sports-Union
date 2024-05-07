@@ -48,8 +48,9 @@ const Activities = () => {
         {activities.map(activity => (
           <EventCard
             key={activity.activityName}
-            date={activity.scheduledTime}
+            date={activity.date}
             title={activity.activityName}
+            time={activity.time}
             location={activity.location}
             description={activity.description}
             image={`../../assets/${activity.activityName}.JPG`}
