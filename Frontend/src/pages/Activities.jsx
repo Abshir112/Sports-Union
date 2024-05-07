@@ -15,7 +15,7 @@ const Activities = () => {
     useEffect(() => {
         const fetchActivities = async () => {
             try {
-                const response = await fetch('http://localhost:3000/activity');
+                const response = await fetch('http://localhost:3000/activities');
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
                 }
@@ -53,7 +53,7 @@ const Activities = () => {
             location={activity.location}
             description={activity.description}
             image={`../../assets/${activity.activityName}.JPG`}
-            btnClick={() => user ? handleUserClick : handleGuestClick} 
+            btnClick={() => user ? handleUserClick() : handleGuestClick()} 
           />
         ))}
         </Box>
