@@ -19,10 +19,13 @@ function Navbar() {
     const isMatch = useMediaQuery(theme.breakpoints.down("md"));
     const { logout } = useLogout();
     const {user} = useAuthContext();
+    const userRole = user ? user.user.role : null;
 
     const handleLogout = () => {
         logout();
     };
+
+
 
     return (
       <React.Fragment>
@@ -59,9 +62,14 @@ function Navbar() {
                         <Link component={RouterLink} to="/activities" underline="hover" mr={1}>
                             Activities
                         </Link>
-                        <Link component={RouterLink} to="/members" underline="hover" mr={1}>
-                            Members
-                        </Link>
+                        {
+                            userRole === "admin" ? (
+                                <Link component={RouterLink} to="/members" underline="hover" mr={1}>
+                                    Members
+                                </Link>
+                            ) : null
+                        }
+
                         <Link component={RouterLink} to="/events" underline="hover">
                             Events
                         </Link>
