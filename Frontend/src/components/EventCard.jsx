@@ -41,7 +41,8 @@ const EventCard = (props) => {
               </Typography>
             </Box>
             <CardActions sx={{ justifyContent: 'start' }}>
-              <Button size="small" variant="contained" sx={{ backgroundColor: 'black', color: 'white' }}>
+              <Button 
+               size="small" variant="contained" sx={{ backgroundColor: 'black', color: 'white' }} onClick={props.btnClick} >
                 Reserve
               </Button>
             </CardActions>
