@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const activitySchema = new mongoose.Schema({
     activityName: { type: String, required: true },
-    date: { type: Date, required: true },
+    date: { type: String, required: true },
     maxParticipants: { type: Number, required: true },
     location: { type: String, required: true },
     description: { type: String, required: true },

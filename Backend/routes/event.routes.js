@@ -1,21 +1,21 @@
 import express from 'express';
 import {createEvent, getAllEvents, getEventById, updateEvent, deleteEvent } from '../controllers/event.controller.js';
 
-const eventrRouter = express.Router();
+const eventRouter = express.Router();
 // Create route for the Event
-eventrRouter.post('/create-event', createEvent);
+eventRouter.post('/', createEvent);
 
 // get all events from the database
-eventrRouter.get('/get-events', getAllEvents);
+eventRouter.get('/', getAllEvents);
 
 // get a single event by id
-eventrRouter.get('/get-event/:id', getEventById);
+eventRouter.get('/:id', getEventById);
 
 // update a event by id
-eventrRouter.put('/update-event/:id', updateEvent);
+eventRouter.put('/:id', updateEvent);
 
 // delete a event by id
-eventrRouter.delete('/delete-event/:id', deleteEvent);
+eventRouter.delete('/:id', deleteEvent);
 
 
-export default eventrRouter;
+export default eventRouter;
