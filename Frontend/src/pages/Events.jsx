@@ -10,7 +10,7 @@ function EventCardsList() {
     useEffect(() => {
        const fetchEvents = async () => {
         try {
-            const response = await fetch('http://localhost:3000/event/get-events');
+            const response = await fetch('http://localhost:3000/events/get-events');
             const data = await response.json();
             setEvents(data);
         }
