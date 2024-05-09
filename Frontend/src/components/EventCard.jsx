@@ -4,11 +4,14 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import EditModal from '../components/EditModal';
+import ConfirmDelete from '../components/ConfirmDelete';
 import { useAuthContext } from '../hooks/useAuthContext';
 import Box from '@mui/material/Box';
 
 const EventCard = (props) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const {user} = useAuthContext();
 
   const handleEditModalOpen = () => {
@@ -34,6 +37,13 @@ const EventCard = (props) => {
       }
   }
 
+  const handleDeleteModalOpen = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteModalClose = () => {
+    setIsDeleteModalOpen(false);
+  };
   const handleDelete = () => {
     try {
       fetch(`http://localhost:3000/${props.cardType}/${props.id}`, {
@@ -41,7 +51,7 @@ const EventCard = (props) => {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
-      })
+      });
     }
     catch (error) {
       console.error(`Failed to delete ${props.cardType}`, error);
@@ -97,7 +107,7 @@ const EventCard = (props) => {
                 Edit
               </Button>
               <Button 
-               size="small" variant="contained" sx={{ backgroundColor: 'black', color: 'white', display: props.show || 'none'}} onClick={handleDelete} >
+               size="small" variant="contained" sx={{ backgroundColor: 'black', color: 'white', display: props.show || 'none'}} onClick={handleDeleteModalOpen} >
                 Remove
               </Button>
             </CardActions>
@@ -120,6 +130,15 @@ const EventCard = (props) => {
           ...(props.cardType === 'activities' && { maxParticipants: props.maxParticipants }),
         }}
         handleEdit={handleEdit}
+      />
+
+      {/* Render Confirm Delete Modal */}
+      <ConfirmDelete
+        open={isDeleteModalOpen}
+        handleClose={handleDeleteModalClose}
+        handleDelete={handleDelete}
+        activityName={props.title}
+        cardType={props.cardType}
       />
     </>
   );
