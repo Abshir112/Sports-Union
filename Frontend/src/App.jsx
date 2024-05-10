@@ -10,6 +10,7 @@ import SignUp from './pages/SignUp';
 import About from './pages/About';
 import Events from './pages/Events';
 import Activities from './pages/Activities';
+import Members from './pages/AllMembers';
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
           <Route path="/signIn" element={<SignIn/>} />
           <Route path="/signUp" element={<SignUp/>} />
           <Route path="/events" element={<Events/>} />
-
+          <Route path='/members' element={<Members/>} /> 
         </Routes>
         <Footer />
       </Router>
