@@ -91,11 +91,11 @@ const EventCard = (props) => {
               <Typography variant="body2">
                 {props.description}
               </Typography>
-              {props.cardType === 'activities' && 
-                <Typography variant="body1" sx={{color:"black"}} >
-                  Max Participants: {props.maxParticipants}
-                </Typography>
-              }
+
+              <Typography variant="body1" sx={{color:"black"}} >
+                Max Participants: {props.maxParticipants}
+              </Typography>
+
             </Box>
             <CardActions sx={{ justifyContent: 'start' }}>
               <Button 
@@ -127,7 +127,7 @@ const EventCard = (props) => {
           time: props.time,
           location: props.location,
           description: props.description,
-          ...(props.cardType === 'activities' && { maxParticipants: props.maxParticipants }),
+          maxParticipants: props.maxParticipants
         }}
         handleEdit={handleEdit}
       />
