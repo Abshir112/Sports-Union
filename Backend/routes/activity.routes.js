@@ -4,12 +4,11 @@ import requireAuth from '../middlewares/requireAuth.js'
 
 const activityRouter = express.Router();
 
-// Middleware to verify the token
-activityRouter.use(requireAuth);
-
-
 // Route handler to get all activities
 activityRouter.get('/', getAllActivities);
+
+// Middleware to verify the token
+activityRouter.use(requireAuth);
 
 // Route handler to create a new activity
 activityRouter.post('/', createActivity);

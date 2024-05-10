@@ -8,6 +8,9 @@ import {theme} from './theme';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import About from './pages/About';
+import Events from './pages/Events';
+import Activities from './pages/Activities';
+import Members from './pages/AllMembers';
 
 
 function App() {
@@ -19,9 +22,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/about" element={<About/>} />
-          <Route path="/contact"  />
+          <Route path="/activities" element={<Activities />}  />
           <Route path="/signIn" element={<SignIn/>} />
           <Route path="/signUp" element={<SignUp/>} />
+          <Route path="/events" element={<Events/>} />
+          <Route path='/members' element={<Members/>} /> 
         </Routes>
         <Footer />
       </Router>

@@ -26,18 +26,14 @@ export const createActivity = async (req, res) => {
 // Function to update an activity
 export const updateActivity = async (req, res) => {
     const { id } = req.params;
-    const { activityName, scheduledTime, maxParticipants } = req.body;
     try {
-        const updatedActivity = await Activity.findByIdAndUpdate(
-            id,
-            { activityName, scheduledTime, maxParticipants },
-            { new: true }
-        );
+        const updatedActivity = await Activity.findByIdAndUpdate(id, req.body);
         if (!updatedActivity) {
             return res.status(404).json({ error: 'Activity not found' });
         }
         res.json(updatedActivity);
-    } catch (error) {
+    }
+    catch (error) {
         console.error('Failed to update activity:', error);
         res.status(500).json({ error: 'Failed to update activity' });
     }
