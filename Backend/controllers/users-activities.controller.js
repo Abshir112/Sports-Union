@@ -1,5 +1,4 @@
 import UserActivity from '../models/users-activities.model.js';
-import Activity from '../models/activity.model.js';
 
 
 // function to get all users activities
@@ -44,7 +43,7 @@ export const getUserActivities = async (req, res) => {
 };
 
 
-// function to find user's acktivities
+// function to find user's activities
 export const getUserActivity = async (req, res) => {
     const userId = req.params.id;
     console.log(userId);
@@ -80,17 +79,41 @@ export const getUsersWithSameActivity = async (req, res) => {
     }
 };
 
-// function to create a new user activity
+// function to add an activity to the users activities (register for an activity)
 export const createUserActivity = async (req, res) => {
-    const {activityName, scheduledTime, maxParticipants} = req.body;
-    console.log(req.body);
+    const { userId, activityId } = req.body;
     try {
-        const newActivity = await Activity.create({activityName, scheduledTime, maxParticipants});
-        // const activityId = newActivity._id;
-        // const userId = req.user._id;
-        // await UserActivity.create({userId ,activityId});
-        return res.status(201).json(newActivity);
+        const userActivity = await UserActivity.create({ userId, activityId });
+        res.status(201).json(userActivity);
     } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+// function to delete a user activity (unregister from an activity)
+export const deleteUserActivity = async (req, res) => {
+    const { userId, activityId } = req.body;
+    try {
+        const userActivity = await UserActivity.findOneAndDelete({ userId, activityId });
+        if (!userActivity) {
+            return res.status(404).json({ message: 'User activity not found' });
+        }
+        res.json(userActivity);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+// function to delete all user activities (unregister from all activities)
+export const deleteAllUserActivities = async (req, res) => {
+    try {
+        await UserActivity.deleteMany({});
+        res.json({ message: 'All user activities deleted' });
+    } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
 }
