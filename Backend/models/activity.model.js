@@ -6,6 +6,8 @@ const activitySchema = new mongoose.Schema({
     maxParticipants: { type: Number, required: true },
     location: { type: String, required: true },
     description: { type: String, required: true },
+    image : { type: String, required: false },
+    currentParticipants: { type: Number, required: true },
     time: { type: String, required: true }
 
 }, { collection: 'Activity' });
