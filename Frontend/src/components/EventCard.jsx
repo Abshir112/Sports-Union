@@ -32,6 +32,15 @@ const EventCard = (props) => {
         },
         body: JSON.stringify(editedData)
       })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to update activity');
+        }
+        return response.json();
+      })
+      .then(data => {
+        window.location.reload();
+      })
       } catch (error) {
         console.error(`Failed to update ${props.cardType}`, error);
       }
@@ -52,10 +61,12 @@ const EventCard = (props) => {
           'Authorization': `Bearer ${user.token}`
         }
       });
+      window.location.reload();
     }
     catch (error) {
       console.error(`Failed to delete ${props.cardType}`, error);
     }
+
   }
   return (<>
     <Card id={props.id}  variant="outlined" sx={{  m: 2, boxShadow: 3, p: 2}}>
@@ -99,8 +110,11 @@ const EventCard = (props) => {
             </Box>
             <CardActions sx={{ justifyContent: 'start' }}>
               <Button 
-               size="small" variant="contained" sx={{ backgroundColor: 'black', color: 'white' }} onClick={props.btnClick} >
-                Reserve
+               size="small" variant="contained" sx={{ backgroundColor: 'black', color: 'white' }} onClick={
+                props.reserved ? props.handleUnreserve : props.handleReserve
+               } >
+                {props.reserved ? 'Unreserve' : 'Reserve'}
+                
               </Button>
               <Button 
                size="small" variant="contained" sx={{ backgroundColor: 'black', color: 'white', display: props.show || 'none' }} onClick={handleEditModalOpen} >
