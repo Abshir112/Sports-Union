@@ -7,20 +7,27 @@ import AddActivityModal from "../components/AddActivityModal";
 import Box from '@mui/material/Box';
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import useReserveActivity from "../hooks/useReserveActivity";
+import useAddActivity from "../hooks/useAddActivity";   
 
 
 const Activities = () => {
     const navigate = useNavigate();
     const {user} = useAuthContext();
+    const {userActivities} = useAuthContext();
     const userRole =  user ? user.user.role : null;
     const [activities, setActivities] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    
+    const { reserveActivity, reserveError, isLoading, unReserveActivity  } = useReserveActivity();
+    const { addActivity, addingActivityError, addingActivityIsLoading } = useAddActivity();
 
+    
     useEffect(() => {
         const fetchActivities = async () => {
+            console.log(typeof userActivities)
+            console.log('fetching activities');
             try {
                 const response = await fetch('http://localhost:3000/activities');
                 if (!response.ok) {
@@ -28,6 +35,7 @@ const Activities = () => {
                 }
                 const data = await response.json();
                 setActivities(data);
+                setError(null);
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
@@ -35,18 +43,20 @@ const Activities = () => {
             }
 
         }
-  
         fetchActivities();
     }
-    , [activities]);
+    , []);
 
-    const handleUserClick = () => {
-        console.log('User clicked');
+    const handleReserve = async (activityID) => {
+        if (!user) {
+            navigate('/signin');
+            return;
+        }
+        await reserveActivity(activityID); 
     }
 
-    // redirct the guest to the sign in page
-    const handleGuestClick = () => {
-        navigate('/signIn');
+    const handleUnReserve = async (activityID) => {
+        await unReserveActivity(activityID);
     }
 
     const handleAddClick = () => {
@@ -57,21 +67,8 @@ const Activities = () => {
         setIsAddModalOpen(false);
     }
 
-    const handleAddActivity = (activityData) => {
-        console.log(activityData);
-        try {
-            fetch('http://localhost:3000/activities', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user.token}`
-                },
-                body: JSON.stringify(activityData)
-            });
-        }
-        catch (error) {
-            console.error('Failed to add activity', error);
-        }
+    const handleAddActivity =  (activityData) => {
+        addActivity(activityData);
     }
 
     const errorReload = () => {
@@ -79,9 +76,17 @@ const Activities = () => {
         setLoading(true);
     }
 
+    const checkIfReserved = (activityID) => {
+        return userActivities.some(activity => activity._id === activityID); 
+    }
+
     return ( <>
         {loading && <Loading />}
         {error && <Error error={error} reload={errorReload} />}
+        {reserveError && <Error error={reserveError} />}
+        {isLoading && <Loading />}
+        {addingActivityError && <Error error={addingActivityError} />}
+        {addingActivityIsLoading && <Loading />}
         <Box display="flex" flexDirection="column" alignItems="center" width="100%" backgroundColor="#eedbc4">
         {
             userRole === 'admin' && 
@@ -109,8 +114,12 @@ const Activities = () => {
             description={activity.description}
             maxParticipants={activity.maxParticipants}
             image={`../../assets/${activity.activityName}.JPG`}
-            btnClick={() => user ? handleUserClick(activity._id) : handleGuestClick()}
+            handleReserve={() => handleReserve(activity._id)}
+            handleUnreserve={() => handleUnReserve(activity._id)}
             show={userRole === 'admin' ? 'block' : 'none'}
+            reserved={
+                checkIfReserved(activity._id)
+            }
           />
         ))}
         </Box>
