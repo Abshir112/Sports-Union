@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUserActivity, getUserActivities, getUserActivity, getUsersWithSameActivity } from '../controllers/users-activities.controller.js';
+import { createUserActivity, getUserActivities, getUserActivity, getUsersWithSameActivity, deleteUserActivity } from '../controllers/users-activities.controller.js';
 
 const usersActivitiesRouter = express.Router();
 
@@ -17,5 +17,8 @@ usersActivitiesRouter.get('/:id', getUsersWithSameActivity);
 
 // Route handler to create a new user activity
 usersActivitiesRouter.post('/user-activity', createUserActivity);
+
+// Route handler to delete a user activity
+usersActivitiesRouter.delete('/',  deleteUserActivity);
 
 export default usersActivitiesRouter;
