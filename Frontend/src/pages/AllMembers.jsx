@@ -39,8 +39,9 @@ const Members = () => {
 
     return (
         <div>
-            <h1 style={{color: "black", backgroundColor: "#eedbc4"}} >Members</h1>
-            {members.map(member => <Member key={member._id} member={member} />)}
+            {/* <h1 style={{color: "black", backgroundColor: "#eedbc4"}} >Members</h1>
+            {members.map(member => <Member key={member._id} member={member} />)} */}
+            <Member member={members} />
         </div>
     );
 }
