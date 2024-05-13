@@ -95,15 +95,16 @@ export const addUserEvent = async (req, res) => {
 //   }
 // };
 
-// export const deleteUserEvent = async (req, res) => {
-//   const id = req.params.id;
-//   try {
-//     await UserEvent.findByIdAndDelete(id);
-//     res.json({ message: "User event deleted successfully" });
-//     } catch (error) {
-//     res.status(500).json({ message: "Internal server error" });
-//     }
-// }
+// function to delete a user event by id
+export const deleteUserEvent = async (req, res) => {
+  const id = req.params.id;
+  try {
+    await UserEvent.findByIdAndDelete(id);
+    res.json({ message: "User event deleted successfully" });
+    } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+    }
+}
 
 
 
