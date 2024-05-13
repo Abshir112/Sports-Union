@@ -6,7 +6,7 @@ export const createEvent = async(req, res) => {
     // Create a Event
     // const { title, date, location, description, time } = req.body;
     try {
-        const event = new Event(req.body);
+        const event = await Event.create(req.body);
         res.status(201).json(event);
     } catch (error) {
         console.error('Error creating Event:', error);
