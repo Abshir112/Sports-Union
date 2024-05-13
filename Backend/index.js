@@ -6,6 +6,7 @@ import eventRouter from './routes/event.routes.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import usersActivitiesRouter from './routes/user-activities.routes.js';
+import userEventRouter from './routes/user-event.js';
 
 dotenv.config();
 
@@ -29,6 +30,8 @@ app.use('/activities', activityRouter);
 app.use('/users-activities', usersActivitiesRouter);
 
 app.use('/events', eventRouter);
+
+app.use('/users-events', userEventRouter );
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
