@@ -33,6 +33,13 @@ export const Hero = () => {
         }}>
           BEYOND BOUNDARIES
         </Typography>
+        
+       {
+        !isSmall ? null :  
+        <Container  sx={{mb:"20px", display: "flex", justifyContent:"center", alignItems: "center",  maxWidth: "100%", overflow: "hidden"}}>
+          <img  src="../../../assets/landingpage.png" alt="climbing activity" />
+        </Container>
+       }
         <Typography variant="body1" sx={{
           fontFamily: '"Vollkorn SC", Arial, sans-serif',
           fontWeight: 'light',
@@ -44,12 +51,15 @@ export const Hero = () => {
         <ButtonHandler title="Sign Up" link="/signUp"  py="0.5" color="secondary" />
         <ButtonHandler title="Sign In" link="/signIn"  py="0.5" color="primary" />
       </Box>
-
-      {isSmall ? null : (
-        <Container sx={{ display: "flex", justifyContent:"center", alignItems: "center",  maxWidth: "100%", overflow: "hidden" }}>
-          <img src="../../../assets/landingpage.png" alt="climbing activity" />
+      {
+        isSmall ? null :  
+        <Container  sx={{mb:"20px", display: "flex", justifyContent:"center", alignItems: "center",  maxWidth: "100%", overflow: "hidden"}}>
+          <img  src="../../../assets/landingpage.png" alt="climbing activity" />
         </Container>
-      )}
+       }
+
+      
+
     </Container>
     </>
 

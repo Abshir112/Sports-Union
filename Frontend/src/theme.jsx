@@ -1,11 +1,11 @@
 import { createTheme } from '@mui/material/styles';
 
 {/* Theme for the website
-#222831
-#393e46
-#d65a31
-#eeeeee
-linear gradient: #d65a31 #393E46
+#222831 // dark blue
+#393e46 // dark grey
+#d65a31 // orange
+#eeeeee // light grey
+linear gradient: #d65a31 #393E46 // orange (13%) to dark grey (55%)
 */}
 
 export const theme = createTheme({
@@ -29,7 +29,7 @@ export const theme = createTheme({
         
     },
     typography: {
-        fontFamily: '"Vollkorn SC", Arial, sans-serif'
+        fontFamily: '"Roboto", Arial, sans-serif'
     },
 
     button: {
@@ -41,5 +41,9 @@ export const theme = createTheme({
         backgroundColor: '#D65A31',
         color: '#eeeeee',
       },
-    },  
+    },
+
+    card:{
+      background: 'linear-gradient(90deg, #D65A31 2%, #393E46 50%)',
+    }
   });

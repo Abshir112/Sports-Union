@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import {Button } from "@mui/material";
+import {Button, Container } from "@mui/material";
 import EventCard from "../components/EventCard";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from 'react-router-dom';
@@ -89,7 +89,7 @@ const Activities = () => {
         {isLoading && <Loading />}
         {addingActivityError && <Error error={addingActivityError} />}
         {addingActivityIsLoading && <Loading />}
-        <Box display="flex" flexDirection="column" alignItems="center" width="100%" backgroundColor="#eedbc4">
+        <Box display="flex" flexDirection="column" alignItems="center" width="100%" backgroundColor={theme.palette.background.paper}>
         {
             userRole === 'admin' && 
             <Button
@@ -105,7 +105,7 @@ const Activities = () => {
         }
         
         {activities.map(activity => (
-          <EventCard
+        <EventCard
             cardType='activities'
             key={activity._id}
             id={activity._id}
@@ -122,11 +122,12 @@ const Activities = () => {
             reserved={
                 checkIfReserved(activity._id)
             }
-          />
+        />
         ))}
         </Box>
-         {/* Render Add Activity Modal */}
+        {/* Render Add Activity Modal */}
         <AddActivityModal open={isAddModalOpen} handleClose={handleCloseAddModal} handleAdd={handleAddActivity} />
+
     </> );
 }
  

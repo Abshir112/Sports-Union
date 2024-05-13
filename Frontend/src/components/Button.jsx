@@ -9,6 +9,7 @@ export const ButtonHandler = (props) => {
     <Button component={RouterLink} to={props.link} variant="contained" onClick={props.onClick} sx={{
       backgroundColor: theme.button[props.color],
       mr: 2, 
+      mb: 2,
       color: theme.palette.text.primary, 
       textTransform: 'uppercase', 
       fontFamily: '"Vollkorn SC", Arial, sans-serif',
