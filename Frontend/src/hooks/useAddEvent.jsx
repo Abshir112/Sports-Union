@@ -22,6 +22,7 @@ const useAddEvent = () => {
                 throw new Error('Failed to add event');
             }
             const data = await response.json();
+            console.log(data);
             // Handle successful addition of event, e.g., show a message or update state
             setError(null);
         } catch (error) {

@@ -8,10 +8,12 @@ import Box from '@mui/material/Box';
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import useReserveActivity from "../hooks/useReserveActivity";
-import useAddActivity from "../hooks/useAddActivity";   
+import useAddActivity from "../hooks/useAddActivity";
+import { useTheme } from "@mui/material";
 
 
 const Activities = () => {
+    const theme = useTheme();
     const navigate = useNavigate();
     const {user} = useAuthContext();
     const {userActivities} = useAuthContext();
