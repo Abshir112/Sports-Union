@@ -3,8 +3,10 @@ import { Container, TextField, Button, Typography, Grid} from '@mui/material';
 import { useLogin } from '../hooks/useLogin';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/material';
 
 function SignIn() {
+  const theme = useTheme();
   const redirect = useNavigate();
   const [values, setValues] = useState({
     email: '',
@@ -30,11 +32,11 @@ function SignIn() {
   };
 
   return (
-    <Container component="main" maxWidth="md" style={{ marginTop: '20px', marginBottom: '40px' }}>
+    <Container component="main" maxWidth="md" style={{ marginTop: '35px', marginBottom: '40px', backgroundColor: theme.palette.background.paper, borderRadius: "2%" }}>
       <Grid container spacing={2}>
         {/* Form Section */}
         <Grid item xs={12} md={6} style={{ marginTop: '100px' }}>
-          <Typography component="h1" variant="h5" align="center">
+          <Typography component="h1" variant="h5" align="center" color={theme.palette.primary.main}>
             Log In
           </Typography>
           <form style={{ marginTop: '10px' }} method='POST' onSubmit={handleSubmit}>
@@ -49,6 +51,15 @@ function SignIn() {
               autoComplete="email"
               value={values.email}
               onChange={handleChange}
+              // change the color of the helper text
+              InputLabelProps={{
+                style: { color: theme.palette.primary.main }
+              }}
+              // change the color of the input text
+              inputProps={{
+                style: { color: theme.palette.primary.main }
+              }}
+
             />
             <TextField
               variant="standard"
@@ -62,6 +73,12 @@ function SignIn() {
               autoComplete="current-password"
               value={values.password}
               onChange={handleChange}
+              InputLabelProps={{
+                style: { color: theme.palette.primary.main }
+              }}
+              inputProps={{
+                style: { color: theme.palette.primary.main }
+              }}
             />
             <Button
               type="submit"
@@ -74,7 +91,7 @@ function SignIn() {
               Sign In
             </Button>
 
-            <Button component={RouterLink} to="/signUp"  fullWidth variant="contained" color="primary"  style={{ margin: '24px 0 16px' }}>
+            <Button component={RouterLink} to="/signUp"  fullWidth variant="contained"   style={{ margin: '24px 0 16px', color: theme.button.secondary.color, backgroundColor: theme.button.secondary.backgroundColor }}>
             Sign Up
             </Button>   
             
@@ -87,8 +104,8 @@ function SignIn() {
           )}
         </Grid>
         {/* Image Section */}
-        <Grid item xs={12} md={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <img src="../../assets/bannerhkif.png" alt="bannerghkif" style={{ width: '90%', maxHeight: '550px' }} />
+        <Grid item xs={12} md={6} style={{ display: 'flex', justifyContent: 'flex-end'}}>
+          <img src="../../assets/bannerhkif.png" alt="bannerghkif" style={{ width: '90%', maxHeight: '550px', borderRadius: "5%"  }} />
         </Grid>
       </Grid>
     </Container>

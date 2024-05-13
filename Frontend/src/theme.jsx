@@ -1,45 +1,45 @@
 import { createTheme } from '@mui/material/styles';
 
+{/* Theme for the website
+#222831
+#393e46
+#d65a31
+#eeeeee
+linear gradient: #d65a31 #393E46
+*/}
+
 export const theme = createTheme({
     palette: {
-      mode: 'light',
-      primary: {
-        main: '#ffffff', 
-        contrastText: '#000', 
-        txtColor: '#eedbc4',
-      },
-      secondary: {
-        main: '#f50057', 
-      },
-      background: {
-        default: '#000', 
-        paper: '#eedbc4',
-      },
-      text: {
-        primary: '#eedbc4',
-        secondary: 'rgba(255, 255, 255, 0.7)',
+        primary: {
+            main: '#222831',
+        },
+        secondary: {
+            main: '#393e46',
+        },
+
+        background: {
+            default: '#222831',
+            paper: '#eeeeee',
+        },
+        text: {
+            primary: '#eeeeee',
+            secondary: '#D65A31'
+
+        },
         
-      },
     },
     typography: {
-      fontFamily: '"Vollkorn SC", Arial, sans-serif', 
-      h3: {
-        fontWeight: 700, 
-      },
-      h5: {
-        fontWeight: 500, 
-      },
-      body1: {
-        fontWeight: 400, 
-      },
+        fontFamily: '"Vollkorn SC", Arial, sans-serif'
     },
-    components: {
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            fontWeight: 700, 
-          },
-        },
+
+    button: {
+      primary: {
+        backgroundColor: '#393E46',
+        color: '#eeeeee',
       },
-    },
+      secondary: {
+        backgroundColor: '#D65A31',
+        color: '#eeeeee',
+      },
+    },  
   });

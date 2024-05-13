@@ -36,6 +36,9 @@ const useAddActivity = () => {
             setError(error.message);
             setIsLoading(false);
         }
+        finally {
+            setIsLoading(false);
+        }
     }
 
     return { addActivity, addingActivityError, addingActivityIsLoading };
