@@ -41,7 +41,7 @@ function SignIn() {
           </Typography>
           <form style={{ marginTop: '10px' }} method='POST' onSubmit={handleSubmit}>
             <TextField
-              variant="standard"
+              variant="outlined"
               margin="normal"
               required
               fullWidth
@@ -62,7 +62,7 @@ function SignIn() {
 
             />
             <TextField
-              variant="standard"
+              variant="outlined"
               margin="normal"
               required
               fullWidth
@@ -104,7 +104,7 @@ function SignIn() {
           )}
         </Grid>
         {/* Image Section */}
-        <Grid item xs={12} md={6} style={{ display: 'flex', justifyContent: 'flex-end'}}>
+        <Grid item xs={12} md={6} style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: "20px" }}>
           <img src="../../assets/bannerhkif.png" alt="bannerghkif" style={{ width: '90%', maxHeight: '550px', borderRadius: "5%"  }} />
         </Grid>
       </Grid>

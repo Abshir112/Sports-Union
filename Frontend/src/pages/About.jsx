@@ -1,4 +1,5 @@
 import { Container, Typography, Box, Grid, Card, CardContent, CardMedia } from '@mui/material';
+import { useTheme } from "@mui/material";
 
 const teamMembers = [
   { name: "Team Member 1", image: "../../../assets/ahmed.jpg", description: "Full Stack Developer" },
@@ -9,8 +10,9 @@ const teamMembers = [
 ];
 
 const About = () => {
+  const theme = useTheme();
   return (
-    <Container component="main" maxWidth="lg" sx={{ mt: 4, p: { xs: 2, sm: 3 }, backgroundColor: "#eedbc4" }}>
+    <Container component="main" maxWidth="lg" sx={{mt: 4, p: { xs: 2, sm: 3 }, backgroundColor: theme.palette.background.paper, borderRadius: "1%"}}>
       <Grid container spacing={2}>
         {/* Header Section */}
         <Grid item xs={12}>

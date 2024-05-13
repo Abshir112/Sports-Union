@@ -51,11 +51,11 @@ function SignUp() {
           <Typography mt={2} component="h5" variant="h5" color={theme.palette.primary.main}>
             Create Account
           </Typography>
-          <form style={{ marginTop: '10px' }} method='POST' id='signUpForm' onSubmit={handleSubmit}>
+          <form style={{margin: '10px' }} method='POST' id='signUpForm' onSubmit={handleSubmit}>
             {Object.keys(values).map(key => (
                 <TextField
                 key={key}
-                variant="standard"
+                variant="outlined"
                 margin="normal"
                 required
                 fullWidth
@@ -88,7 +88,7 @@ function SignUp() {
           )}
         </Grid>
         {/* Image Section */}
-        <Grid item xs={12} md={6} style={{display: 'flex', justifyContent: 'flex-end' }}>
+        <Grid item xs={12} md={6} style={{display: 'flex', justifyContent: 'flex-end', marginBottom: "20px" }}>
           <img src="../../assets/bannerhkif.png" alt="bannerghkif" style={{ width: '100%', maxHeight: '800px', borderRadius: "5%" }} />
         </Grid>
       </Grid>
