@@ -1,8 +1,10 @@
 import LogoImg from '../../assets/logo.png';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const Logo = () => {
+    const {user} = useAuthContext();
     return ( 
         <>
         <Box
@@ -14,7 +16,7 @@ const Logo = () => {
                 marginLeft: '3em',
             }}
         >
-            <Link to="/" >
+            <Link to={user ? "/events" : "/"} >
                 <img src={LogoImg} alt="Logo" style={{ width: 40, height: 40 }} />
             </Link>
 

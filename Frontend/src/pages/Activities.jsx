@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import {Button } from "@mui/material";
+import {Button, Container } from "@mui/material";
 import EventCard from "../components/EventCard";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from 'react-router-dom';
@@ -8,10 +8,12 @@ import Box from '@mui/material/Box';
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import useReserveActivity from "../hooks/useReserveActivity";
-import useAddActivity from "../hooks/useAddActivity";   
+import useAddActivity from "../hooks/useAddActivity";
+import { useTheme } from "@mui/material";
 
 
 const Activities = () => {
+    const theme = useTheme();
     const navigate = useNavigate();
     const {user} = useAuthContext();
     const {userActivities} = useAuthContext();
@@ -87,7 +89,7 @@ const Activities = () => {
         {isLoading && <Loading />}
         {addingActivityError && <Error error={addingActivityError} />}
         {addingActivityIsLoading && <Loading />}
-        <Box display="flex" flexDirection="column" alignItems="center" width="100%" backgroundColor="#eedbc4">
+        <Box display="flex" flexDirection="column" alignItems="center" width="100%" backgroundColor={theme.palette.background.paper}>
         {
             userRole === 'admin' && 
             <Button
@@ -103,7 +105,7 @@ const Activities = () => {
         }
         
         {activities.map(activity => (
-          <EventCard
+        <EventCard
             cardType='activities'
             key={activity._id}
             id={activity._id}
@@ -120,11 +122,12 @@ const Activities = () => {
             reserved={
                 checkIfReserved(activity._id)
             }
-          />
+        />
         ))}
         </Box>
-         {/* Render Add Activity Modal */}
+        {/* Render Add Activity Modal */}
         <AddActivityModal open={isAddModalOpen} handleClose={handleCloseAddModal} handleAdd={handleAddActivity} />
+
     </> );
 }
  
