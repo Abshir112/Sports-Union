@@ -1,14 +1,17 @@
-// creeate members page here
-
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import Member from "../components/Member";
+import Stack from '@mui/material/Stack';
+import { useTheme } from "@mui/material";
+import SearchBar from "../components/SearchBar";  // Ensure the correct import path
 
 const Members = () => {
+    const theme = useTheme();
     const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         const fetchMembers = async () => {
@@ -27,7 +30,11 @@ const Members = () => {
         }
 
         fetchMembers();
-    }, [members]);
+    }, []);
+
+    const filteredMembers = members.filter(member =>
+        member.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     if (loading) {
         return <Loading />;
@@ -38,13 +45,15 @@ const Members = () => {
     }
 
     return (
-        <div>
-            <h1 style={{color: "black", backgroundColor: "#eedbc4"}} >Members</h1>
-            {members.map(member => <Member key={member._id} member={member} />)}
+        <div style={{ padding: '2rem', backgroundColor: theme.palette.background.paper }}>
+            <Stack direction="row" spacing={2} alignItems="center" marginBottom="2rem">
+                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            </Stack>
+            {filteredMembers.map(member => (
+                <Member key={member._id} member={member} />
+            ))}
         </div>
     );
 }
 
 export default Members;
-
-    
