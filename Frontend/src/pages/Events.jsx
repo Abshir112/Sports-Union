@@ -8,8 +8,10 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from 'react-router-dom';
 import useReserveEvent from "../hooks/useReserveEvent"; // Assuming you have similar hooks for events
 import useAddEvent from "../hooks/useAddEvent";
+import { useTheme } from "@mui/material";
 
 function EventCardsList() {
+    const theme = useTheme();
     const { user } = useAuthContext();
     const navigate = useNavigate();
     const userRole = user ? user.user.role : null;
@@ -76,7 +78,7 @@ function EventCardsList() {
             {isLoading && <Loading />}
             {addingEventError && <Error error={addingEventError} />}
             {addingEventIsLoading && <Loading />}
-            <Box display="flex" flexDirection="column" alignItems="center" width="100%" backgroundColor="#eedbc4">
+            <Box display="flex" flexDirection="column" alignItems="center" width="100%" backgroundColor={theme.palette.background.paper}>
                 {userRole === 'admin' && (
                     <Button
                         variant="contained"

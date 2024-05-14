@@ -1,13 +1,16 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { useTheme } from '@mui/material';
 
 export const ButtonHandler = (props) => {
+  const theme = useTheme();
   return (
     <Button component={RouterLink} to={props.link} variant="contained" onClick={props.onClick} sx={{
-      backgroundColor: 'background.default',
+      backgroundColor: theme.button[props.color],
       mr: 2, 
-      color: 'primary.main', 
+      mb: 2,
+      color: theme.palette.text.primary, 
       textTransform: 'uppercase', 
       fontFamily: '"Vollkorn SC", Arial, sans-serif',
       fontWeight: 'bold', 

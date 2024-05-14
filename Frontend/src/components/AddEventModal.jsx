@@ -94,7 +94,7 @@ const AddEventModal = ({ open, handleClose, handleAdd }) => {
               <input type="number" name="maxParticipants" value={eventData.maxParticipants} onChange={handleInputChange} style={{ width: '100%' }} />
             </label>
           </Typography>
-          <Button type="submit" sx={{ mr: 2, mt: 4, bgcolor: 'green', color: 'white' }}>Save</Button>
+          <Button type="submit" sx={{ mr: 2, mt: 4, bgcolor: 'green', color: 'white' }} onClick={handleSave} >Save</Button>
           <Button type="button" sx={{ mt: 4, bgcolor: 'red', color: 'white' }} onClick={handleClose}>Cancel</Button>
         </form>
         {error && <Typography variant="body1" sx={{ color: 'red', mt: 2 }}>

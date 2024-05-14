@@ -30,8 +30,7 @@ function Navbar() {
     return (
       <React.Fragment>
 
-        <AppBar position="static" sx={{ backgroundColor: "background.default"
-    }}>
+        <AppBar position="static" sx={{ backgroundColor: theme.palette.background.default}}>
           <Toolbar>
           <Logo />
                 
@@ -42,7 +41,6 @@ function Navbar() {
             ) : (
               <>
                 <Box
-                color='#000'
                 // backgroundColor= "red"
                   sx={{ marginLeft: "auto",
                       display: "flex",
@@ -53,24 +51,24 @@ function Navbar() {
                       
                     }}
                 >
-                        <Link component={RouterLink} to={user ? "/events" : "/"} underline="hover" mr={1}>
+                        <Link component={RouterLink} to={user ? "/events" : "/"} underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
                             Home
                         </Link>
-                        <Link component={RouterLink} to="/about" underline="hover" mr={1}>
+                        <Link component={RouterLink} to="/about" underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
                             About
                         </Link>
-                        <Link component={RouterLink} to="/activities" underline="hover" mr={1}>
+                        <Link component={RouterLink} to="/activities" underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
                             Activities
                         </Link>
                         {
                             userRole === "admin" ? (
-                                <Link component={RouterLink} to="/members" underline="hover" mr={1}>
+                                <Link component={RouterLink} to="/members" underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
                                     Members
                                 </Link>
                             ) : null
                         }
 
-                        <Link component={RouterLink} to="/events" underline="hover">
+                        <Link component={RouterLink} to="/events" underline="hover" sx={{ color: theme.palette.text.primary }} >
                             Events
                         </Link>
 

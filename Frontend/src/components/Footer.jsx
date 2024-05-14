@@ -17,28 +17,28 @@ const Footer = () => {
             <Box>
                 <Typography gutterBottom variant="h6" fontSize={isSmallScreen ? "medium" : "large"} align="center" > Contact Us </Typography>
                 <Box>
-                    <Link href="https://www.instagram.com/hkif_skane/" target="_blank" rel="noopener noreferrer">
+                    <Link href="https://www.instagram.com/hkif_skane/" target="_blank" rel="noopener noreferrer" sx={{ color: theme.palette.text.primary }}>
                         <InstagramIcon fontSize={isSmallScreen ? "small" : "large"} sx={{ mr: isSmallScreen ? 3 : 5 }} />
                     </Link>
 
-                    <Link href="https://www.facebook.com/HKIFatHKR" target="_blank" rel="noopener noreferrer">
+                    <Link href="https://www.facebook.com/HKIFatHKR" target="_blank" rel="noopener noreferrer" sx={{ color: theme.palette.text.primary }}>
                         <FacebookIcon fontSize={isSmallScreen ? "small" : "large"} sx={{ mr: isSmallScreen ? 3 : 5 }}/>
                     </Link>
                        
-                    <Link href="#" target="_blank" rel="noopener noreferrer">
+                    <Link href="#" target="_blank" rel="noopener noreferrer" sx={{ color: theme.palette.text.primary }}>
                         <LinkedinIcon fontSize={isSmallScreen ? "small" : "large"} ></LinkedinIcon>
                     </Link>
                 </Box>
 
             </Box>
             <Box>
-                <Typography gutterBottom variant="h6" fontSize={isSmallScreen ? "medium" : "large"} align="center">Contact Information</Typography>
-                <Typography variant="body1" fontSize="small" align="center" >Place: Ground Floor In <br /> Building 15 At HÖGSKOLAN <br /> KRISTIANSTAD </Typography>
+                <Typography gutterBottom variant="h6" fontSize={isSmallScreen ? "medium" : "large"} align="center" sx={{ color: theme.palette.text.primary }} >Contact Information</Typography>
+                <Typography variant="body1" fontSize="small" align="center" sx={{ color: theme.palette.text.primary }} >Place: Ground Floor In <br /> Building 15 At HÖGSKOLAN <br /> KRISTIANSTAD </Typography>
 
             </Box>
             <Box>
-                <Typography gutterBottom variant="h6" fontSize={isSmallScreen ? "medium" : "large"} align="center">Office Hours</Typography>
-                <Typography variant="body1" fontSize="small"  align="center" > Mon to Fri: 09:00 - 03:00 <br /> Sat and Sun: Holiday </Typography>
+                <Typography gutterBottom variant="h6" fontSize={isSmallScreen ? "medium" : "large"} align="center" sx={{ color: theme.palette.text.primary }}>Office Hours</Typography>
+                <Typography variant="body1" fontSize="small"  align="center" sx={{ color: theme.palette.text.primary }} > Mon to Fri: 09:00 - 03:00 <br /> Sat and Sun: Holiday </Typography>
             </Box>
         </Container>
         </>
