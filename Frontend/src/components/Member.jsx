@@ -1,92 +1,43 @@
-// create a member component that will display a member card with the following details:
-// - Name
-// - Email
-// - Phone
-// - Role
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
+const Member = (props) => {
 
-import React from 'react';
-import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Typography, Box, TextField, Button } from '@mui/material';
-import { Search as SearchIcon } from '@mui/icons-material';
+    const style = {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: '1rem',
+        padding: '1rem',
+        border: '1px solid #ddd',
+        borderRadius: '8px',
+        width: '100%'
+    };
 
-const Member = ({members}) => {
-  return (
-    <Box sx={{ width: '100%', bgcolor: 'background.paper', padding: 2 }}>
-      <Box sx={{ padding: '16px', display: 'flex', alignItems: 'center' }}>
-        <TextField
-          fullWidth
-          variant="outlined"
-          placeholder="Search"
-          size="small"
-          InputProps={{
-            endAdornment: (
-              <Button variant="contained" color="primary" sx={{ marginLeft: 1 }}>
-                SEARCH
-              </Button>
-            ),
-          }}
-        />
-      </Box>
-      <List>
-        {members.map((member, index) => (
-          <ListItem key={index} sx={{ padding: '10px 0' }}>
-            <ListItemAvatar>
-              <Avatar>{member.name[0]}</Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={
-                <Typography variant="body1" style={{ fontWeight: 'bold' }}>
-                  {member.name}
-                </Typography>
-              }
-              secondary={member.email}
-            />
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-}
+    return (
+        <Card id={props.member._id} sx={style}>
+            <Stack direction="row" spacing={2} alignItems="center">
+                <Avatar>{props.member.name.charAt(0)}</Avatar>
+                <div>
+                    <Typography variant="h6" component="h2" style={{ color: 'red' }}>
+                        {props.member.name}
+                    </Typography>
+                    <Typography color="textSecondary">
+                        {props.member.email}
+                    </Typography>
+                </div>
+                <div></div>
+            </Stack>
+            <Stack direction="row" spacing={1} mr={2}>
+                <Button variant="contained" color="warning" >Edit</Button>
+                <Button variant="contained" color="secondary">Delete</Button>
+            </Stack>
+        </Card>
+    );
+};
 
 export default Member;
-
-
-// import Card from '@mui/material/Card';
-// import CardContent from '@mui/material/CardContent';
-// import Typography from '@mui/material/Typography';
-
-// const Member = (props) => {
-
-//     const style = {
-//         width: '100%',
-//         bgcolor: 'background.paper',
-//         border: '2px solid #000',
-//         boxShadow: 24,
-//         p: 4,
-//         color: 'black',
-//     }; 
-
-//     return (
-//         <Card id={props.key} sx={style} >
-//             <CardContent>
-//                 <Typography variant="h5" component="h2">
-//                     {props.member.name}
-//                 </Typography>
-//                 <Typography color="black">
-//                     {props.member.email}
-//                 </Typography>
-//                 <Typography color="black">
-//                     {props.member.phone}
-//                 </Typography>
-//                 <Typography color="black">
-//                     {props.member.personalNumber}
-//                 </Typography>
-//                 <Typography color="black">
-//                     {props.member.role}
-//                 </Typography>
-//             </CardContent>
-//         </Card>
-//     );
-// };
-// // {props.member.name}
-// export default Member;
