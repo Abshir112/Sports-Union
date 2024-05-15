@@ -20,6 +20,12 @@ export const authReducer = (state, action) => {
                 userActivities: action.payload
             };
         
+        case 'ADD_USER_ACTIVITY':
+            return {
+                ...state,
+                userActivities: [...state.userActivities, action.payload]
+            };
+        
         case 'REMOVE_USER_ACTIVITY':
             return {
                 ...state,
@@ -36,6 +42,8 @@ export const AuthProvider = ({ children }) => {
         userActivities: [] // Initialize userActivities as an empty array
     });
 
+
+    // Check if user is logged in
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
@@ -45,27 +53,12 @@ export const AuthProvider = ({ children }) => {
 
     // Fetch user activities when user logs in
     useEffect(() => {
-        if (state.user) {
-            const fetchUserActivities = async () => {
-                try {
-                    const response = await fetch(`http://localhost:3000/users-activities/${state.user.user._id}`, {
-                        headers: {
-                            'Authorization': `Bearer ${state.user.token}`
-                        }
-                    });
-                    if (!response.ok) {
-                        throw new Error('Something went wrong!');
-                    }
-                    const data = await response.json();
-                    dispatch({ type: 'SET_USER_ACTIVITIES', payload: data });
-                } catch (error) {
-                    console.error('Error fetching user activities:', error);
-                }
-            };
-
-            fetchUserActivities();
+        const userActivities = JSON.parse(localStorage.getItem('userActivities'));
+        if (userActivities) {
+            dispatch({ type: 'SET_USER_ACTIVITIES', payload: userActivities });
         }
-    }, [state.user]);
+
+    }, []);
 
     console.log(state);
 
