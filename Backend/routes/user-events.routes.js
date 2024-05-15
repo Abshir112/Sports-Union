@@ -1,5 +1,5 @@
 import express from "express";
-import { getUserEvents, getUserEvent, getEventUsers, addUserEvent, deleteUserEvent } from "../controllers/user-event.controller.js";
+import { getUserEvents, getUserEvent, getEventUsers, addUserEvent, deleteUserEvent } from "../controllers/users-events.controller.js";
 
 const userEventRouter = express.Router();
 
