@@ -13,6 +13,7 @@ import { useTheme } from "@mui/material";
 function EventCardsList() {
     const theme = useTheme();
     const { user } = useAuthContext();
+    const { userEvents } = useAuthContext();
     const navigate = useNavigate();
     const userRole = user ? user.user.role : null;
     const [events, setEvents] = useState([]);
@@ -65,6 +66,11 @@ function EventCardsList() {
         addEvent(eventData);
     }
 
+    // check if reserve event is successful
+    const checkIfReserved = (eventID) => {
+        return userEvents.some(event => event.eventId === eventID);
+    }
+
     const errorReload = () => {
         setError(null);
         setLoading(true);
@@ -104,7 +110,7 @@ function EventCardsList() {
                         handleReserve={() => handleReserve(event._id)}
                         handleUnreserve={() => handleUnReserve(event._id)}
                         show={userRole === 'admin' ? 'block' : 'none'}
-                        // Assuming you have a function to check reservation status
+                        reserved={checkIfReserved(event._id)}
                     />
                 ))}
             </Box>
