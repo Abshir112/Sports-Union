@@ -29,11 +29,12 @@ const useReserveActivity = () => {
         })
         .then((data) => {
             // Dispatch action to update userActivities
-            dispatch({ type: 'SET_USER_ACTIVITIES', payload: [...userActivities, data] });
+            localStorage.setItem('userActivities', JSON.stringify([...userActivities, data]));
+            dispatch({ type: 'ADD_USER_ACTIVITY', payload: data });
             setIsLoading(false);
             setError(null);
             // reload the page
-            window.location.reload();
+            //window.location.reload();
         })
         .catch(error => {
             setIsLoading(false);
@@ -59,9 +60,10 @@ const useReserveActivity = () => {
             }
             // Dispatch action to remove the unreserved activity from userActivities
             dispatch({ type: 'REMOVE_USER_ACTIVITY', payload: activityID });
+            localStorage.setItem('userActivities', JSON.stringify(userActivities.filter(activity => activity.activityId !== activityID)));
             setError(null);
             // reload the page
-            window.location.reload();
+            //window.location.reload();
         })
         .catch(error => {
             setError(error.message);
