@@ -32,6 +32,16 @@ const Members = () => {
         fetchMembers();
     }, []);
 
+    const handleEditMember = (updatedMember) => {
+        setMembers(members.map(member => 
+            member._id === updatedMember._id ? updatedMember : member
+        ));
+    };
+
+    const handleDeleteMember = (memberId) => {
+        setMembers(members.filter(member => member._id !== memberId));
+    };
+
     const filteredMembers = members.filter(member =>
         member.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -50,7 +60,12 @@ const Members = () => {
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </Stack>
             {filteredMembers.map(member => (
-                <Member key={member._id} member={member} />
+                <Member 
+                    key={member._id} 
+                    member={member} 
+                    onEdit={handleEditMember} 
+                    onDelete={handleDeleteMember} 
+                />
             ))}
         </div>
     );
