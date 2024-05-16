@@ -16,7 +16,6 @@ const Activities = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const {user} = useAuthContext();
-    const {userActivities} = useAuthContext();
     const userRole =  user ? user.user.role : null;
     const [activities, setActivities] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -28,7 +27,6 @@ const Activities = () => {
     
     useEffect(() => {
         const fetchActivities = async () => {
-            console.log(typeof userActivities)
             console.log('fetching activities');
             try {
                 const response = await fetch('http://localhost:3000/activities');
@@ -79,7 +77,9 @@ const Activities = () => {
     }
 
     const checkIfReserved = (activityID) => {
-        return userActivities.some(activity => activity._id === activityID); 
+        const userActivities = JSON.parse(localStorage.getItem('userActivities'));
+        if (!userActivities) return false;
+        return userActivities.some(activity => activity.activityId === activityID);
     }
 
     return ( <>
