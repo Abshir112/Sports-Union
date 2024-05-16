@@ -92,7 +92,7 @@ const EventCardsList = () => {
                         color="primary"
                         size="large"
                         style={{ margin: '1em'}}
-                        onClick={handleAddClick}
+                        onClick={() => handleAddClick()}
                     >
                         Add Event
                     </Button>
@@ -112,7 +112,7 @@ const EventCardsList = () => {
                         reserved={checkIfReserved(event._id)}
                         maxParticipants={event.maxParticipants}
                         handleReserve={() => handleReserve(event._id)}
-                        handleUnReserve={() => handleUnReserve(event._id)}
+                        handleUnreserve={() => handleUnReserve(event._id)}
                     />
                 ))}
             </Box>
