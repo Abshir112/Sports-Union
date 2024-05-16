@@ -54,7 +54,7 @@ export const Hero = () => {
       {
         isSmall ? null :  
         <Container  sx={{mb:"20px", display: "flex", justifyContent:"center", alignItems: "center",  maxWidth: "100%", overflow: "hidden"}}>
-          <img  src="../../../assets/landingpage.png" alt="climbing activity" />
+          <img height="70%" width="80%" src="../../../assets/climbing.jpg" alt="climbing activity" />
         </Container>
        }
 
