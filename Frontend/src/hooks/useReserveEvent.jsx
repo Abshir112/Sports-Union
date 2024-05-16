@@ -40,6 +40,7 @@ const useReserveEvent = () => {
     }
 
     const unReserveEvent = async (eventID) => {
+        console.log('Unreserving event...');
         fetch(`http://localhost:3000/users-events`, {
             method: 'DELETE',
             headers: {
@@ -56,7 +57,7 @@ const useReserveEvent = () => {
                     throw new Error('Failed to unreserve event');
                 }
                 dispatch({ type: 'REMOVE_USER_EVENT', payload: eventID });
-                localStorage.setItem('userEvents', JSON.stringify(userEvents.filter(event => event._id !== eventID)));
+                localStorage.setItem('userEvents', JSON.stringify(userEvents.filter(event => event.eventId !== eventID)));
                 setError(null);
 
                 // reload the page
