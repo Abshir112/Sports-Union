@@ -31,6 +31,25 @@ export const authReducer = (state, action) => {
                 ...state,
                 userActivities: state.userActivities.filter(activity => activity.activityId !== action.payload)
             };
+        
+        case 'SET_USER_EVENTS':
+            return {
+                ...state,
+                userEvents: action.payload
+            };
+        
+        case 'ADD_USER_EVENT':
+            return {
+                ...state,
+                userEvents: [...state.userEvents, action.payload]
+            };
+        
+        case 'REMOVE_USER_EVENT':  
+            return {
+                ...state,
+                userEvents: state.userEvents.filter(event => event.eventId !== action.payload)
+            }; 
+
         default:
             return state;
     }
@@ -39,7 +58,8 @@ export const authReducer = (state, action) => {
 export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, {
         user: null,
-        userActivities: [] // Initialize userActivities as an empty array
+        userActivities: [], // Initialize userActivities as an empty array
+        userEvents: [] // Initialize userEvents as an empty array
     });
 
 
@@ -60,6 +80,13 @@ export const AuthProvider = ({ children }) => {
 
     }, []);
 
+    // Fetch user events when user logs in
+    useEffect(() => {
+        const userEvents = JSON.parse(localStorage.getItem('userEvents'));
+        if (userEvents) {
+            dispatch({ type: 'SET_USER_EVENTS', payload: userEvents });
+        }
+    }, []);
     console.log(state);
 
     return (

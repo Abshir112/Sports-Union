@@ -67,7 +67,7 @@ const Activities = () => {
         setIsAddModalOpen(false);
     }
 
-    const handleAddActivity =  (activityData) => {
+    const handleAddActivity = (activityData) => {
         addActivity(activityData);
     }
 

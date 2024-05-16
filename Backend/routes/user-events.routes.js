@@ -7,7 +7,7 @@ const userEventRouter = express.Router();
 userEventRouter.get("/", getUserEvents);
 
 // Route handler to get a single user's events
-userEventRouter.get("/get-events/:id", getUserEvent);
+userEventRouter.get("/:id", getUserEvent);
 
 // Route handler to get users have the same events
 userEventRouter.get("/get-users/:id", getEventUsers);
@@ -16,7 +16,7 @@ userEventRouter.get("/get-users/:id", getEventUsers);
 userEventRouter.post("/user-event", addUserEvent);
 
 // Route handler to delete a user's event
-userEventRouter.delete("/:id", deleteUserEvent);
+userEventRouter.delete("/", deleteUserEvent);
 
 
 export default userEventRouter;
