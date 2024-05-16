@@ -12,7 +12,9 @@ export const authReducer = (state, action) => {
         case 'LOGOUT':
             return {
                 ...state,
-                user: null
+                user: null,
+                userActivities: [],
+                userEvents: []
             };
         case 'SET_USER_ACTIVITIES':
             return {
