@@ -16,7 +16,7 @@ userEventRouter.get("/get-users/:id", getEventUsers);
 userEventRouter.post("/user-event", addUserEvent);
 
 // Route handler to delete a user's event
-userEventRouter.delete("/:id", deleteUserEvent);
+userEventRouter.delete("/", deleteUserEvent);
 
 
 export default userEventRouter;
