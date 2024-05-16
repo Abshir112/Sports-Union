@@ -74,7 +74,7 @@ const EventCardsList = () => {
     const checkIfReserved = (eventID) => {
         const userEvents = JSON.parse(localStorage.getItem('userEvents'));
         if (!userEvents) return false;
-        return userEvents.some(event => event._id === eventID);
+        return userEvents.some(event => event.eventId === eventID);
     }
 
     return (
