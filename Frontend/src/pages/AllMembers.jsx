@@ -4,7 +4,7 @@ import Error from "../components/Error";
 import Member from "../components/Member";
 import Stack from '@mui/material/Stack';
 import { useTheme } from "@mui/material";
-import SearchBar from "../components/SearchBar";  // Ensure the correct import path
+import SearchBar from "../components/SearchBar";  
 
 const Members = () => {
     const theme = useTheme();
