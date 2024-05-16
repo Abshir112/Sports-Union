@@ -4,7 +4,7 @@ import Error from "../components/Error";
 import Member from "../components/Member";
 import Stack from '@mui/material/Stack';
 import { useTheme } from "@mui/material";
-import SearchBar from "../components/SearchBar";  // Ensure the correct import path
+import SearchBar from "../components/SearchBar";  
 
 const Members = () => {
     const theme = useTheme();
@@ -32,6 +32,16 @@ const Members = () => {
         fetchMembers();
     }, []);
 
+    const handleEditMember = (updatedMember) => {
+        setMembers(members.map(member => 
+            member._id === updatedMember._id ? updatedMember : member
+        ));
+    };
+
+    const handleDeleteMember = (memberId) => {
+        setMembers(members.filter(member => member._id !== memberId));
+    };
+
     const filteredMembers = members.filter(member =>
         member.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -50,7 +60,12 @@ const Members = () => {
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </Stack>
             {filteredMembers.map(member => (
-                <Member key={member._id} member={member} />
+                <Member 
+                    key={member._id} 
+                    member={member} 
+                    onEdit={handleEditMember} 
+                    onDelete={handleDeleteMember} 
+                />
             ))}
         </div>
     );
