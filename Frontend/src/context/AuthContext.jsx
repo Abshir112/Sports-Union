@@ -20,11 +20,36 @@ export const authReducer = (state, action) => {
                 userActivities: action.payload
             };
         
+        case 'ADD_USER_ACTIVITY':
+            return {
+                ...state,
+                userActivities: [...state.userActivities, action.payload]
+            };
+        
         case 'REMOVE_USER_ACTIVITY':
             return {
                 ...state,
                 userActivities: state.userActivities.filter(activity => activity.activityId !== action.payload)
             };
+        
+        case 'SET_USER_EVENTS':
+            return {
+                ...state,
+                userEvents: action.payload
+            };
+        
+        case 'ADD_USER_EVENT':
+            return {
+                ...state,
+                userEvents: [...state.userEvents, action.payload]
+            };
+        
+        case 'REMOVE_USER_EVENT':  
+            return {
+                ...state,
+                userEvents: state.userEvents.filter(event => event.eventId !== action.payload)
+            }; 
+
         default:
             return state;
     }
@@ -33,9 +58,12 @@ export const authReducer = (state, action) => {
 export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, {
         user: null,
-        userActivities: [] // Initialize userActivities as an empty array
+        userActivities: [], // Initialize userActivities as an empty array
+        userEvents: [] // Initialize userEvents as an empty array
     });
 
+
+    // Check if user is logged in
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
@@ -45,28 +73,20 @@ export const AuthProvider = ({ children }) => {
 
     // Fetch user activities when user logs in
     useEffect(() => {
-        if (state.user) {
-            const fetchUserActivities = async () => {
-                try {
-                    const response = await fetch(`http://localhost:3000/users-activities/${state.user.user._id}`, {
-                        headers: {
-                            'Authorization': `Bearer ${state.user.token}`
-                        }
-                    });
-                    if (!response.ok) {
-                        throw new Error('Something went wrong!');
-                    }
-                    const data = await response.json();
-                    dispatch({ type: 'SET_USER_ACTIVITIES', payload: data });
-                } catch (error) {
-                    console.error('Error fetching user activities:', error);
-                }
-            };
-
-            fetchUserActivities();
+        const userActivities = JSON.parse(localStorage.getItem('userActivities'));
+        if (userActivities) {
+            dispatch({ type: 'SET_USER_ACTIVITIES', payload: userActivities });
         }
-    }, [state.user]);
 
+    }, []);
+
+    // Fetch user events when user logs in
+    useEffect(() => {
+        const userEvents = JSON.parse(localStorage.getItem('userEvents'));
+        if (userEvents) {
+            dispatch({ type: 'SET_USER_EVENTS', payload: userEvents });
+        }
+    }, []);
     console.log(state);
 
     return (

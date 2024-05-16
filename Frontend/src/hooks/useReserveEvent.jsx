@@ -7,56 +7,68 @@ const useReserveEvent = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { userEvents, dispatch } = useAuthContext();
 
-    const reserveEvent = async (eventId) => {
+    const reserveEvent = async (eventID) => {
         setIsLoading(true);
-        try {
-            const response = await fetch('http://localhost:3000/users-events/user-event', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user.token}`
-                },
-                body: JSON.stringify({
-                    userId: user.user._id,
-                    eventId: eventId
-                })
+        fetch('http://localhost:3000/users-events/user-event', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            },
+            body: JSON.stringify({
+                userId: user.user._id,
+                eventId: eventID
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to reserve event');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                // Dispatch action to update userEvents
+                localStorage.setItem('userEvents', JSON.stringify([...userEvents, data]));
+                dispatch({ type: 'ADD_USER_EVENT', payload: data });
+                setIsLoading(false);
+                setError(null);
+            })
+            .catch(error => {
+                setIsLoading(false);
+                setError(error.message);
             });
-            if (!response.ok) {
-                throw new Error('Failed to reserve event');
-            }
-            const data = await response.json();
-            dispatch({ type: 'SET_USER_EVENTS', payload: [...userEvents, data] });
-            setIsLoading(false);
-            setError(null);
-        } catch (error) {
-            setIsLoading(false);
-            setError(error.message);
-        }
     }
 
-    const unReserveEvent = async (eventId) => {
-        try {
-            const response = await fetch(`http://localhost:3000/users-events/user-event`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user.token}`
-                },
-                body: JSON.stringify({
-                    userId: user.user._id,
-                    eventId: eventId
-                })
-            });
-            if (!response.ok) {
-                throw new Error('Failed to unreserve event');
-            }
-            dispatch({ type: 'REMOVE_USER_EVENT', payload: eventId });
-            setError(null);
-        } catch (error) {
-            setError(error.message);
-        }
-    }
+    const unReserveEvent = async (eventID) => {
+        console.log('Unreserving event...');
+        fetch(`http://localhost:3000/users-events`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            },
+            body: JSON.stringify({
+                userId: user.user._id,
+                eventId: eventID
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to unreserve event');
+                }
+                dispatch({ type: 'REMOVE_USER_EVENT', payload: eventID });
+                localStorage.setItem('userEvents', JSON.stringify(userEvents.filter(event => event.eventId !== eventID)));
+                setError(null);
 
+                // reload the page
+                //window.location.reload();
+
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+               
+    }
     return { reserveEvent, unReserveEvent, reserveError, isLoading };
 }
 

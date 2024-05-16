@@ -46,11 +46,8 @@ export const getUserEvent = async (req, res) => {
   const userId = req.params.id;
 
   try {
-    const userEvents = await UserEvent.find({ userId: userId }).populate(
-      "eventId"
-    );
-    const events = userEvents.map((userEvent) => userEvent.eventId);
-    res.json(events);
+    const userEvents = await UserEvent.find({ userId: userId });
+    res.json(userEvents);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
@@ -73,14 +70,14 @@ export const getEventUsers = async (req, res) => {
 
 // function to add user's event
 export const addUserEvent = async (req, res) => {
-  const { userId, eventId } = req.body;
-  const newUserEvent = new UserEvent({ userId, eventId });
-  try {
-    await newUserEvent.save();
-    res.status(201).json(newUserEvent);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
+    const { userId, eventId } = req.body;
+    console.log(userId, eventId);
+    try {
+        const userEvent = await UserEvent.create({ userId, eventId });
+        res.json(userEvent);
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
 };
 
 // function to delete a user event
@@ -97,9 +94,13 @@ export const addUserEvent = async (req, res) => {
 
 // function to delete a user event by id
 export const deleteUserEvent = async (req, res) => {
-  const id = req.params.id;
   try {
-    await UserEvent.findByIdAndDelete(id);
+    const { userId, eventId } = req.body;
+    console.log(userId, eventId);
+    const userEvent = await UserEvent.findOneAndDelete({ userId, eventId });
+    if (!userEvent) {
+      return res.status(404).json({ message: "User event not found" });
+    }
     res.json({ message: "User event deleted successfully" });
     } catch (error) {
     res.status(500).json({ message: "Internal server error" });
