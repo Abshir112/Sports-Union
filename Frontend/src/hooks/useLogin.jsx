@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 import  useFetchUserActivites  from "./useFetchUserActivites";
+import useFetchUserEvents from "./useFetchUserEvents";
 
 export const useLogin = () => {
     const { fetchUserActivities } = useFetchUserActivites();
+    const { fetchUserEvents } = useFetchUserEvents();
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
     const { dispatch } = useAuthContext();
@@ -24,6 +26,7 @@ export const useLogin = () => {
             if (response.ok) {
                 localStorage.setItem('user', JSON.stringify(json));
                 fetchUserActivities(json.user._id, json.token);
+                fetchUserEvents(json.user._id, json.token);
                 dispatch({ type: 'LOGIN', payload: json });
                 setIsLoading(false);
                 return true;  // Login success

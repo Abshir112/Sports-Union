@@ -38,6 +38,12 @@ export const authReducer = (state, action) => {
                 userEvents: action.payload
             };
         
+        case 'ADD_USER_EVENT':
+            return {
+                ...state,
+                userEvents: [...state.userEvents, action.payload]
+            };
+        
         case 'REMOVE_USER_EVENT':  
             return {
                 ...state,
@@ -76,27 +82,11 @@ export const AuthProvider = ({ children }) => {
 
     // Fetch user events when user logs in
     useEffect(() => {
-        if (state.user) {
-            const fetchUserEvents = async () => {
-                try {
-                    const response = await fetch(`http://localhost:3000/users-events/${state.user.user._id}`, {
-                        headers: {
-                            'Authorization': `Bearer ${state.user.token}`
-                        }
-                    });
-                    if (!response.ok) {
-                        throw new Error('Something went wrong!');
-                    }
-                    const data = await response.json();
-                    dispatch({ type: 'SET_USER_EVENTS', payload: data });
-                } catch (error) {
-                    console.error('Error fetching user events:', error);
-                }
-            };
-
-            fetchUserEvents();
+        const userEvents = JSON.parse(localStorage.getItem('userEvents'));
+        if (userEvents) {
+            dispatch({ type: 'SET_USER_EVENTS', payload: userEvents });
         }
-    }, [state.user]);
+    }, []);
     console.log(state);
 
     return (
