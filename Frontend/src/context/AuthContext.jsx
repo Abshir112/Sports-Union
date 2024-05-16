@@ -47,7 +47,7 @@ export const authReducer = (state, action) => {
         case 'REMOVE_USER_EVENT':  
             return {
                 ...state,
-                userEvents: state.userEvents.filter(event => event._id !== action.payload)
+                userEvents: state.userEvents.filter(event => event.eventId !== action.payload)
             }; 
 
         default:
