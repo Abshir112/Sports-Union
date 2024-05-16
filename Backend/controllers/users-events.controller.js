@@ -1,4 +1,4 @@
-import UserEvent from "../models/user-event.model.js";
+import UserEvent from "../models/users-events.model.js";
 
 // function to get all users events
 export const getUserEvents = async (req, res) => {

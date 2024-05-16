@@ -11,16 +11,18 @@ import About from './pages/About';
 import Events from './pages/Events';
 import Activities from './pages/Activities';
 import Members from './pages/AllMembers';
+import { useAuthContext } from './hooks/useAuthContext';
 
 
 function App() {
+  const { user } = useAuthContext();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
         <Navbar/>
         <Routes>
-          <Route path="/" element={<Hero />} />
+          <Route path="/" element={!user ? <Hero/> : <Events/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/activities" element={<Activities/>}  />
           <Route path="/signIn" element={<SignIn/>} />

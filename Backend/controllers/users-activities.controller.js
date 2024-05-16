@@ -48,9 +48,8 @@ export const getUserActivity = async (req, res) => {
     const userId = req.params.id;
     console.log(userId);
     try {
-        const userActivities = await UserActivity.find({ userId: userId }).populate('activityId');
-        const activities = userActivities.map(userActivity => userActivity.activityId);
-        res.json(activities);
+        const userActivities = await UserActivity.find({ userId: userId })
+        res.json(userActivities);
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }

@@ -6,7 +6,7 @@ import eventRouter from './routes/event.routes.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import usersActivitiesRouter from './routes/user-activities.routes.js';
-import userEventRouter from './routes/user-event.js';
+import userEventRouter from './routes/user-events.routes.js';
 
 dotenv.config();
 
