@@ -1,3 +1,49 @@
-HKIF instagram page: https://www.instagram.com/hkif_skane/
+All events and activities details are taken from HKIF official pages:
+    1- HKIF instagram page: https://www.instagram.com/hkif_skane/
 
-HKIF facebook page: https://www.facebook.com/HKIFatHKR
+    2- HKIF facebook page: https://www.facebook.com/HKIFatHKR
+
+Some pictures are from the HKIF pictures collection and the rest are from the internet:
+    mainly from https://www.pinterest.com/
+
+
+Tools used:
+    1- Material UI:
+        https://mui.com/
+
+    2- Figma:
+        https://www.figma.com/
+    
+    3- React:
+        https://reactjs.org/
+    
+    4- Node.js:
+        https://nodejs.org/en/
+
+    5- Express:
+        https://expressjs.com/
+    
+    6- MongoDB:
+        https://www.mongodb.com/
+    
+    7- Vite:
+        https://vitejs.dev/
+    
+    8- GitHub:
+        https://github.com/
+    
+
+    9- Visual Studio Code:
+        https://code.visualstudio.com/
+    
+    10- Lucidchart:
+        https://www.lucidchart.com/
+    
+    11- JWT (JSON Web Tokens):
+        https://jwt.io/
+    
+
+
+
+    
+
