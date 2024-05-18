@@ -1,20 +1,8 @@
 import express from 'express';
 import { createEvent, getAllEvents, getEventById, updateEvent, deleteEvent } from '../controllers/event.controller.js';
+import requireAuth from '../middlewares/requireAuth.js';
 
 const eventRouter = express.Router();
-
-/**
- * Route handler to create a new event.
- * 
- * @name POST /events
- * @function
- * @memberof eventRouter
- * @inner
- * @param {express.Request} req - Express request object.
- * @param {express.Response} res - Express response object.
- * @returns {void}
- */
-eventRouter.post('/', createEvent);
 
 /**
  * Route handler to get all events from the database.
@@ -28,6 +16,22 @@ eventRouter.post('/', createEvent);
  * @returns {void}
  */
 eventRouter.get('/', getAllEvents);
+
+// Middleware to verify the token
+eventRouter.use(requireAuth);
+
+/**
+ * Route handler to create a new event.
+ * 
+ * @name POST /events
+ * @function
+ * @memberof eventRouter
+ * @inner
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ * @returns {void}
+ */
+eventRouter.post('/', createEvent);
 
 /**
  * Route handler to get a single event by ID.
