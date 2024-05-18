@@ -5,8 +5,10 @@ import Member from "../components/Member";
 import Stack from '@mui/material/Stack';
 import { useTheme } from "@mui/material";
 import SearchBar from "../components/SearchBar";  
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Members = () => {
+    const {user} = useAuthContext();
     const theme = useTheme();
     const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,7 +18,13 @@ const Members = () => {
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const response = await fetch('http://localhost:3000/users');
+                const response = await fetch('http://localhost:3000/users',
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${user.token}`,
+                        }
+                    }
+                );
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
                 }
