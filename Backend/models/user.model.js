@@ -38,8 +38,42 @@ const userSchema = new mongoose.Schema({
  * @throws {Error} Throws an error if any required field is missing, if the email is invalid, if the password is not strong enough, or if the email already exists.
  */
 userSchema.statics.signup = async function (email, password, name, phone, personalNumber) {
-    // Validation checks...
-};
+    if(!email || !password || !name || !phone || !personalNumber) {
+        throw new Error('Please fill all the fields');
+    }
+
+    if(!validator.isEmail(email)) {
+        throw new Error('Invalid email address');
+    }
+
+    if(!validator.isStrongPassword(password)) {
+        throw new Error('Password must be at least 8 characters long and contain a number');
+    }
+
+    if(!validator.isMobilePhone(phone)) {
+        throw new Error('Invalid phone number');
+    }
+
+    if(!validator.isNumeric(personalNumber)) {
+        throw new Error('Invalid personal number');
+    }
+
+    const exists = await User.findOne({ email });
+    if (exists) {
+        throw new Error('Email already exists');
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    const user = await this.create({
+        email,
+        password: hash,
+        name,
+        phone,
+        personalNumber
+    });
+    return user;
+}
 
 /**
  * Static method to log in a user.
@@ -50,8 +84,23 @@ userSchema.statics.signup = async function (email, password, name, phone, person
  * @throws {Error} Throws an error if the email is missing, if the email is not found, or if the password is incorrect.
  */
 userSchema.statics.login = async function (email, password) {
-    // Login logic...
-};
+    userSchema.statics.login = async function (email, password) {
+        if(!email || !password) {
+            throw new Error('Please provide email and password');
+        }
+    
+        const user = await this.findOne({ email });
+        if (!user) {
+            throw new Error('Invalid email');
+        }
+    
+        const isValid = await bcrypt.compare(password, user.password);
+        if (!isValid) {
+            throw new Error('Invalid password');
+        }
+    
+        return user;
+    }};
 
 /**
  * Mongoose model for the User schema.
