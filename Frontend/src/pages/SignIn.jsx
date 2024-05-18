@@ -105,7 +105,7 @@ function SignIn() {
         </Grid>
         {/* Image Section */}
         <Grid item xs={12} md={6} style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: "20px" }}>
-          <img src="../../assets/bannerhkif.png" alt="bannerghkif" style={{ width: '90%', maxHeight: '550px', borderRadius: "5%"  }} />
+          <img src="https://i.ibb.co/DCd1JF9/bannerhkif.png" alt="bannerghkif" style={{ width: '90%', maxHeight: '550px', borderRadius: "5%"  }} />
         </Grid>
       </Grid>
     </Container>

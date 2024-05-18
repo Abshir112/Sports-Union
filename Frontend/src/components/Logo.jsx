@@ -1,4 +1,4 @@
-import LogoImg from '../../assets/logo.png';
+import LogoImg from '../assets/logo.png';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';

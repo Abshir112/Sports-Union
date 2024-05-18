@@ -37,7 +37,7 @@ export const Hero = () => {
        {
         !isSmall ? null :  
         <Container  sx={{mb:"20px", display: "flex", justifyContent:"center", alignItems: "center",  maxWidth: "100%", overflow: "hidden"}}>
-          <img  src="../../../assets/landingpage.png" alt="climbing activity" />
+          <img  src="https://i.ibb.co/PTVS5Rn/landingpage.png" alt="climbing activity" />
         </Container>
        }
         <Typography variant="body1" sx={{
@@ -54,7 +54,7 @@ export const Hero = () => {
       {
         isSmall ? null :  
         <Container  sx={{mb:"20px", display: "flex", justifyContent:"center", alignItems: "center",  maxWidth: "100%", overflow: "hidden"}}>
-          <img height="70%" width="80%" src="../../../assets/climbing.jpg" alt="climbing activity" />
+          <img height="70%" width="80%" src="https://i.ibb.co/Vp14SXD/climbing.jpg" alt="climbing activity" />
         </Container>
        }
 
