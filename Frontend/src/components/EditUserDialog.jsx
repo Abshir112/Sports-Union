@@ -5,11 +5,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Typography } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import { Typography, IconButton } from '@mui/material';
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const EditUserDialog = ({ open, handleClose}) => {
-  const { user } = useAuthContext();
+  const { user} = useAuthContext();
+  const [isEditing, setIsEditing] = useState(false);
   const [userData, setUser] = useState({
     name: user.user.name,
     email: user.user.email,
@@ -58,7 +60,9 @@ const EditUserDialog = ({ open, handleClose}) => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('User updated:', data);
+        const updatedUser = { ...user, user: data };
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        setIsEditing(false);
         handleClose();
       })
       .catch(error => {
@@ -68,14 +72,21 @@ const EditUserDialog = ({ open, handleClose}) => {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Edit User Info</DialogTitle>
-      <DialogContent>
+    <Dialog open={open} onClose={handleClose} PaperProps={{ style: { backgroundColor: '#2C2F33', color: 'white' } }}>
+      <DialogTitle>
+        <Typography variant="h6" component="div" style={{ color: 'white' }}>
+          User Profile
+          <IconButton onClick={() => setIsEditing(true)} sx={{ color: 'white', marginLeft: 2 }}>
+            <EditIcon />
+          </IconButton>
+        </Typography>
+      </DialogTitle>
+      <DialogContent style={{backgroundColor: '#eeeeee'}}>
         <TextField
           autoFocus
           margin="dense"
           name="name"
-          label="Name"
+          label="First Name"
           type="text"
           fullWidth
           value={userData.name}
@@ -83,11 +94,15 @@ const EditUserDialog = ({ open, handleClose}) => {
           InputLabelProps={{
             style: { color: 'black' },
           }}
+          InputProps={{
+            style: { color: 'black' },
+          }}
+          disabled={!isEditing}
         />
         <TextField
           margin="dense"
           name="email"
-          label="Email"
+          label="Name"
           type="email"
           fullWidth
           value={userData.email}
@@ -95,6 +110,10 @@ const EditUserDialog = ({ open, handleClose}) => {
           InputLabelProps={{
             style: { color: 'black' },
           }}
+          InputProps={{
+            style: { color: 'black' },
+          }}
+          disabled={!isEditing}
         />
         <TextField
           margin="dense"
@@ -107,16 +126,22 @@ const EditUserDialog = ({ open, handleClose}) => {
           InputLabelProps={{
             style: { color: 'black' },
           }}
+          InputProps={{
+            style: { color: 'black' },
+          }}
+          disabled={!isEditing}
         />
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleSave} color="primary">
-          Save
-        </Button>
-      </DialogActions>
+      {isEditing && (
+        <DialogActions>
+          <Button onClick={() => setIsEditing(false)} style={{ backgroundColor: '#E53935', color: 'white', borderRadius: '20px', margin: '0 10px' }}>
+            Cancel
+          </Button>
+          <Button onClick={handleSave} style={{ backgroundColor: '#E53935', color: 'white', borderRadius: '20px', margin: '0 10px' }}>
+            Save
+          </Button>
+        </DialogActions>
+      )}
       {error && <Typography color="error" sx={{ padding: 2 }}>{error}</Typography>}
     </Dialog>
   );

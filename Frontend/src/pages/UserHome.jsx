@@ -2,17 +2,21 @@ import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import EditIcon from '@mui/icons-material/Edit';
 import NotificationCard from '../components/NotificationCard';
 import RegisteredEventsCard from '../components/RegisteredEventsCard';
 import RegisteredActivitiesCard from '../components/RegisteredActivitiesCard';
 import EditUserDialog from '../components/EditUserDialog';
 import { useTheme } from "@mui/material";
-import { useAuthContext } from "../hooks/useAuthContext";
+
 
 const Dashboard = () => {
   const theme = useTheme();
-  const { user } = useAuthContext();
-  const [open, setOpen] = useState(false); 
+  const [open, setOpen] = useState(false);
+  const user = JSON.parse(localStorage.getItem('user'));
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -38,14 +42,15 @@ const Dashboard = () => {
         <Typography variant="h3" component="div" sx={{ fontWeight: 'bold' }}>
           Dashboard
         </Typography>
-        <Typography 
-          variant="h6" 
-          component="div" 
-          sx={{ marginRight: 4, cursor: 'pointer' }} 
-          onClick={handleOpen}
-        >
-          <span role="img" aria-label="user">👤</span> {user.user.name}
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <IconButton onClick={handleOpen} sx={{ color: theme.palette.text.primary }}>
+            <AccountCircle fontSize="large" />
+          </IconButton>
+          <Typography onClick={handleOpen} variant="h6" component="div" sx={{ marginLeft: 1 , cursor: 'pointer'}}>
+            {user ? user.user.name : 'User'}
+          </Typography>
+          
+        </Box>
       </Box>
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
