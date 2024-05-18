@@ -1,7 +1,11 @@
 import express from 'express';
 import { createNotification, getAllNotifications, getNotificationById, updateNotification, deleteNotification } from '../controllers/notification.controller.js';
+import requireAuth from '../middlewares/requireAuth.js';
 
 const notificationRouter = express.Router();
+
+// Middleware to verify the token
+notificationRouter.use(requireAuth);
 
 /**
  * Route handler to create a new notification.
