@@ -1,9 +1,12 @@
 import express from 'express';
 import { signUp, signIn } from '../controllers/auth.user.js';
-import { deleteUser, getAllUsers, updateUser } from '../controllers/user.controller.js';
+import { deleteUser, getAllUsers, updateUser, getUserById } from '../controllers/user.controller.js';
 import requireAuth from '../middlewares/requireAuth.js'
 
 const userRouter = express.Router();
+
+
+
 
 /**
  * Route handler to create a new user.
@@ -31,6 +34,7 @@ userRouter.post('/sign-up', signUp);
  * @returns {void}
  */
 userRouter.post('/sign-in', signIn);
+
 
 
 // Middleware to verify the token

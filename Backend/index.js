@@ -7,6 +7,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import usersActivitiesRouter from './routes/user-activities.routes.js';
 import userEventRouter from './routes/user-events.routes.js';
+import notificationRouter from './routes/notification.routes.js';
+
 
 dotenv.config();
 
@@ -52,6 +54,12 @@ app.use('/events', eventRouter);
  * Route for user-events-related endpoints.
  */
 app.use('/users-events', userEventRouter);
+
+/**
+ * Route for notification-related endpoints.
+ */
+app.use('/notifications', notificationRouter);
+
 
 /**
  * Start the server.

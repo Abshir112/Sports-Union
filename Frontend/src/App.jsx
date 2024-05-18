@@ -32,6 +32,7 @@ function App() {
           <Route path="/events" element={<Events/>} />
           <Route path='/members' element={<Members/>} /> 
           <Route path='/userHome' element={<Dashboard/>} /> 
+          <Route path='/members' element={user?.user.role !== 'admin' ? <NotFound/> : <Members/>}/> 
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
