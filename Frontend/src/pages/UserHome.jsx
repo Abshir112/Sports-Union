@@ -11,7 +11,7 @@ import { useTheme } from "@mui/material";
 const Dashboard = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const userId = 'USER_ID'; // Replace with the actual user ID
+  const userId = 'USER_ID'; 
 
   const handleOpen = () => {
     setOpen(true);
