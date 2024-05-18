@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import {Hero} from './pages/Hero';
 import { CssBaseline, ThemeProvider } from '@mui/material';
@@ -13,7 +14,7 @@ import Activities from './pages/Activities';
 import Members from './pages/AllMembers';
 import NotFound from './pages/404';
 import { useAuthContext } from './hooks/useAuthContext';
-
+import Dashboard from './pages/UserHome';
 
 function App() {
   const { user } = useAuthContext();
@@ -23,12 +24,13 @@ function App() {
       <Router>
         <Navbar/>
         <Routes>
-          <Route path="/" element={!user ? <Hero/> : <Events/>} />
+          <Route path="/" element={!user ? <Hero/> : <Dashboard/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/activities" element={<Activities/>}  />
           <Route path="/signIn" element={<SignIn/>} />
           <Route path="/signUp" element={<SignUp/>} />
           <Route path="/events" element={<Events/>} />
+          <Route path='/members' element={<Members/>} />  
           <Route path='/members' element={user?.user.role !== 'admin' ? <NotFound/> : <Members/>}/> 
           <Route path="*" element={<NotFound />} />
         </Routes>

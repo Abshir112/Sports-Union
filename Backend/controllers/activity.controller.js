@@ -20,6 +20,26 @@ export const getAllActivities = async (req, res) => {
 };
 
 /**
+ * Retrieves a single activity by ID.
+ * 
+ * @async
+ * @function getActivityById
+ * @param {object} req - Express request object containing activity ID in params.
+ * @param {object} res - Express response object.
+ * @returns {Promise<void>} Responds with the activity details or an error message.
+ */
+export const getActivityById = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const activity = await Activity.findById(id);
+        res.json(activity);
+    } catch (error) {
+        console.error('Error getting Event:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+/**
  * Creates a new activity in the database.
  * 
  * @async

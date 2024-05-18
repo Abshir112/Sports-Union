@@ -1,6 +1,7 @@
 import express from 'express';
-import { getAllActivities, createActivity, updateActivity, deleteActivity } from '../controllers/activity.controller.js';
+import { getAllActivities, createActivity, updateActivity, deleteActivity, getActivityById } from '../controllers/activity.controller.js';
 import requireAuth from '../middlewares/requireAuth.js';
+import Activity from '../models/activity.model.js';
 
 const activityRouter = express.Router();
 
@@ -23,6 +24,20 @@ activityRouter.get('/', getAllActivities);
  * This middleware ensures that the user is authenticated before proceeding to create, update, or delete activities.
  */
 activityRouter.use(requireAuth);
+
+
+/**
+ * Route handler to get a single activity by ID.
+ * 
+ * @name GET /activity/:id
+ * @function
+ * @memberof eventRouter
+ * @inner
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ * @returns {void}
+ */
+activityRouter.get('/:id', getActivityById);
 
 /**
  * Route handler to create a new activity.
