@@ -1,67 +1,86 @@
 import UserActivity from '../models/users-activities.model.js';
 
-
-// function to get all users activities
+/**
+ * Retrieves all users' activities with user and activity details.
+ * 
+ * @async
+ * @function getUserActivities
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ * @returns {Promise<void>} Responds with a list of users' activities or an error message.
+ */
 export const getUserActivities = async (req, res) => {
     try {
         const usersActivities = await UserActivity.aggregate([
             {
-              $lookup: {
-                from: 'Activity',
-                localField: 'activityId',
-                foreignField: '_id',
-                as: 'activity'
-              }
+                $lookup: {
+                    from: 'Activity',
+                    localField: 'activityId',
+                    foreignField: '_id',
+                    as: 'activity'
+                }
             },
             {
-              $lookup: {
-                from: "User",
-                localField: "userId",
-                foreignField: "_id",
-                as: "user"
-              }
+                $lookup: {
+                    from: "User",
+                    localField: "userId",
+                    foreignField: "_id",
+                    as: "user"
+                }
             },
             {
-              $unwind: "$activity"
+                $unwind: "$activity"
             },
             {
-              $unwind: "$user"
+                $unwind: "$user"
             },
             {
-              $project: {
-                User_ID: "$user._id",
-                User_Name: "$user.name",
-                Activity_ID: "$activity._id",
-                Activity_Name: "$activity.activityName",
-              }
+                $project: {
+                    User_ID: "$user._id",
+                    User_Name: "$user.name",
+                    Activity_ID: "$activity._id",
+                    Activity_Name: "$activity.activityName",
+                }
             }
-          ]);
+        ]);
         res.json(usersActivities);
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
 
-
-// function to find user's activities
+/**
+ * Retrieves a specific user's activities by user ID.
+ * 
+ * @async
+ * @function getUserActivity
+ * @param {object} req - Express request object containing user ID in params.
+ * @param {object} res - Express response object.
+ * @returns {Promise<void>} Responds with the user's activities or an error message.
+ */
 export const getUserActivity = async (req, res) => {
     const userId = req.params.id;
-    console.log(userId);
     try {
-        const userActivities = await UserActivity.find({ userId: userId })
+        const userActivities = await UserActivity.find({ userId: userId });
         res.json(userActivities);
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
 
-
-// function to get known which which users have the same activity
+/**
+ * Retrieves users who have the same activity by activity ID.
+ * 
+ * @async
+ * @function getUsersWithSameActivity
+ * @param {object} req - Express request object containing activity ID in params.
+ * @param {object} res - Express response object.
+ * @returns {Promise<void>} Responds with a list of users or an error message.
+ */
 export const getUsersWithSameActivity = async (req, res) => {
     const activityId = req.params.id;
     try {
         const userActivities = await UserActivity.find({ activityId: activityId }).populate('userId');
-
         if (userActivities.length === 0) {
             return res.status(404).json({ message: 'No users found with the specified activity' });
         }
@@ -78,7 +97,15 @@ export const getUsersWithSameActivity = async (req, res) => {
     }
 };
 
-// function to add an activity to the users activities (register for an activity)
+/**
+ * Adds an activity to a user's activities (register for an activity).
+ * 
+ * @async
+ * @function createUserActivity
+ * @param {object} req - Express request object containing user ID and activity ID in the body.
+ * @param {object} res - Express response object.
+ * @returns {Promise<void>} Responds with the created user activity or an error message.
+ */
 export const createUserActivity = async (req, res) => {
     const { userId, activityId } = req.body;
     try {
@@ -88,9 +115,17 @@ export const createUserActivity = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
-}
+};
 
-// function to delete a user activity (unregister from an activity)
+/**
+ * Deletes a user activity (unregister from an activity).
+ * 
+ * @async
+ * @function deleteUserActivity
+ * @param {object} req - Express request object containing user ID and activity ID in the body.
+ * @param {object} res - Express response object.
+ * @returns {Promise<void>} Responds with the deleted user activity or an error message.
+ */
 export const deleteUserActivity = async (req, res) => {
     const { userId, activityId } = req.body;
     try {
@@ -99,14 +134,21 @@ export const deleteUserActivity = async (req, res) => {
             return res.status(404).json({ message: 'User activity not found' });
         }
         res.json(userActivity);
-    }
-    catch (error) {
+    } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
-}
+};
 
-// function to delete all user activities (unregister from all activities)
+/**
+ * Deletes all user activities (unregister from all activities).
+ * 
+ * @async
+ * @function deleteAllUserActivities
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ * @returns {Promise<void>} Responds with a success message or an error message.
+ */
 export const deleteAllUserActivities = async (req, res) => {
     try {
         await UserActivity.deleteMany({});
@@ -115,5 +157,4 @@ export const deleteAllUserActivities = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
-}
-
+};
