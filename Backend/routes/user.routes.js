@@ -18,6 +18,19 @@ const userRouter = express.Router();
 userRouter.get('/', getAllUsers);
 
 /**
+ * Route handler to get a user by ID.
+ * 
+ * @name GET /users/:id
+ * @function
+ * @memberof userRouter
+ * @inner
+ * @param {express.Request} req - Express request object containing user ID in params.
+ * @param {express.Response} res - Express response object.
+ * @returns {void}
+ */
+userRouter.get('/:id', getUserById);
+
+/**
  * Route handler to create a new user.
  * 
  * @name POST /users/sign-up
@@ -28,6 +41,7 @@ userRouter.get('/', getAllUsers);
  * @param {express.Response} res - Express response object.
  * @returns {void}
  */
+
 userRouter.post('/sign-up', signUp);
 
 /**
