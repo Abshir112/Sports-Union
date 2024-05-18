@@ -27,7 +27,7 @@ function SignIn() {
     event.preventDefault();
     const success = await login(values.email, values.password);
     if (success) {
-      redirect('/activities');
+      redirect('/');
     }
   };
 
