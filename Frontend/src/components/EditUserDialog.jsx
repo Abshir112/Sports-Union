@@ -6,12 +6,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const EditUserDialog = ({ open, handleClose, userId }) => {
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    phone: '',
+  const { user } = useAuthContext();
+  const [userData, setUser] = useState({
+    name: user.user.name,
+    email: user.user.email,
+    phone: user.user.phone,
   });
 
   const [error, setError] = useState(null);
@@ -30,11 +32,11 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setUser({ ...userData, [name]: value });
   };
 
   const handleSave = () => {
-    const { name, email, phone } = user;
+    const { name, email, phone } = userData;
     if (!name || !email || !phone) {
       setError('All fields are required.');
       return;
@@ -45,7 +47,7 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(userData)
     })
       .then(response => response.json())
       .then(data => {
@@ -69,8 +71,11 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
           label="Name"
           type="text"
           fullWidth
-          value={user.name}
+          value={userData.name}
           onChange={handleChange}
+          InputLabelProps={{
+            style: { color: 'black' },
+          }}
         />
         <TextField
           margin="dense"
@@ -78,8 +83,11 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
           label="Email"
           type="email"
           fullWidth
-          value={user.email}
+          value={userData.email}
           onChange={handleChange}
+          InputLabelProps={{
+            style: { color: 'black' },
+          }}
         />
         <TextField
           margin="dense"
@@ -87,8 +95,11 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
           label="Phone"
           type="text"
           fullWidth
-          value={user.phone}
+          value={userData.phone}
           onChange={handleChange}
+          InputLabelProps={{
+            style: { color: 'black' },
+          }}
         />
       </DialogContent>
       <DialogActions>
