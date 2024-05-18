@@ -5,6 +5,11 @@ import requireAuth from '../middlewares/requireAuth.js'
 
 const userRouter = express.Router();
 
+
+// Middleware to verify the token
+userRouter.use(requireAuth);
+
+
 /**
  * Route handler to create a new user.
  * 
@@ -33,8 +38,7 @@ userRouter.post('/sign-up', signUp);
 userRouter.post('/sign-in', signIn);
 
 
-// Middleware to verify the token
-userRouter.use(requireAuth);
+
 
 /**
  * Route handler to get all users.
