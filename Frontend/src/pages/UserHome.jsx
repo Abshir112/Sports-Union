@@ -7,9 +7,11 @@ import RegisteredEventsCard from '../components/RegisteredEventsCard';
 import RegisteredActivitiesCard from '../components/RegisteredActivitiesCard';
 import EditUserDialog from '../components/EditUserDialog';
 import { useTheme } from "@mui/material";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Dashboard = () => {
   const theme = useTheme();
+  const { user } = useAuthContext();
   const [open, setOpen] = useState(false);
   const userId = 'USER_ID'; 
 
@@ -43,7 +45,7 @@ const Dashboard = () => {
           sx={{ marginRight: 4, cursor: 'pointer' }} 
           onClick={handleOpen}
         >
-          <span role="img" aria-label="user">👤</span> Lakshmi
+          <span role="img" aria-label="user">👤</span> {user.user.name}
         </Typography>
       </Box>
       <Grid container spacing={4}>
