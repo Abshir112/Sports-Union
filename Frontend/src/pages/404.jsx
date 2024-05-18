@@ -6,7 +6,7 @@ const NotFound = () => {
 
     <div style={{ textAlign: 'center'}}>
       <h1>404 Not Found</h1>
-      <img src="../../assets/404.jpg" alt="404 Not Found" />
+      <img src="https://i.ibb.co/68d8dpQ/404.jpg" alt="404 Not Found" />
     </div>
   );
 };

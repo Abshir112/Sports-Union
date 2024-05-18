@@ -25,6 +25,9 @@ connectDB();
  */
 app.use(cors());
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('../Frontend/dist'));
+
 /**
  * Middleware for parsing JSON bodies from requests.
  */

@@ -107,7 +107,7 @@ const EventCardsList = () => {
                         title={event.title}
                         location={event.location}
                         description={event.description}
-                        image={`../../assets/${event.title}.JPG`}
+                        image={event.image}
                         show={userRole === 'admin' ? 'block' : 'none'}
                         reserved={checkIfReserved(event._id)}
                         maxParticipants={event.maxParticipants}

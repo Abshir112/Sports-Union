@@ -2,11 +2,11 @@ import { Container, Typography, Box, Grid, Card, CardContent, CardMedia } from '
 import { useTheme } from "@mui/material";
 
 const teamMembers = [
-  { name: "Team Member 1", image: "../../../assets/ahmed.jpg", description: "Full Stack Developer" },
-  { name: "Team Member 2", image: "../../../assets/alloush.jpg", description: "Full Stack Developer" },
-  { name: "Team Member 3", image: "../../../assets/lakshmi.png", description: "Full Stack Developer" },
-  { name: "Team Member 4", image: "../../../assets/jwan.png", description: "Full Stack Developer" },
-  { name: "Team Member 5", image: "../../../assets/Abshir.jpg", description: "Full Stack Developer" },
+  { name: "Team Member 1", image: "https://i.ibb.co/r2YVZKT/ahmed.jpg", description: "Full Stack Developer" },
+  { name: "Team Member 2", image: "https://i.ibb.co/qx7P8YK/alloush.jpg", description: "Full Stack Developer" },
+  { name: "Team Member 3", image: "https://i.ibb.co/PYGCXh3/lakshmi.jpg", description: "Full Stack Developer" },
+  { name: "Team Member 4", image: "https://i.ibb.co/M6FcRsg/jwan.png", description: "Full Stack Developer" },
+  { name: "Team Member 5", image: "https://i.ibb.co/VtLmrLD/Abshir.jpg", description: "Full Stack Developer" },
 ];
 
 const About = () => {
@@ -64,7 +64,7 @@ const About = () => {
               textAlign: 'center'
             }}>
               <img
-                src="../../../assets/medlems.jpg"
+                src="https://i.ibb.co/BBgJYVB/medlems.jpg"
                 alt="Sport activity"
                 style={{
                   width: '80%',
@@ -124,7 +124,7 @@ const About = () => {
               textAlign: 'center'
             }}>
               <img
-                src="../../../assets/even1.jpg"
+                src="https://i.ibb.co/5rPsLrp/even1.jpg"
                 alt="Community gathering"
                 style={{
                   width: '55%',
@@ -146,7 +146,7 @@ const About = () => {
               textAlign: 'center'
             }}>
               <img
-                src="../../../assets/landingpage.png"
+                src="https://i.ibb.co/PTVS5Rn/landingpage.png"
                 alt="Sport activity"
                 style={{
                   width: '80%',
@@ -208,7 +208,7 @@ const About = () => {
               textAlign: 'center'
             }}>
               <img
-                src="../../../assets/Hkrsports.jpg"
+                src="https://i.ibb.co/nfjX2tL/Hkrsports.jpg"
                 alt="Community gathering"
                 style={{
                   width: '80%',

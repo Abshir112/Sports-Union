@@ -115,7 +115,7 @@ const Activities = () => {
             location={activity.location}
             description={activity.description}
             maxParticipants={activity.maxParticipants}
-            image={`../../assets/${activity.activityName}.JPG`}
+            image={activity.image}
             handleReserve={() => handleReserve(activity._id)}
             handleUnreserve={() => handleUnReserve(activity._id)}
             show={userRole === 'admin' ? 'block' : 'none'}
