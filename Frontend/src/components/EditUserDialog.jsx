@@ -81,7 +81,7 @@ const EditUserDialog = ({ open, handleClose}) => {
           </IconButton>
         </Typography>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent style={{backgroundColor: '#eeeeee'}}>
         <TextField
           autoFocus
           margin="dense"
@@ -92,26 +92,26 @@ const EditUserDialog = ({ open, handleClose}) => {
           value={userData.name}
           onChange={handleChange}
           InputLabelProps={{
-            style: { color: 'white' },
+            style: { color: 'black' },
           }}
           InputProps={{
-            style: { color: 'white' },
+            style: { color: 'black' },
           }}
           disabled={!isEditing}
         />
         <TextField
           margin="dense"
           name="email"
-          label="Last Name"
+          label="Name"
           type="email"
           fullWidth
           value={userData.email}
           onChange={handleChange}
           InputLabelProps={{
-            style: { color: 'white' },
+            style: { color: 'black' },
           }}
           InputProps={{
-            style: { color: 'white' },
+            style: { color: 'black' },
           }}
           disabled={!isEditing}
         />
@@ -124,10 +124,10 @@ const EditUserDialog = ({ open, handleClose}) => {
           value={userData.phone}
           onChange={handleChange}
           InputLabelProps={{
-            style: { color: 'white' },
+            style: { color: 'black' },
           }}
           InputProps={{
-            style: { color: 'white' },
+            style: { color: 'black' },
           }}
           disabled={!isEditing}
         />
