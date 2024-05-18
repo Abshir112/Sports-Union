@@ -72,12 +72,9 @@ const RegisteredActivitiesCard = () => {
         ) : (
           <Box sx={{ textAlign: 'center', marginTop: 4 }}>
             <Typography variant="h6" component="div">
-              You are caught up!!
+              You do not have any registered activities
             </Typography>
-            <Typography variant="body1" component="div" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1, marginTop: 1 }}>
-              No registered Activities.
-              <WarningIcon sx={{ marginLeft: 1 }} />
-            </Typography>
+          
           </Box>
         )}
       </CardContent>

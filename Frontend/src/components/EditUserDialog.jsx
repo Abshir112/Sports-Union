@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 import { useAuthContext } from "../hooks/useAuthContext";
 
-const EditUserDialog = ({ open, handleClose, userId }) => {
+const EditUserDialog = ({ open, handleClose}) => {
   const { user } = useAuthContext();
   const [userData, setUser] = useState({
     name: user.user.name,
@@ -19,8 +19,14 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (open && userId) {
-      fetch(`http://localhost:3000/users/${userId}`)
+    if (open) {
+      fetch(`http://localhost:3000/users/${user.user._id}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      }
+      )
         .then(response => response.json())
         .then(data => setUser(data))
         .catch(error => {
@@ -28,7 +34,7 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
           setError('Error fetching user data');
         });
     }
-  }, [open, userId]);
+  }, [open, user.user._id, user.token]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,10 +48,11 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
       return;
     }
 
-    fetch(`http://localhost:3000/users/update-user/${userId}`, {
+    fetch(`http://localhost:3000/users/update-user/${user.user._id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
       },
       body: JSON.stringify(userData)
     })

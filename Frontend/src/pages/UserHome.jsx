@@ -12,8 +12,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const Dashboard = () => {
   const theme = useTheme();
   const { user } = useAuthContext();
-  const [open, setOpen] = useState(false);
-  const userId = 'USER_ID'; 
+  const [open, setOpen] = useState(false); 
 
   const handleOpen = () => {
     setOpen(true);
@@ -61,7 +60,7 @@ const Dashboard = () => {
           </Grid>
         </Grid>
       </Grid>
-      <EditUserDialog open={open} handleClose={handleClose} userId={userId} />
+      <EditUserDialog open={open} handleClose={handleClose} />
     </Box>
   );
 };
