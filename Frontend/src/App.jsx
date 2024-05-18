@@ -24,14 +24,13 @@ function App() {
       <Router>
         <Navbar/>
         <Routes>
-          <Route path="/" element={!user ? <Hero/> : <Events/>} />
+          <Route path="/" element={!user ? <Hero/> : <Dashboard/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/activities" element={<Activities/>}  />
           <Route path="/signIn" element={<SignIn/>} />
           <Route path="/signUp" element={<SignUp/>} />
           <Route path="/events" element={<Events/>} />
-          <Route path='/members' element={<Members/>} /> 
-          <Route path='/userHome' element={<Dashboard/>} /> 
+          <Route path='/members' element={<Members/>} />  
           <Route path='/members' element={user?.user.role !== 'admin' ? <NotFound/> : <Members/>}/> 
           <Route path="*" element={<NotFound />} />
         </Routes>
