@@ -5,6 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
 
 const EditUserDialog = ({ open, handleClose, userId }) => {
   const [user, setUser] = useState({
@@ -13,14 +14,19 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
     phone: '',
   });
 
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    if (userId) {
-      fetch(`/api/users/${userId}`)
+    if (open && userId) {
+      fetch(`http://localhost:3000/users/${userId}`)
         .then(response => response.json())
         .then(data => setUser(data))
-        .catch(error => console.error('Error fetching user data:', error));
+        .catch(error => {
+          console.error('Error fetching user data:', error);
+          setError('Error fetching user data');
+        });
     }
-  }, [userId]);
+  }, [open, userId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +34,12 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
   };
 
   const handleSave = () => {
+    const { name, email, phone } = user;
+    if (!name || !email || !phone) {
+      setError('All fields are required.');
+      return;
+    }
+
     fetch(`http://localhost:3000/users/update-user/${userId}`, {
       method: 'PUT',
       headers: {
@@ -40,7 +52,10 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
         console.log('User updated:', data);
         handleClose();
       })
-      .catch(error => console.error('Error updating user data:', error));
+      .catch(error => {
+        console.error('Error updating user data:', error);
+        setError('Error updating user data');
+      });
   };
 
   return (
@@ -75,24 +90,6 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
           value={user.phone}
           onChange={handleChange}
         />
-        <TextField
-          margin="dense"
-          name="personalNumber"
-          label="Personal Number"
-          type="text"
-          fullWidth
-          value={user.personalNumber}
-          onChange={handleChange}
-        />
-        <TextField
-          margin="dense"
-          name="role"
-          label="Role"
-          type="text"
-          fullWidth
-          value={user.role}
-          onChange={handleChange}
-        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
@@ -102,6 +99,7 @@ const EditUserDialog = ({ open, handleClose, userId }) => {
           Save
         </Button>
       </DialogActions>
+      {error && <Typography color="error" sx={{ padding: 2 }}>{error}</Typography>}
     </Dialog>
   );
 };
