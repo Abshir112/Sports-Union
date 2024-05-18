@@ -3,12 +3,20 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const NotificationCard = () => {
   const [notifications, setNotifications] = useState([]);
+  const { user } = useAuthContext();
 
   useEffect(() => {
-    fetch('http://localhost:3000/notifications')
+    fetch('http://localhost:3000/notifications',
+      {
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      }
+    )
       .then(response => response.json())
       .then(data => setNotifications(data))
       .catch(error => console.error('Error fetching notifications:', error));
