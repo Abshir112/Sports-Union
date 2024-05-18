@@ -51,7 +51,7 @@ function Navbar() {
                       
                     }}
                 >
-                        <Link component={RouterLink} to={user ? "/events" : "/"} underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
+                        <Link component={RouterLink} to="/" underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
                             Home
                         </Link>
                         <Link component={RouterLink} to="/about" underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
