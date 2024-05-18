@@ -20,6 +20,30 @@ export const getAllUsers = async (req, res) => {
 };
 
 /**
+ * Retrieves a user by ID.
+ * 
+ * @async
+ * @function getUserById
+ * @param {object} req - Express request object containing user ID in params.
+ * @param {object} res - Express response object.
+ * @returns {Promise<void>} Responds with the user or an error message.
+ */
+export const getUserById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error('Error fetching user by ID:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+/**
  * Updates a user by ID.
  * 
  * @async
