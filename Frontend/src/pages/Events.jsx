@@ -9,8 +9,10 @@ import { useNavigate } from 'react-router-dom';
 import useReserveEvent from "../hooks/useReserveEvent"; 
 import useAddEvent from "../hooks/useAddEvent";
 import { useTheme } from "@mui/material";
+import useFetchUserEvents from "../hooks/useFetchUserEvents";
 
 const EventCardsList = () => {
+    const { fetchUserEvents } = useFetchUserEvents(); 
     const theme = useTheme();
     const navigate = useNavigate();
     const { user } = useAuthContext();
@@ -40,6 +42,18 @@ const EventCardsList = () => {
             }
         }
         fetchEvents();
+    }, []);
+
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem('user'));
+        const fetchUserEventsWrapper = () => {
+            fetchUserEvents(userData.user._id, userData.token);
+        };
+        fetchUserEventsWrapper();
+        const intervalId = setInterval(fetchUserEventsWrapper, 5000); // Fetch every 5 seconds
+
+        return () => clearInterval(intervalId); // Cleanup on unmount
+
     }, []);
 
     const handleReserve = async (eventID) => {
