@@ -73,7 +73,7 @@ const RegisteredActivitiesCard = () => {
         ) : (
           <Box sx={{ textAlign: 'center', marginTop: 4 }}>
             <Typography variant="h6" component="div">
-              You do not have any registered activities
+              You do not have any registered activities.
             </Typography>
           
           </Box>
