@@ -51,6 +51,7 @@ const Activities = () => {
 
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('user'));
+        if (!userData) return;
         const fetchUserActivitesWrapper = () => {
             fetchUserActivities(userData.user._id, userData.token);
         };

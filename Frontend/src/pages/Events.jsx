@@ -26,7 +26,6 @@ const EventCardsList = () => {
 
     useEffect(() => {
         const fetchEvents = async () => {
-            console.log('fetching events');
             try {
                 const response = await fetch('http://localhost:3000/events');
                 if (!response.ok) {
@@ -46,6 +45,7 @@ const EventCardsList = () => {
 
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('user'));
+        if (!userData) return;
         const fetchUserEventsWrapper = () => {
             fetchUserEvents(userData.user._id, userData.token);
         };
