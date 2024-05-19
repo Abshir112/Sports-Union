@@ -189,19 +189,6 @@ const Member = (props) => {
                             style: { color: 'black' },
                         }}
                     />
-                    <TextField
-                        margin="dense"
-                        name="password"
-                        label="Password"
-                        type="password"
-                        fullWidth
-                        value={editedMember.password}
-                        onChange={handleInputChange}
-                        
-                        InputProps={{
-                            style: { color: 'black' },
-                        }}
-                    />
                     <FormControl fullWidth margin="dense">
                         <InputLabel style={{ color: '#da7250'}}>Role</InputLabel>
                         <Select
