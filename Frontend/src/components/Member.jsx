@@ -15,8 +15,11 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { useAuthContext } from '../hooks/useAuthContext';
+
 
 const Member = (props) => {
+    const { user } = useAuthContext();
     const { member, onEdit, onDelete } = props;
 
     const [editMode, setEditMode] = useState(false);
@@ -41,7 +44,8 @@ const Member = (props) => {
             const response = await fetch(`http://localhost:3000/users/update-user/${editedMember._id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization':  `Bearer ${user.token}`
                 },
                 body: JSON.stringify(editedMember)
             });
@@ -56,7 +60,11 @@ const Member = (props) => {
     const handleDeleteClick = async () => {
         try {
             const response = await fetch(`http://localhost:3000/users/delete-user/${member._id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':  `Bearer ${user.token}`
+                },
             });
             if (response.ok) {
                 onDelete(member._id);
