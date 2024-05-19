@@ -11,7 +11,7 @@ const useAddActivity = () => {
         try {
             setIsLoading(true);
             const requestData = { ...activityData, currentParticipants: 0 };
-            fetch('http://localhost:3000/activities', {
+            fetch('https://sports-union.onrender.com/activities', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

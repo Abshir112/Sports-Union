@@ -14,7 +14,7 @@ const RegisteredActivitiesCard = () => {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/users-activities/${user.user._id}`,
+        const response = await fetch(`https://sports-union.onrender.com/users-activities/${user.user._id}`,
         {
           headers:{
             'Authorization':  `Bearer ${user.token}`
@@ -29,7 +29,7 @@ const RegisteredActivitiesCard = () => {
         }
 
         const activityPromises = userActivities.map(activity =>
-          fetch(`http://localhost:3000/activities/${activity.activityId}`,
+          fetch(`https://sports-union.onrender.com/activities/${activity.activityId}`,
           {
             headers:{
               'Authorization':  `Bearer ${user.token}`

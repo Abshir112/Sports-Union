@@ -19,7 +19,7 @@ const Members = () => {
         setError(null);
         const fetchMembers = async () => {
             try {
-                const response = await fetch('http://localhost:3000/users',
+                const response = await fetch('https://sports-union.onrender.com/users',
                     {
                         headers: {
                             'Authorization': `Bearer ${user.token}`,

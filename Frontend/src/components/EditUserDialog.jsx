@@ -22,7 +22,7 @@ const EditUserDialog = ({ open, handleClose}) => {
 
   useEffect(() => {
     if (open) {
-      fetch(`http://localhost:3000/users/${user.user._id}`,
+      fetch(`https://sports-union.onrender.com/users/${user.user._id}`,
       {
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -50,7 +50,7 @@ const EditUserDialog = ({ open, handleClose}) => {
       return;
     }
 
-    fetch(`http://localhost:3000/users/update-user/${user.user._id}`, {
+    fetch(`https://sports-union.onrender.com/users/update-user/${user.user._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

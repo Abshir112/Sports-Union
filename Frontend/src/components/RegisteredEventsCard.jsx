@@ -15,7 +15,7 @@ const RegisteredEventsCard = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/users-events/${user.user._id}`,
+        const response = await fetch(`https://sports-union.onrender.com/users-events/${user.user._id}`,
           {
             headers:{
               'Authorization':  `Bearer ${user.token}`
@@ -25,7 +25,7 @@ const RegisteredEventsCard = () => {
         const userEvents = await response.json();
 
         const eventPromises = userEvents.map(event =>
-          fetch(`http://localhost:3000/events/${event.eventId}`,
+          fetch(`https://sports-union.onrender.com/events/${event.eventId}`,
           {
             headers:{
               'Authorization':  `Bearer ${user.token}`
