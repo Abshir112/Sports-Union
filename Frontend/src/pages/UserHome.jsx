@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import EditIcon from '@mui/icons-material/Edit';
 import NotificationCard from '../components/NotificationCard';
 import RegisteredEventsCard from '../components/RegisteredEventsCard';
 import RegisteredActivitiesCard from '../components/RegisteredActivitiesCard';
