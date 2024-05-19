@@ -36,7 +36,7 @@ function SignUp() {
         event.preventDefault();
         const success = await signup(values.email, values.password, values.firstName + ' ' + values.lastName, values.phone, values.personnummer);
         if (success) {
-            redirect('/signIn');
+            redirect('/');
         }
 
       };

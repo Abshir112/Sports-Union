@@ -118,9 +118,6 @@ const Member = (props) => {
                           Phone Number:  {member.phone}
                         </Typography>
                         <Typography color="black">
-                           Personal Number: {member.personalNumber}
-                        </Typography>
-                        <Typography color="black">
                            Role: {member.role}
                         </Typography>
                     </div>
