@@ -11,11 +11,12 @@ const Members = () => {
     const {user} = useAuthContext();
     const theme = useTheme();
     const [members, setMembers] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(null);
     const [error, setError] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
+        setError(null);
         const fetchMembers = async () => {
             try {
                 const response = await fetch('http://localhost:3000/users',
@@ -38,7 +39,7 @@ const Members = () => {
         }
 
         fetchMembers();
-    }, []);
+    }, [user]); 
 
     const handleEditMember = (updatedMember) => {
         setMembers(members.map(member => 
@@ -54,28 +55,30 @@ const Members = () => {
         member.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    if (loading) {
-        return <Loading />;
-    }
+    const handleErrorReload = () => {
+        setLoading(true);
+        setError(null);
+    };
 
-    if (error) {
-        return <Error message={error} />;
-    }
 
     return (
-        <div style={{ padding: '2rem', backgroundColor: theme.palette.background.paper }}>
-            <Stack direction="row" spacing={2} alignItems="center" marginBottom="2rem">
-                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            </Stack>
-            {filteredMembers.map(member => (
-                <Member 
-                    key={member._id} 
-                    member={member} 
-                    onEdit={handleEditMember} 
-                    onDelete={handleDeleteMember} 
-                />
-            ))}
-        </div>
+        <>
+            {loading && <Loading />}
+            {error && <Error message={error} reload={handleErrorReload} />}
+            <div style={{ padding: '2rem', backgroundColor: theme.palette.background.paper }}>
+                <Stack direction="row" spacing={2} alignItems="center" marginBottom="2rem">
+                    <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                </Stack>
+                {filteredMembers.map(member => (
+                    <Member 
+                        key={member._id} 
+                        member={member} 
+                        onEdit={handleEditMember} 
+                        onDelete={handleDeleteMember} 
+                    />
+                ))}
+            </div>
+        </>
     );
 }
 
