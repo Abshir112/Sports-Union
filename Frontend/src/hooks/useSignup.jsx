@@ -12,7 +12,7 @@ export const useSignup = () => {
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:3000/users/sign-up', {
+            const response = await fetch('https://sports-union.onrender.com/users/sign-up', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

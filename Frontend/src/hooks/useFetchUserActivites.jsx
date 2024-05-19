@@ -5,7 +5,7 @@ const useFetchUserActivites = () => {
     const fetchUserActivities = async (id, token) => {
         console.log('Fetching user activities...', id);
         try {
-            const response = await fetch(`http://localhost:3000/users-activities/${id}`, {
+            const response = await fetch(`https://sports-union.onrender.com/users-activities/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

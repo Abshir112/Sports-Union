@@ -1,5 +1,3 @@
-// Create a loading component that will be displayed when the data is being fetched from the server.
-// The component should display a spinner and a message "Loading..." when the data is being fetched.
 import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';  
 import Typography from '@mui/material/Typography';

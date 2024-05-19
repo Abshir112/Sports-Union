@@ -1,5 +1,3 @@
-// Create an error component that will be displayed when there is an error fetching the data from the server.
-// The component should display an error message and a button to reload the page.
 
 import React from 'react';
 import Button from '@mui/material/Button';

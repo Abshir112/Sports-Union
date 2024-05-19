@@ -10,7 +10,7 @@ const useReserveActivity = () => {
 
     const reserveActivity = async (activityID) => {
         setIsLoading(true);
-        fetch('http://localhost:3000/users-activities/user-activity', {
+        fetch('https://sports-union.onrender.com/users-activities/user-activity', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ const useReserveActivity = () => {
     }
 
     const unReserveActivity = async (activityID) => {
-        fetch(`http://localhost:3000/users-activities`, {
+        fetch(`https://sports-union.onrender.com/users-activities`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

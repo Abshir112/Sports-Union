@@ -10,7 +10,7 @@ const NotificationCard = () => {
   const { user } = useAuthContext();
 
   useEffect(() => {
-    fetch('http://localhost:3000/notifications',
+    fetch('https://sports-union.onrender.com/notifications',
       {
         headers: {
           'Authorization': `Bearer ${user.token}`
