@@ -10,9 +10,11 @@ import Error from "../components/Error";
 import useReserveActivity from "../hooks/useReserveActivity";
 import useAddActivity from "../hooks/useAddActivity";
 import { useTheme } from "@mui/material";
+import  useFetchUserActivites from "../hooks/useFetchUserActivites";
 
 
 const Activities = () => {
+    const {fetchUserActivities} = useFetchUserActivites();
     const theme = useTheme();
     const navigate = useNavigate();
     const {user} = useAuthContext();
@@ -46,6 +48,18 @@ const Activities = () => {
         fetchActivities();
     }
     , []);
+
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem('user'));
+        const fetchUserActivitesWrapper = () => {
+            fetchUserActivities(userData.user._id, userData.token);
+        };
+        fetchUserActivitesWrapper();
+        const intervalId = setInterval(fetchUserActivitesWrapper, 5000); // Fetch every 5 seconds
+
+        return () => clearInterval(intervalId); // Cleanup on unmount
+
+    }, []);
 
     const handleReserve = async (activityID) => {
         if (!user) {
