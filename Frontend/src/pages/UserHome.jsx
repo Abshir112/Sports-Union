@@ -8,11 +8,14 @@ import NotificationCard from '../components/NotificationCard';
 import RegisteredEventsCard from '../components/RegisteredEventsCard';
 import RegisteredActivitiesCard from '../components/RegisteredActivitiesCard';
 import EditUserDialog from '../components/EditUserDialog';
+import { useMediaQuery } from '@mui/material';
 import { useTheme } from "@mui/material";
+
 
 
 const Dashboard = () => {
   const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   const [open, setOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -35,17 +38,19 @@ const Dashboard = () => {
           marginBottom: 4, 
           padding: 2, 
           backgroundColor: theme.palette.background.default, 
-          borderRadius: 3 
+          borderRadius: 3,
+          width: '100%',
+          flexWrap: 'wrap',
         }}
       >
-        <Typography variant="h3" component="div" sx={{ fontWeight: 'bold' }}>
+        <Typography variant="h3" component="div" sx={{ fontWeight: 'bold', fontSize: "x-large" }}>
           Dashboard
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton onClick={handleOpen} sx={{ color: theme.palette.text.primary }}>
             <AccountCircle fontSize="large" />
           </IconButton>
-          <Typography onClick={handleOpen} variant="h6" component="div" sx={{ marginLeft: 1 , cursor: 'pointer'}}>
+          <Typography onClick={handleOpen} variant="h6" component="div" sx={{ marginLeft: 0 , cursor: 'pointer'}}>
             {user ? user.user.name : 'User'}
           </Typography>
           

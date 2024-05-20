@@ -75,7 +75,8 @@ function Navbar() {
                         {
                             user ? (
                                 <>
-                                    <ButtonHandler title="Logout" link="/signIn" onClick={handleLogout} />
+                                    {/* <ButtonHandler title="Logout" link="/signIn" onClick={handleLogout} /> */}
+                                    <Link sx={{ color: theme.palette.text.primary }} title="Logout"  link="/signIn" onClick={handleLogout} > Logout </Link>
                                 </>
                             ) : (
                               null

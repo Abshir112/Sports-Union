@@ -10,10 +10,11 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material';
 
 const EventCard = (props) => {
-  const isSmallScreen = useMediaQuery('md');
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const theme = useTheme();
+
 
   const {user} = useAuthContext();
 
@@ -88,9 +89,8 @@ const EventCard = (props) => {
               <Typography gutterBottom variant="h4" component="div">
                 {props.title}
               </Typography>
-              <Box display="flex"  flexDirection={
-                !isSmallScreen ? 'column' : 'row'
-              } sx={{ color: 'white', paddingBottom: '10px'}}>
+              <Box display="flex"  flexDirection="column"
+              sx={{ color: 'white', paddingBottom: '10px'}}>
                 <Box>
                   <DateRangeOutlinedIcon fontSize="small" sx={{ ml: 1, mr: 1, color: !isSmallScreen ? theme.palette.text.secondary : theme.palette.text.primary }} />
                   <Typography variant="body1" component="span" letterSpacing={1} marginRight={2} >
@@ -99,7 +99,7 @@ const EventCard = (props) => {
                 </Box>
 
                 <Box>
-                  <AccessTimeIcon fontSize="small" sx={{ ml: 1, color: !isSmallScreen ? theme.palette.text.secondary : theme.palette.text.primary}} /> 
+                  <AccessTimeIcon fontSize="small" sx={{ ml: 1, color: !isSmallScreen ?theme.palette.text.secondary : theme.palette.text.primary}} /> 
                   <Typography variant="body1" component="span" marginRight={2} sx={{ mx: 1}}>
                     {props.time}
                   </Typography>

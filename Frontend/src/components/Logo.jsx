@@ -13,7 +13,6 @@ const Logo = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 marginTop: 2,
-                marginLeft: '3em',
             }}
         >
             <Link to={user ? "/events" : "/"} >

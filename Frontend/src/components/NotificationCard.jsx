@@ -82,15 +82,15 @@ const NotificationCard = () => {
     };
 
   return (
-    <Card sx={{ maxWidth: 400, backgroundColor: '#2C2F33', color: 'white', padding: 2, borderRadius: 3 }}>
+    <Card sx={{ maxWidth: "100%", backgroundColor: '#2C2F33', color: 'white', padding: 2, borderRadius: 3 }}>
         {user && user.user.role === 'admin' && (
           <Button variant="contained" onClick={handleAddNotification} sx={{ marginTop: 2 }}>
-            Add Notification
+            Add Announcement
           </Button>
         )}
       <CardContent>
         <Typography variant="h5" component="div" sx={{ marginBottom: 4 }}>
-          Notification
+          Announcements
         </Typography>
         {notifications.map((notification, index) => (
           <Box key={index} sx={{ marginBottom: 3 }}>
