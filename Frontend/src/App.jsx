@@ -15,6 +15,8 @@ import Members from './pages/AllMembers';
 import NotFound from './pages/404';
 import { useAuthContext } from './hooks/useAuthContext';
 import Dashboard from './pages/UserHome';
+import AdminDashboard from './components/AdminDashboard';
+
 
 function App() {
   const { user } = useAuthContext();
@@ -32,6 +34,7 @@ function App() {
           <Route path="/events" element={<Events/>} />
           <Route path='/members' element={<Members/>} />  
           <Route path='/members' element={user?.user.role !== 'admin' ? <NotFound/> : <Members/>}/> 
+          <Route path='/admin' element={user?.user.role !== 'admin' ? <NotFound/> : <AdminDashboard/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

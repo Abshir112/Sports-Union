@@ -60,17 +60,19 @@ function Navbar() {
                         <Link component={RouterLink} to="/activities" underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
                             Activities
                         </Link>
-                        {
-                            userRole === "admin" ? (
-                                <Link component={RouterLink} to="/members" underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
-                                    Members
-                                </Link>
-                            ) : null
-                        }
 
+                        
                         <Link component={RouterLink} to="/events" underline="hover" sx={{ color: theme.palette.text.primary }} >
                             Events
                         </Link>
+
+                        {
+                            userRole === "admin" ? (
+                                <Link component={RouterLink} to="/admin" underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
+                                    Administration
+                                </Link>
+                            ) : null
+                        }
 
                         {
                             user ? (
