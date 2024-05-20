@@ -5,6 +5,7 @@ import eventRouter from './routes/event.routes.js';
 import usersActivitiesRouter from './routes/user-activities.routes.js';
 import userEventRouter from './routes/user-events.routes.js';
 import notificationRouter from './routes/notification.routes.js';
+import adminRouter from './routes/admin.routes.js';
 
 const apiRouter = express.Router();
 
@@ -15,5 +16,6 @@ apiRouter.use('/users-activities', usersActivitiesRouter);
 apiRouter.use('/events', eventRouter);
 apiRouter.use('/users-events', userEventRouter);
 apiRouter.use('/notifications', notificationRouter);
+apiRouter.use('/admin', adminRouter);
 
 export default apiRouter;
