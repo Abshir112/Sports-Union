@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { connectDB } from './controllers/db.connection.js';
-import apiRouter from './api.routes.js';  // Import the new API router
+import apiRouter from './api.router.js';  // Import the new API router
 
 dotenv.config();
 
