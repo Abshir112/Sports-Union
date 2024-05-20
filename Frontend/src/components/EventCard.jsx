@@ -14,6 +14,8 @@ const EventCard = (props) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const storedCards = JSON.parse(localStorage.getItem(props.cardType) || '[]');
+  const card = storedCards.find(card => card._id === props.id);
 
 
   const {user} = useAuthContext();
@@ -117,19 +119,26 @@ const EventCard = (props) => {
               </Typography>
 
               <Typography variant="body1"  >
-                Max Participants: <span style={{color: theme.palette.text.secondary}}>{props.maxParticipants}</span>
+                Max Participants: <span style={{color: theme.palette.text.secondary}}>{card.maxParticipants}</span>
+              </Typography>
+
+              
+              <Typography variant="body1"  >
+                Available Spots: <span style={{color: theme.palette.text.secondary}}>{card.availableSpots}</span>
               </Typography>
 
             </Box>
             <CardActions sx={{ justifyContent: 'start' }}>
               <Button 
-               size="small" variant="contained" sx={{ backgroundColor: props.reserved ? "red" : "green" , color: 'white' }} onClick={
+               size="small" variant="contained" sx={{ backgroundColor: props.reserved ? "red" : "green" , color: 'white' }} 
+               disabled= {props.maxParticipants - props.currentParticipants <= 0 && !props.reserved} 
+               onClick={
                 props.reserved ? props.handleUnreserve : props.handleReserve
                } >
-                {props.reserved ? 'Unreserve' : 'Reserve'}
+                {props.reserved ? 'Unreserve' : props.currentParticipants === props.maxParticipants ? 'Full' : 'Reserve'}
                 
               </Button>
-              <Button 
+              <Button  
                size="small" variant="contained" sx={{ backgroundColor: theme.button.secondary.backgroundColor, color: 'white', display: props.show || 'none' }} onClick={handleEditModalOpen} >
                 Edit
               </Button>

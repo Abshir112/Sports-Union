@@ -1,4 +1,5 @@
 import UserActivity from '../models/users-activities.model.js';
+import Activity from '../models/activity.model.js';
 
 /**
  * Retrieves all users' activities with user and activity details.
@@ -110,6 +111,7 @@ export const createUserActivity = async (req, res) => {
     const { userId, activityId } = req.body;
     try {
         const userActivity = await UserActivity.create({ userId, activityId });
+        await Activity.findByIdAndUpdate(activityId, { $inc: { availableSpots: -1, currentParticipants: 1} }, { new: true });
         res.status(201).json(userActivity);
     } catch (error) {
         console.error(error);
@@ -133,6 +135,7 @@ export const deleteUserActivity = async (req, res) => {
         if (!userActivity) {
             return res.status(404).json({ message: 'User activity not found' });
         }
+        await Activity.findByIdAndUpdate(activityId, { $inc: { availableSpots: 1, currentParticipants: -1 } }, { new: true });
         res.json(userActivity);
     } catch (error) {
         console.error(error);
