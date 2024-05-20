@@ -90,7 +90,7 @@ activityRouter.post('/:id/reserve', async (req, res) => {
             return res.status(400).json({ message: 'Activity is fully booked' });
         }
 
-        // activity.currentParticipants += 1;
+        activity.currentParticipants += 1;
         await activity.save();
         res.status(200).json(activity);
     } catch (error) {
@@ -110,7 +110,7 @@ activityRouter.post('/:id/unreserve', async (req, res) => {
             return res.status(400).json({ message: 'No participants to unreserve' });
         }
 
-        // activity.currentParticipants -= 1;
+        activity.currentParticipants -= 1;
         await activity.save();
         res.status(200).json(activity);
     } catch (error) {
