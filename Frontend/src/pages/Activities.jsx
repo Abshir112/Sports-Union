@@ -17,7 +17,7 @@ const Activities = () => {
     const {fetchUserActivities} = useFetchUserActivites();
     const theme = useTheme();
     const navigate = useNavigate();
-    const {user} = useAuthContext();
+    const {user, dispatch} = useAuthContext();
     const userRole =  user ? user.user.role : null;
     const [activities, setActivities] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -29,7 +29,6 @@ const Activities = () => {
     
     useEffect(() => {
         const fetchActivities = async () => {
-            console.log('fetching activities');
             try {
                 const response = await fetch('https://sports-union.onrender.com/api/v1/activities');
                 if (!response.ok) {
@@ -37,6 +36,8 @@ const Activities = () => {
                 }
                 const data = await response.json();
                 setActivities(data);
+                dispatch({ type: 'SET_ACTIVITIES', payload: data });
+                localStorage.setItem('activities', JSON.stringify(data));
                 setError(null);
                 setLoading(false);
             } catch (error) {
@@ -131,6 +132,8 @@ const Activities = () => {
             description={activity.description}
             maxParticipants={activity.maxParticipants}
             image={activity.image}
+            currentParticipants={activity.currentParticipants}
+            availableSpots={activity.availableSpots}
             handleReserve={() => handleReserve(activity._id)}
             handleUnreserve={() => handleUnReserve(activity._id)}
             show={userRole === 'admin' ? 'block' : 'none'}
