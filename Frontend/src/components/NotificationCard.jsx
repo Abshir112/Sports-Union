@@ -17,7 +17,7 @@ const NotificationCard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch('https://sports-union.onrender.com/notifications',
+    fetch('https://sports-union.onrender.com/api/v1/notifications',
       {
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -42,7 +42,7 @@ const NotificationCard = () => {
 
     const handleDeleteNotification = async (id) => {
         try {
-        await fetch(`https://sports-union.onrender.com/notifications/${id}`, {
+        await fetch(`https://sports-union.onrender.com/api/v1/notifications/${id}`, {
             method: 'DELETE',
             headers: {
             'Authorization': `Bearer ${user.token}`
@@ -56,7 +56,7 @@ const NotificationCard = () => {
 
     const handleSaveNotification = async (notification) => {
         const method = notification._id ? 'PUT' : 'POST';
-        const url = notification._id ? `https://sports-union.onrender.com/notifications/${notification._id}` : 'https://sports-union.onrender.com/notifications';
+        const url = notification._id ? `https://sports-union.onrender.com/api/v1/notifications/${notification._id}` : 'https://sports-union.onrender.com/api/v1/notifications';
 
         try {
         const response = await fetch(url, {

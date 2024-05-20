@@ -27,7 +27,7 @@ const EventCard = (props) => {
 
   const handleEdit = (editedData) => {
     try {
-      fetch(`https://sports-union.onrender.com/${props.cardType}/${editedData.id}`, {
+      fetch(`https://sports-union.onrender.com/api/v1/${props.cardType}/${editedData.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const EventCard = (props) => {
   };
   const handleDelete = () => {
     try {
-      fetch(`https://sports-union.onrender.com/${props.cardType}/${props.id}`, {
+      fetch(`https://sports-union.onrender.com/api/v1/${props.cardType}/${props.id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${user.token}`

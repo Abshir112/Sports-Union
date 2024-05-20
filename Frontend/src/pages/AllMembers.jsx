@@ -19,7 +19,7 @@ const Members = () => {
         setError(null);
         const fetchMembers = async () => {
             try {
-                const response = await fetch('https://sports-union.onrender.com/users',
+                const response = await fetch('https://sports-union.onrender.com/api/v1/users',
                     {
                         headers: {
                             'Authorization': `Bearer ${user.token}`,

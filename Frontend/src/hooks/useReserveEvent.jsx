@@ -9,7 +9,7 @@ const useReserveEvent = () => {
 
     const reserveEvent = async (eventID) => {
         setIsLoading(true);
-        fetch('https://sports-union.onrender.com/users-events/user-event', {
+        fetch('https://sports-union.onrender.com/api/v1/users-events/user-event', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const useReserveEvent = () => {
 
     const unReserveEvent = async (eventID) => {
         console.log('Unreserving event...');
-        fetch(`https://sports-union.onrender.com/users-events`, {
+        fetch(`https://sports-union.onrender.com/api/v1/users-events`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

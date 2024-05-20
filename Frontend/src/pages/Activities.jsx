@@ -31,7 +31,7 @@ const Activities = () => {
         const fetchActivities = async () => {
             console.log('fetching activities');
             try {
-                const response = await fetch('https://sports-union.onrender.com/activities');
+                const response = await fetch('https://sports-union.onrender.com/api/v1/activities');
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
                 }

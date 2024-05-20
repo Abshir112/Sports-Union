@@ -27,7 +27,7 @@ const EventCardsList = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await fetch('https://sports-union.onrender.com/events');
+                const response = await fetch('https://sports-union.onrender.com/api/v1/events');
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
                 }
