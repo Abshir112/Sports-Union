@@ -1,16 +1,10 @@
 import express from 'express';
-import userRouter from './routes/user.routes.js';
-import activityRouter from './routes/activity.routes.js';
-import { connectDB } from './controllers/db.connection.js';
-import eventRouter from './routes/event.routes.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import usersActivitiesRouter from './routes/user-activities.routes.js';
-import userEventRouter from './routes/user-events.routes.js';
-import notificationRouter from './routes/notification.routes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
+import { connectDB } from './controllers/db.connection.js';
+import apiRouter from './api.routes.js';  // Import the new API router
 
 dotenv.config();
 
@@ -28,50 +22,30 @@ connectDB();
 app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('../Frontend/dist'));
 
 /**
  * Middleware for parsing JSON bodies from requests.
  */
 app.use(express.json());
 
+/**
+ * Serve static files from the frontend build directory.
+ */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, '../Frontend/dist')));
 
+/**
+ * Use the versioned API router
+ */
+app.use('/api/v1', apiRouter);
+
+/**
+ * Catch-all route to serve the React app's index.html for any non-API routes.
+ */
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../Frontend/dist/index.html'));
 });
-
-/**
- * Route for user-related endpoints.
- */
-app.use('/users', userRouter);
-
-/**
- * Route for activity-related endpoints.
- */
-app.use('/activities', activityRouter);
-
-/**
- * Route for users-activities-related endpoints.
- */
-app.use('/users-activities', usersActivitiesRouter);
-
-/**
- * Route for event-related endpoints.
- */
-app.use('/events', eventRouter);
-
-/**
- * Route for user-events-related endpoints.
- */
-app.use('/users-events', userEventRouter);
-
-/**
- * Route for notification-related endpoints.
- */
-app.use('/notifications', notificationRouter);
-
 
 /**
  * Start the server.
