@@ -163,9 +163,7 @@ const EventCard = (props) => {
           time: props.time,
           location: props.location,
           description: props.description,
-          maxParticipants: props.maxParticipants,
-          availableSpots: props.availableSpots,
-        }}
+          maxParticipants: props.maxParticipants,        }}
         handleEdit={handleEdit}
       />
 
