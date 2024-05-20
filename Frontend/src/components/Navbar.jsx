@@ -68,7 +68,7 @@ function Navbar() {
 
                         {
                             userRole === "admin" ? (
-                                <Link component={RouterLink} to="/admin" underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
+                                <Link component={RouterLink} to="/members" underline="hover" mr={1} sx={{ color: theme.palette.text.primary }}>
                                     Administration
                                 </Link>
                             ) : null
