@@ -6,11 +6,21 @@ const useReserveActivity = () => {
     const {user} = useAuthContext();
     const [reserveError, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
-    const { userActivities, dispatch } = useAuthContext();
+    const { userActivities, activities, dispatch } = useAuthContext();
 
     const reserveActivity = async (activityID) => {
+        const updatedActivities = activities.map(activity => {
+            if (activity._id === activityID) {
+                return {
+                    ...activity,
+                    currentParticipants: activity.currentParticipants + 1,
+                    availableSpots: activity.availableSpots - 1
+                };
+            }
+            return activity;
+        });
         setIsLoading(true);
-        fetch('https://sports-union.onrender.com/api/v1/users-activities/user-activity', {
+        fetch('http://localhost:3000/api/v1/users-activities/user-activity', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,6 +41,8 @@ const useReserveActivity = () => {
             // Dispatch action to update userActivities
             localStorage.setItem('userActivities', JSON.stringify([...userActivities, data]));
             dispatch({ type: 'ADD_USER_ACTIVITY', payload: data });
+            localStorage.setItem('activities', JSON.stringify(updatedActivities));
+            dispatch({ type: 'UPDATE_ACTIVITIES', payload: updatedActivities });
             setIsLoading(false);
             setError(null);
             // reload the page
@@ -43,7 +55,17 @@ const useReserveActivity = () => {
     }
 
     const unReserveActivity = async (activityID) => {
-        fetch(`https://sports-union.onrender.com/api/v1/users-activities`, {
+        const updatedActivities = activities.map(activity => {
+            if (activity._id === activityID) {
+                return {
+                    ...activity,
+                    currentParticipants: activity.currentParticipants - 1,
+                    availableSpots: activity.availableSpots + 1
+                };
+            }
+            return activity;
+        });
+        fetch(`http://localhost:3000/api/v1/users-activities`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -61,6 +83,8 @@ const useReserveActivity = () => {
             // Dispatch action to remove the unreserved activity from userActivities
             dispatch({ type: 'REMOVE_USER_ACTIVITY', payload: activityID });
             localStorage.setItem('userActivities', JSON.stringify(userActivities.filter(activity => activity.activityId !== activityID)));
+            localStorage.setItem('activities', JSON.stringify(updatedActivities));
+            dispatch({ type: 'UPDATE_ACTIVITIES', payload: updatedActivities });
             setError(null);
             // reload the page
             //window.location.reload();
