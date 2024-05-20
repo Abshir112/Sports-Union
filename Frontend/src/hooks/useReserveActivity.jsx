@@ -19,7 +19,6 @@ const useReserveActivity = () => {
             }
             return activity;
         });
-        setIsLoading(true);
         fetch('https://sports-union.onrender.com/api/v1/users-activities/user-activity', {
             method: 'POST',
             headers: {
@@ -43,7 +42,6 @@ const useReserveActivity = () => {
             dispatch({ type: 'ADD_USER_ACTIVITY', payload: data });
             localStorage.setItem('activities', JSON.stringify(updatedActivities));
             dispatch({ type: 'UPDATE_ACTIVITIES', payload: updatedActivities });
-            setIsLoading(false);
             setError(null);
             // reload the page
             //window.location.reload();
