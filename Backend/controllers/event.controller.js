@@ -11,10 +11,7 @@ import Event from "../models/event.model.js";
  */
 export const createEvent = async (req, res) => {
     try {
-        const { title, date, maxParticipants, location, description, time, image } = req.body;
-        const availableSpots = maxParticipants; // Initialize available spots to maxParticipants
-
-        const event = await Event.create({ title, date, maxParticipants, location, description, time, image, availableSpots });
+        const event = await Event.create(req.body);
         res.status(201).json(event);
     } catch (error) {
         console.error('Error creating Event:', error);
@@ -72,15 +69,9 @@ export const getEventById = async (req, res) => {
  */
 export const updateEvent = async (req, res) => {
     const id = req.params.id;
-    const { title, date, location, description, time, maxParticipants } = req.body;
+    const { title, date, location, description, time } = req.body;
     try {
-        const event = await Event.findByIdAndUpdate(id, { title, date, location, description, time, maxParticipants }, { new: true });
-        if (maxParticipants && event) {
-            const currentParticipants = event.currentParticipants;
-            const availableSpots = maxParticipants - currentParticipants;
-            event.availableSpots = availableSpots;
-            await event.save();
-        }
+        const event = await Event.findByIdAndUpdate(id, { title, date, location, description, time }, { new: true });
         res.json(event);
     } catch (error) {
         console.error('Error updating Event:', error);
@@ -104,66 +95,6 @@ export const deleteEvent = async (req, res) => {
         res.json({ message: 'Event deleted successfully' });
     } catch (error) {
         console.error('Error deleting Event:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-};
-
-/**
- * Registers a user for an event.
- * 
- * @async
- * @function registerForEvent
- * @param {object} req - Express request object containing user ID and event ID in the body.
- * @param {object} res - Express response object.
- * @returns {Promise<void>} Responds with the updated event or an error message.
- */
-export const registerForEvent = async (req, res) => {
-    const { userId, eventId } = req.body;
-    try {
-        const event = await Event.findById(eventId);
-        if (!event) {
-            return res.status(404).json({ message: 'Event not found' });
-        }
-        if (event.availableSpots > 0) {
-            event.availableSpots -= 1;
-            event.currentParticipants += 1;
-            await event.save();
-            res.status(201).json({ message: 'Registered successfully', event });
-        } else {
-            res.status(400).json({ message: 'No available spots' });
-        }
-    } catch (error) {
-        console.error('Error registering for Event:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-};
-
-/**
- * Unregisters a user from an event.
- * 
- * @async
- * @function unregisterFromEvent
- * @param {object} req - Express request object containing user ID and event ID in the body.
- * @param {object} res - Express response object.
- * @returns {Promise<void>} Responds with the updated event or an error message.
- */
-export const unregisterFromEvent = async (req, res) => {
-    const { userId, eventId } = req.body;
-    try {
-        const event = await Event.findById(eventId);
-        if (!event) {
-            return res.status(404).json({ message: 'Event not found' });
-        }
-        if (event.currentParticipants > 0) {
-            event.availableSpots += 1;
-            event.currentParticipants -= 1;
-            await event.save();
-            res.status(201).json({ message: 'Unregistered successfully', event });
-        } else {
-            res.status(400).json({ message: 'No participants to remove' });
-        }
-    } catch (error) {
-        console.error('Error unregistering from Event:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
