@@ -9,6 +9,7 @@ export const authReducer = (state, action) => {
                 ...state,
                 user: action.payload
             };
+        
         case 'LOGOUT':
             return {
                 ...state,
@@ -30,12 +31,19 @@ export const authReducer = (state, action) => {
                 ...state,
                 activities: action.payload
             };
+        
         case 'SET_EVENTS':
             return {
                 ...state,
                 events: action.payload
             };
-
+        
+        case 'UPDATE_EVENTS':
+            return {
+                ...state,
+                events: action.payload
+            };
+        
         case 'SET_USER_ACTIVITIES':
             return {
                 ...state,
@@ -71,7 +79,7 @@ export const authReducer = (state, action) => {
                 ...state,
                 userEvents: state.userEvents.filter(event => event.eventId !== action.payload)
             }; 
-
+        
         default:
             return state;
     }
