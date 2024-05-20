@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import Member from "../components/Member";
+import AdminDashboard from '../components/AdminDashboard';
 import Stack from '@mui/material/Stack';
 import { useTheme } from "@mui/material";
 import SearchBar from "../components/SearchBar";  
@@ -65,6 +66,7 @@ const Members = () => {
         <>
             {loading && <Loading />}
             {error && <Error message={error} reload={handleErrorReload} />}
+            <AdminDashboard />
             <div style={{ padding: '2rem', backgroundColor: theme.palette.background.paper }}>
                 <Stack direction="row" spacing={2} alignItems="center" marginBottom="2rem">
                     <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
