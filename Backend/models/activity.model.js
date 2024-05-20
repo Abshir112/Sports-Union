@@ -25,7 +25,7 @@ const activitySchema = new mongoose.Schema({
     location: { type: String, required: true },
     description: { type: String, required: true },
     image: { type: String, required: false },
-    currentParticipants: { type: Number, required: true },
+    currentParticipants: { type: Number, default: 0 },
     time: { type: String, required: true }
 }, { collection: 'Activity' });
 

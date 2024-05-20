@@ -78,4 +78,44 @@ activityRouter.put('/:id', updateActivity);
  */
 activityRouter.delete('/:id', deleteActivity);
 
+// Reserve activity
+activityRouter.post('/:id/reserve', async (req, res) => {
+    try {
+        const activity = await Activity.findById(req.params.id);
+        if (!activity) {
+            return res.status(404).json({ message: 'Activity not found' });
+        }
+
+        if (activity.currentParticipants >= activity.maxParticipants) {
+            return res.status(400).json({ message: 'Activity is fully booked' });
+        }
+
+        activity.currentParticipants += 1;
+        await activity.save();
+        res.status(200).json(activity);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Unreserve activity
+activityRouter.post('/:id/unreserve', async (req, res) => {
+    try {
+        const activity = await Activity.findById(req.params.id);
+        if (!activity) {
+            return res.status(404).json({ message: 'Activity not found' });
+        }
+
+        if (activity.currentParticipants <= 0) {
+            return res.status(400).json({ message: 'No participants to unreserve' });
+        }
+
+        activity.currentParticipants -= 1;
+        await activity.save();
+        res.status(200).json(activity);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 export default activityRouter;
