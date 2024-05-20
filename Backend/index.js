@@ -8,6 +8,8 @@ import dotenv from 'dotenv';
 import usersActivitiesRouter from './routes/user-activities.routes.js';
 import userEventRouter from './routes/user-events.routes.js';
 import notificationRouter from './routes/notification.routes.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 
 dotenv.config();
@@ -32,6 +34,13 @@ app.use(express.static('../Frontend/dist'));
  * Middleware for parsing JSON bodies from requests.
  */
 app.use(express.json());
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../Frontend/dist/index.html'));
+});
 
 /**
  * Route for user-related endpoints.
