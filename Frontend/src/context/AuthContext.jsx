@@ -9,13 +9,41 @@ export const authReducer = (state, action) => {
                 ...state,
                 user: action.payload
             };
+        
         case 'LOGOUT':
             return {
                 ...state,
                 user: null,
+                activties: [],
+                events: [],
                 userActivities: [],
                 userEvents: []
             };
+        
+        case 'SET_ACTIVITIES':
+            return {
+                ...state,
+                activities: action.payload
+            };
+        
+        case 'UPDATE_ACTIVITIES':
+            return {
+                ...state,
+                activities: action.payload
+            };
+        
+        case 'SET_EVENTS':
+            return {
+                ...state,
+                events: action.payload
+            };
+        
+        case 'UPDATE_EVENTS':
+            return {
+                ...state,
+                events: action.payload
+            };
+        
         case 'SET_USER_ACTIVITIES':
             return {
                 ...state,
@@ -51,7 +79,7 @@ export const authReducer = (state, action) => {
                 ...state,
                 userEvents: state.userEvents.filter(event => event.eventId !== action.payload)
             }; 
-
+        
         default:
             return state;
     }
@@ -61,7 +89,9 @@ export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, {
         user: null,
         userActivities: [], // Initialize userActivities as an empty array
-        userEvents: [] // Initialize userEvents as an empty array
+        userEvents: [], // Initialize userEvents as an empty array
+        activities: [],
+        events: []
     });
 
 

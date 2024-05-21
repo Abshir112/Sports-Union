@@ -6,10 +6,19 @@ const useReserveActivity = () => {
     const {user} = useAuthContext();
     const [reserveError, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
-    const { userActivities, dispatch } = useAuthContext();
+    const { userActivities, activities, dispatch } = useAuthContext();
 
     const reserveActivity = async (activityID) => {
-        setIsLoading(true);
+        const updatedActivities = activities.map(activity => {
+            if (activity._id === activityID) {
+                return {
+                    ...activity,
+                    currentParticipants: activity.currentParticipants + 1,
+                    availableSpots: activity.availableSpots - 1
+                };
+            }
+            return activity;
+        });
         fetch('https://sports-union.onrender.com/api/v1/users-activities/user-activity', {
             method: 'POST',
             headers: {
@@ -31,7 +40,8 @@ const useReserveActivity = () => {
             // Dispatch action to update userActivities
             localStorage.setItem('userActivities', JSON.stringify([...userActivities, data]));
             dispatch({ type: 'ADD_USER_ACTIVITY', payload: data });
-            setIsLoading(false);
+            localStorage.setItem('activities', JSON.stringify(updatedActivities));
+            dispatch({ type: 'UPDATE_ACTIVITIES', payload: updatedActivities });
             setError(null);
             // reload the page
             //window.location.reload();
@@ -43,6 +53,16 @@ const useReserveActivity = () => {
     }
 
     const unReserveActivity = async (activityID) => {
+        const updatedActivities = activities.map(activity => {
+            if (activity._id === activityID) {
+                return {
+                    ...activity,
+                    currentParticipants: activity.currentParticipants - 1,
+                    availableSpots: activity.availableSpots + 1
+                };
+            }
+            return activity;
+        });
         fetch(`https://sports-union.onrender.com/api/v1/users-activities`, {
             method: 'DELETE',
             headers: {
@@ -61,6 +81,8 @@ const useReserveActivity = () => {
             // Dispatch action to remove the unreserved activity from userActivities
             dispatch({ type: 'REMOVE_USER_ACTIVITY', payload: activityID });
             localStorage.setItem('userActivities', JSON.stringify(userActivities.filter(activity => activity.activityId !== activityID)));
+            localStorage.setItem('activities', JSON.stringify(updatedActivities));
+            dispatch({ type: 'UPDATE_ACTIVITIES', payload: updatedActivities });
             setError(null);
             // reload the page
             //window.location.reload();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Container } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import EventCard from "../components/EventCard";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
@@ -15,7 +15,7 @@ const EventCardsList = () => {
     const { fetchUserEvents } = useFetchUserEvents(); 
     const theme = useTheme();
     const navigate = useNavigate();
-    const { user } = useAuthContext();
+    const { user, dispatch } = useAuthContext();
     const userRole = user ? user.user.role : null;
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -33,15 +33,17 @@ const EventCardsList = () => {
                 }
                 const data = await response.json();
                 setEvents(data);
+                dispatch({ type: 'SET_EVENTS', payload: data }); // Dispatch to update events in context
+                localStorage.setItem('events', JSON.stringify(data)); // Update events in localStorage
                 setError(null);
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
                 setLoading(false);
             }
-        }
+        };
         fetchEvents();
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('user'));
@@ -54,42 +56,42 @@ const EventCardsList = () => {
 
         return () => clearInterval(intervalId); // Cleanup on unmount
 
-    }, []);
+    }, [fetchUserEvents]);
 
     const handleReserve = async (eventID) => {
         if (!user) {
             navigate('/signin');
             return;
         }
-        await reserveEvent(eventID);
-    }
+        await reserveEvent(eventID); 
+    };
 
     const handleUnReserve = async (eventID) => {
         await unReserveEvent(eventID);
-    }
+    };
 
     const handleAddClick = () => {
         setIsAddModalOpen(true);
-    }
+    };
 
     const handleCloseAddModal = () => {
         setIsAddModalOpen(false);
-    }
+    };
 
     const handleAddEvent = async (event) => {
         await addEvent(event);
-    }
+    };
 
     const errorReload = () => {
         setError(null);
         setLoading(true);
-    }
+    };
 
     const checkIfReserved = (eventID) => {
         const userEvents = JSON.parse(localStorage.getItem('userEvents'));
         if (!userEvents) return false;
         return userEvents.some(event => event.eventId === eventID);
-    }
+    };
 
     return (
         <>
@@ -106,7 +108,7 @@ const EventCardsList = () => {
                         color="primary"
                         size="large"
                         style={{ margin: '1em'}}
-                        onClick={() => handleAddClick()}
+                        onClick={handleAddClick}
                     >
                         Add Event
                     </Button>

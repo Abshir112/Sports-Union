@@ -10,10 +10,13 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material';
 
 const EventCard = (props) => {
-  const isSmallScreen = useMediaQuery('md');
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const theme = useTheme();
+  const storedCards = JSON.parse(localStorage.getItem(props.cardType) || '[]');
+  const card = storedCards.find(card => card._id === props.id);
+
 
   const {user} = useAuthContext();
 
@@ -88,9 +91,8 @@ const EventCard = (props) => {
               <Typography gutterBottom variant="h4" component="div">
                 {props.title}
               </Typography>
-              <Box display="flex"  flexDirection={
-                !isSmallScreen ? 'column' : 'row'
-              } sx={{ color: 'white', paddingBottom: '10px'}}>
+              <Box display="flex"  flexDirection="column"
+              sx={{ color: 'white', paddingBottom: '10px'}}>
                 <Box>
                   <DateRangeOutlinedIcon fontSize="small" sx={{ ml: 1, mr: 1, color: !isSmallScreen ? theme.palette.text.secondary : theme.palette.text.primary }} />
                   <Typography variant="body1" component="span" letterSpacing={1} marginRight={2} >
@@ -99,7 +101,7 @@ const EventCard = (props) => {
                 </Box>
 
                 <Box>
-                  <AccessTimeIcon fontSize="small" sx={{ ml: 1, color: !isSmallScreen ? theme.palette.text.secondary : theme.palette.text.primary}} /> 
+                  <AccessTimeIcon fontSize="small" sx={{ ml: 1, color: !isSmallScreen ?theme.palette.text.secondary : theme.palette.text.primary}} /> 
                   <Typography variant="body1" component="span" marginRight={2} sx={{ mx: 1}}>
                     {props.time}
                   </Typography>
@@ -117,19 +119,26 @@ const EventCard = (props) => {
               </Typography>
 
               <Typography variant="body1"  >
-                Max Participants: <span style={{color: theme.palette.text.secondary}}>{props.maxParticipants}</span>
+                Max Participants: <span style={{color: theme.palette.text.secondary}}>{card.maxParticipants}</span>
+              </Typography>
+
+              
+              <Typography variant="body1"  >
+                Available Spots: <span style={{color: theme.palette.text.secondary}}>{card.availableSpots}</span>
               </Typography>
 
             </Box>
             <CardActions sx={{ justifyContent: 'start' }}>
               <Button 
-               size="small" variant="contained" sx={{ backgroundColor: props.reserved ? "red" : "green" , color: 'white' }} onClick={
+               size="small" variant="contained" sx={{ backgroundColor: props.reserved ? "red" : "green" , color: 'white' }} 
+               disabled= {props.maxParticipants - props.currentParticipants <= 0 && !props.reserved} 
+               onClick={
                 props.reserved ? props.handleUnreserve : props.handleReserve
                } >
-                {props.reserved ? 'Unreserve' : 'Reserve'}
+                {props.reserved ? 'Unreserve' : props.currentParticipants === props.maxParticipants ? 'Full' : 'Reserve'}
                 
               </Button>
-              <Button 
+              <Button  
                size="small" variant="contained" sx={{ backgroundColor: theme.button.secondary.backgroundColor, color: 'white', display: props.show || 'none' }} onClick={handleEditModalOpen} >
                 Edit
               </Button>
@@ -154,7 +163,8 @@ const EventCard = (props) => {
           time: props.time,
           location: props.location,
           description: props.description,
-          maxParticipants: props.maxParticipants
+          maxParticipants: props.maxParticipants,
+          availableSpots: props.availableSpots,
         }}
         handleEdit={handleEdit}
       />

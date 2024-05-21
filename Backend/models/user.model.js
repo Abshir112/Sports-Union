@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true},
     phone: { type: String, required: true, unique: true},
-    personalNumber: { type: String, required: true, unique: true},
+    personalNumber: { type: String, required: false, unique: true},
     password: { type: String, required: true },
     role: { type: String, required: true, default: 'user'}
 }, { collection: 'User' });
@@ -22,7 +22,7 @@ userSchema.statics.signup = async function (email, password, name, phone, person
     }
 
     if(!validator.isStrongPassword(password)) {
-        throw new Error('Password must be at least 8 characters long and contain a number');
+        throw new Error('Password must be at least 8 characters long and contain at least one lowercase, one uppercase, one number and one special character');
     }
 
     if(!validator.isMobilePhone(phone)) {
@@ -57,12 +57,12 @@ userSchema.statics.login = async function (email, password) {
 
     const user = await this.findOne({ email });
     if (!user) {
-        throw new Error('Invalid email');
+        throw new Error('Invalid email or password');
     }
 
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
-        throw new Error('Invalid password');
+        throw new Error('Invalid email or password');
     }
 
     return user;

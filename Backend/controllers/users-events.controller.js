@@ -1,4 +1,5 @@
 import UserEvent from "../models/users-events.model.js";
+import Event from "../models/event.model.js";
 
 /**
  * Retrieves all users' events with user and event details.
@@ -111,8 +112,10 @@ export const addUserEvent = async (req, res) => {
   const { userId, eventId } = req.body;
   try {
     const userEvent = await UserEvent.create({ userId, eventId });
-    res.json(userEvent);
+    await Event.findByIdAndUpdate(eventId, { $inc: { availableSpots: -1, currentParticipants: 1 } }, { new: true });
+    res.status(201).json(userEvent);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -133,6 +136,7 @@ export const deleteUserEvent = async (req, res) => {
     if (!userEvent) {
       return res.status(404).json({ message: "User event not found" });
     }
+    await Event.findByIdAndUpdate(eventId, { $inc: { availableSpots: 1, currentParticipants: -1 } }, { new: true });
     res.json({ message: "User event deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });

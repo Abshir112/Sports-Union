@@ -45,7 +45,7 @@ const RegisteredEventsCard = () => {
   }, [user.user._id]);
 
   return (
-    <Card sx={{ maxWidth: 400, backgroundColor: '#2C2F33', color: 'white', padding: 2, borderRadius: 3 }}>
+    <Card sx={{  maxWidth: "100%", backgroundColor: '#2C2F33', color: 'white', padding: 2, borderRadius: 3 }}>
       <CardContent>
         <Typography variant="h5" component="div" sx={{ marginBottom: 2, textAlign: 'center', fontWeight: 'bold' }}>
           REGISTERED EVENTS

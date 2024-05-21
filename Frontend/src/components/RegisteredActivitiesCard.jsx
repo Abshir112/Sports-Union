@@ -49,7 +49,7 @@ const RegisteredActivitiesCard = () => {
   }, [user.user._id]);
 
   return (
-    <Card sx={{ maxWidth: 400, backgroundColor: '#D9531E', color: 'white', padding: 2, borderRadius: 3 }}>
+    <Card sx={{  maxWidth: "100%", backgroundColor: '#D9531E', color: 'white', padding: 2, borderRadius: 3 }}>
       <CardContent>
         <Typography variant="h5" component="div" sx={{ marginBottom: 2, textAlign: 'center', fontWeight: 'bold' }}>
           REGISTERED ACTIVITIES

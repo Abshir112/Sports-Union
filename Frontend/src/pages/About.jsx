@@ -1,16 +1,16 @@
-import { Container, Typography, Box, Grid, Card, CardContent, CardMedia } from '@mui/material';
+import { Container, Typography, Box, Grid, Card, CardContent, CardMedia, useMediaQuery } from '@mui/material';
 import { useTheme } from "@mui/material";
 
 const teamMembers = [
-  { name: "Team Member 1", image: "https://i.ibb.co/r2YVZKT/ahmed.jpg", description: "Full Stack Developer" },
-  { name: "Team Member 2", image: "https://i.ibb.co/qx7P8YK/alloush.jpg", description: "Full Stack Developer" },
-  { name: "Team Member 3", image: "https://i.ibb.co/PYGCXh3/lakshmi.jpg", description: "Full Stack Developer" },
-  { name: "Team Member 4", image: "https://i.ibb.co/M6FcRsg/jwan.png", description: "Full Stack Developer" },
-  { name: "Team Member 5", image: "https://i.ibb.co/VtLmrLD/Abshir.jpg", description: "Full Stack Developer" },
-];
+  { name: "Ahmed Radwan", image: "https://i.ibb.co/r2YVZKT/ahmed.jpg", description: "Full Stack Developer with focus on System design, Back End, database management and Project management." },
+  { name: "Mohamad Alloush", image: "https://i.ibb.co/qx7P8YK/alloush.jpg", description: "Full Stack Developer with main focus on Back End and database management." },
+  { name: "Lakshmi Hayagrivan", image: "https://i.ibb.co/PYGCXh3/lakshmi.jpg", description: "Full Stack Developer with the main role of Project Designer, focus on Figma and Front End." },
+  { name: "Jwan Mardini", image: "https://i.ibb.co/M6FcRsg/jwan.png", description: "Full Stack Developer with focus on Front End, Authentication, Material UI, Debugging and Testing " },
+  { name: "Abshir Abdi", image: "https://i.ibb.co/VtLmrLD/Abshir.jpg", description: "Full Stack Developer with focus on Front End, Material UI, Resources management and debugging" }];
 
 const About = () => {
   const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <Container component="main" maxWidth="lg" sx={{mt: 4, p: { xs: 2, sm: 3 }, backgroundColor: theme.palette.background.paper, borderRadius: "1%"}}>
       <Grid container spacing={2}>
@@ -230,7 +230,7 @@ const About = () => {
             mb: { xs: 1, sm: 2 },
             textAlign: 'center'
           }}>
-            CONTRIBUTORS(Tech Team)
+            CONTRIBUTORS <br /> (Tech Team)
           </Typography>
         </Grid>
 
@@ -244,6 +244,7 @@ const About = () => {
                   height="180"
                   image={member.image}
                   alt={member.name}
+                  sx={{objectFit: isSmall ? 'contain' : 'cover'}}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h6" component="div" sx={{ textAlign: 'center' }}>
