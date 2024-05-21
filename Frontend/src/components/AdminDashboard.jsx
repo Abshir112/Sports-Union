@@ -43,8 +43,8 @@ const AdminDashboard = () => {
         { title: 'Total Activities', value: statistics.totalActivities, color: theme.palette.secondary.main },
         { title: 'Total Events', value: statistics.totalEvents, color: theme.palette.info.main },
         { title: 'Total Announcement', value: statistics.totalAnnouncement, color: theme.palette.success.main },
-        { title: 'Reserved Activities', value: statistics.totalReservedActivities, color: theme.palette.warning.main },        
-        { title: 'Reserved Events', value: statistics.totalReservedEvents, color: theme.palette.error.main },
+        { title: 'Total Reserved Activity Slots', value: statistics.totalReservedActivities, color: theme.palette.warning.main },        
+        { title: 'Total Reserved Event Slots', value: statistics.totalReservedEvents, color: theme.palette.error.main },
      
     ];
 
