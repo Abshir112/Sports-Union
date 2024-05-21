@@ -35,7 +35,7 @@ Sports Union is a web application designed to help university students stay conn
 You can access the deployed application at [Sports Union](https://sports-union.onrender.com/).
 
 ## Design page on Figma
-You can view the design for all pages at [Figma]([https://sports-union.onrender.com/](https://www.figma.com/design/iAEBH2D7RQWcpzFFZfVuvT/HkIF?node-id=251-31&t=kVlOcphMkyzPjI7s-0)).
+You can view the design for all pages at [Figma](https://www.figma.com/design/iAEBH2D7RQWcpzFFZfVuvT/HkIF?node-id=251-31&t=kVlOcphMkyzPjI7s-0)).
 
 ## Installation Guide
 Follow these steps to set up the project locally.
