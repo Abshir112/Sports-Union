@@ -1,0 +1,54 @@
+/* UserTable.css */
+
+.container {
+    margin-top: 2rem;
+    border-radius: 4px;
+    padding: 24px;
+    background-color: #fff;
+    color: #000;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 16px;
+}
+
+.form-control-label {
+    color: #000;
+    margin-right: 16px;
+}
+
+.select-container {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.select-container select {
+    width: 100%;
+    padding: 8px;
+    color: #fff;
+    background-color: #333;
+    border: 1px solid #fff;
+}
+
+.select-container option {
+    background-color: #333;
+    color: #fff;
+}
+
+.table-container {
+    background-color: #333;
+    color: #fff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #fff;
+    text-align: left;
+}

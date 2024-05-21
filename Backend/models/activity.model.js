@@ -24,9 +24,9 @@ const activitySchema = new mongoose.Schema({
     maxParticipants: { type: Number, required: true },
     location: { type: String, required: true },
     description: { type: String, required: true },
-    image: { type: String, required: false },
+    image: { type: String, required: true, default: 'https://i.ibb.co/DkdSV6n/logo.png'},
     currentParticipants: { type: Number, default: 0 },
-    availableSpots: { type: Number, required: true, default: 0},
+    availableSpots: { type: Number, required: true},
     time: { type: String, required: true }
 }, { collection: 'Activity' });
 
