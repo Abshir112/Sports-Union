@@ -63,7 +63,7 @@ activityRouter.post('/', createActivity);
  * @param {express.Response} res - Express response object.
  * @returns {void}
  */
-activityRouter.patch('/:id', updateActivity);
+activityRouter.put('/:id', updateActivity);
 
 /**
  * Route handler to delete an activity.
