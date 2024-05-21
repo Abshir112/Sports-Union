@@ -47,7 +47,7 @@ const DrawerComp = () => {
       case "Events":
         navigate("/events");
         break;
-      case "Administration":
+      case "members":
         navigate("/members");
         break;
       case "Logout":
