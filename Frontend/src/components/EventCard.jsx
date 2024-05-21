@@ -30,7 +30,7 @@ const EventCard = (props) => {
 
   const handleEdit = (editedData) => {
     try {
-      fetch(`http://localhost:3000/api/v1/${props.cardType}/${editedData.id}`, {
+      fetch(`https://sports-union.onrender.com/api/v1/${props.cardType}/${editedData.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
