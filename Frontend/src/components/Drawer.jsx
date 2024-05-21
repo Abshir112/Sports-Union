@@ -28,7 +28,7 @@ const DrawerComp = () => {
     "About",
     "Activities",
     "Events",
-    userRole === "admin" ? "Members" : null,
+    userRole === "admin" ? "Administration" : null,
     user ? "Logout" : "Login",
   ];
 
