@@ -27,7 +27,7 @@ const eventSchema = new mongoose.Schema({
     description: { type: String, required: true },
     time: { type: String, required: true },
     currentParticipants: { type: Number, default: 0 },
-    availableSpots: { type: Number, required: true }, // Add availableSpots property
+    availableSpots: { type: Number, required: false }, // Add availableSpots property
     image: { type: String, required: false }
 }, { collection: 'Event' });
 
