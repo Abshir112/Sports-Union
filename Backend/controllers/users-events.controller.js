@@ -83,7 +83,16 @@ export const getEventUsers = async (req, res) => {
   const eventId = req.params.id;
   try {
     const eventUsers = await UserEvent.find({ eventId: eventId }).populate("userId");
-    const users = eventUsers.map((userEvent) => userEvent.userId);
+    // const users = eventUsers.map((userEvent) => userEvent.userId);
+    if (eventUsers.length === 0) {
+        return res.status(404).json({ message: "No users found for this event" });
+        }
+    const users = eventUsers.map((userEvent) => ({
+        User_ID: userEvent.userId._id,
+        User_Name: userEvent.userId.name,
+        User_Email: userEvent.userId.email,
+        User_Phone: userEvent.userId.phone,
+        }));
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });

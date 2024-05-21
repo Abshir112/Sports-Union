@@ -57,7 +57,7 @@ function SignUp() {
                 key={key}
                 variant="outlined"
                 margin="normal"
-                required
+                required={key !== 'personnummer'}
                 fullWidth
                 id={key}
                 name={key}
@@ -66,6 +66,7 @@ function SignUp() {
                 type={key === 'password' ? 'password' : 'text'} // Set type to 'password' for password field
                 value={values[key]}
                 onChange={handleChange}
+                placeholder={key === 'personnummer' ? 'YYYY-MM-DD' : ''}
                 InputLabelProps={{
                   style: { color: theme.palette.primary.main }
                 }}
