@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Card, CardContent, Typography, Grid, useTheme } from '@mui/material';
 import { useAuthContext } from '../hooks/useAuthContext';
+import UserTable from './UserTable';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 
@@ -68,6 +69,7 @@ const AdminDashboard = () => {
                     </Grid>
                 ))}
             </Grid>
+            <UserTable />
         </Box>
     );
 };
