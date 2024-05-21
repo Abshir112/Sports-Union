@@ -83,9 +83,12 @@ const Activities = () => {
         setIsAddModalOpen(false);
     }
 
-    const handleAddActivity = (activityData) => {
-        addActivity(activityData);
-    }
+    const handleAddActivity = async (activityData) => {
+        const newActivity = await addActivity(activityData);
+        if (newActivity) {
+            setActivities((prevActivities) => [...prevActivities, newActivity]);
+        }
+    };
 
     const errorReload = () => {
         setError(null);
