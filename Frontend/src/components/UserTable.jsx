@@ -36,7 +36,16 @@ const UserTable = () => {
                 }
             });
             console.log(`Fetched users for ${type} ${id}:`, response.data);
-            setUsers(Array.isArray(response.data) ? response.data : []);
+
+            // Normalize user data
+            const normalizedUsers = response.data.map((user) => ({
+                name: user.User_Name || user.name,
+                email: user.User_Email || user.email,
+                phone: user.User_Phone || user.phone,
+                id: user.User_ID || user.id,
+            }));
+
+            setUsers(Array.isArray(response.data) ? normalizedUsers : []);
         } catch (error) {
             console.error('Error fetching users:', error);
             setUsers([]); // Ensure users is set to an empty array on error
@@ -90,6 +99,7 @@ const UserTable = () => {
                         value={selectedItem}
                         onChange={(e) => setSelectedItem(e.target.value)}
                     >
+                        <option value="">Choose</option>
                         {items.map((item) => (
                             <option 
                                 key={item._id} 
