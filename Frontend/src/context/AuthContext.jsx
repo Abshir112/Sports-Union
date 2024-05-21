@@ -119,7 +119,6 @@ export const AuthProvider = ({ children }) => {
             dispatch({ type: 'SET_USER_EVENTS', payload: userEvents });
         }
     }, []);
-    console.log(state);
 
     return (
         <AuthContext.Provider value={{ ...state, dispatch }}>

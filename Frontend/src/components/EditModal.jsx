@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import Activity from '../../../Backend/models/activity.model';
 
 const style = {
   position: 'absolute',
@@ -18,7 +19,7 @@ const style = {
   color: 'black',
 };
 
-export default function EditModal({ open, handleClose, eventData, handleEdit }) {
+export default function EditModal({ open, handleClose, eventData, handleEdit, type }) {
   const [editedData, setEditedData] = useState(eventData);
   const [error, setError] = useState('');
 
@@ -62,8 +63,8 @@ export default function EditModal({ open, handleClose, eventData, handleEdit }) 
           Edit
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <label htmlFor="title">Title:  </label>
-            <input type="text" name="title" value={editedData.title} onChange={handleInputChange} />
+            <label htmlFor={type === "activities" ? "activityName" : "title"}>Title:  </label>
+            <input type="text" name={type === "activities" ? "activityName" : "title"} value={type === "activities" ? editedData.activityName : editedData.title} onChange={handleInputChange} />
             <br />
             <label htmlFor="date">Date:  </label>
             <input type="date" name="date" value={editedData.date} onChange={handleInputChange} />

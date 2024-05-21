@@ -17,7 +17,10 @@ const useAddActivity = () => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${user.token}`
                 },
-                body: JSON.stringify(requestData)
+                body: JSON.stringify({
+                    ...requestData,
+                    availableSpots: requestData.maxParticipants
+                })
             })
             .then(response => {
                 if (!response.ok) {

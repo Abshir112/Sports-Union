@@ -11,16 +11,19 @@ export const Hero = () => {
 
     <Container maxWidth={false}  sx={{backgroundColor: theme.palette.background.paper, display: "flex", justifyContent: "space-between", marginTop: 1}}>
       <Box sx={{
-        padding: 8, 
+        padding: "4%",
+        mr: 2,
         textAlign: 'left', 
         color: theme.palette.primary.main,
         mt: 3,
-        width: "100%", 
+        width: "100%"
+      
       }}>
         <Typography variant="h3" component="h1" sx={{
           fontFamily: '"Vollkorn SC", Arial, sans-serif',
           fontWeight: 'bold', 
           letterSpacing: 1,
+          fontSize: {xs: "2.5rem", sm: "3rem"} 
         }}>
           ELEVATE YOUR <span style={{color: theme.palette.text.secondary}}>SPORTS PASSION</span>
         </Typography>
@@ -28,7 +31,8 @@ export const Hero = () => {
           fontFamily: '"Vollkorn SC", Arial, sans-serif',
           fontWeight: 'bold', 
           mb: 3, 
-          letterSpacing: 2, 
+          letterSpacing: 2,
+          fontSize: {xs: "2.5rem", sm: "3rem"} 
           // color: 'rgba(255, 255, 255, 0.7)', 
         }}>
           BEYOND BOUNDARIES

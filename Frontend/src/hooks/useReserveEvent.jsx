@@ -43,7 +43,7 @@ const useReserveEvent = () => {
                 localStorage.setItem('events', JSON.stringify(updatedEvents)); // Added this line to update localStorage
                 dispatch({ type: 'UPDATE_EVENTS', payload: updatedEvents }); // Added this line to update events state
                 setError(null);
-                setIsLoading(false); // Moved this line here
+                //setIsLoading(false); // Moved this line here
             })
             .catch(error => {
                 setIsLoading(false);

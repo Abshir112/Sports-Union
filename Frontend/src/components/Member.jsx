@@ -99,31 +99,32 @@ const Member = (props) => {
         padding: '1rem',
         border: '1px solid #ddd',
         borderRadius: '8px',
-        width: '100%'
+        width: '100%',
+        flexWrap: 'wrap'
     };
 
     return (
         <>
             <Card id={member._id} sx={style}>
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} alignItems="center" >
                     <Avatar>{member.name.charAt(0)}</Avatar>
                     <div>
-                        <Typography variant="h6" component="h2" style={{ color: 'red' }}>
+                        <Typography variant="h6" color="red" component="h2" style={{  overflowWrap: 'break-word' }}>
                             {member.name}
                         </Typography>
-                        <Typography color="black">
+                        <Typography color="black" style={{  overflowWrap: 'break-word' }}>
                            Email:  {member.email}
                         </Typography>
-                        <Typography color="black">
+                        <Typography color="black" style={{  overflowWrap: 'break-word' }}>
                           Phone Number:  {member.phone}
                         </Typography>
-                        <Typography color="black">
+                        <Typography color="black" style={{  overflowWrap: 'break-word' }}>
                            Role: {member.role}
                         </Typography>
                     </div>
                     <div></div>
                 </Stack>
-                <Stack direction="row" spacing={1} mr={2}>
+                <Stack direction="row" spacing={1} mr={2} sx={{mt: 3}}>
                     <Button variant="contained" color="warning" onClick={handleEditClick}>Edit</Button>
                     <Button variant="contained" color="secondary" onClick={handleDeleteClick}>Delete</Button>
                 </Stack>

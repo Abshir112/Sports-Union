@@ -15,7 +15,7 @@ const EventCard = (props) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const storedCards = JSON.parse(localStorage.getItem(props.cardType) || '[]');
-  const card = storedCards.find(card => card._id === props.id);
+  const card = storedCards.find(card => card._id === props.id) || {};
 
 
   const {user} = useAuthContext();
@@ -30,7 +30,7 @@ const EventCard = (props) => {
 
   const handleEdit = (editedData) => {
     try {
-      fetch(`https://sports-union.onrender.com/api/v1/${props.cardType}/${editedData.id}`, {
+      fetch(`http://localhost:3000/api/v1/${props.cardType}/${editedData.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -154,17 +154,17 @@ const EventCard = (props) => {
 
       {/* Render Edit Modal */}
       <EditModal
+        type = {props.cardType}
         open={isEditModalOpen}
         handleClose={handleEditModalClose}
         eventData={{
           id: props.id,
           date: props.date,
-          title: props.title,
+          ...(props.cardType === 'activities' ? { activityName: props.title } : { title: props.title }), // Conditional property
           time: props.time,
           location: props.location,
           description: props.description,
-          maxParticipants: props.maxParticipants,
-          availableSpots: props.availableSpots,
+          maxParticipants: props.maxParticipants
         }}
         handleEdit={handleEdit}
       />

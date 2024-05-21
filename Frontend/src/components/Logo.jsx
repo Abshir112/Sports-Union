@@ -15,7 +15,7 @@ const Logo = () => {
                 marginTop: 2,
             }}
         >
-            <Link to={user ? "/events" : "/"} >
+            <Link to="/" >
                 <img src={LogoImg} alt="Logo" style={{ width: 40, height: 40 }} />
             </Link>
 

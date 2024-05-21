@@ -8,7 +8,7 @@ const useAddEvent = () => {
 
     const addEvent = async (eventData) => {
         setIsLoading(true);
-        const requestData = { ...eventData, currentParticipants: 0 }; // Assuming event data structure is similar to activities
+        const requestData = { ...eventData, currentParticipants: 0, }; // Assuming event data structure is similar to activities
         try {
             const response = await fetch('https://sports-union.onrender.com/api/v1/events', {
                 method: 'POST',
@@ -16,7 +16,10 @@ const useAddEvent = () => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${user.token}`
                 },
-                body: JSON.stringify(requestData)
+                body: JSON.stringify({
+                    ...requestData,
+                    availableSpots: requestData.maxParticipants
+                })
             });
             if (!response.ok) {
                 throw new Error('Failed to add event');

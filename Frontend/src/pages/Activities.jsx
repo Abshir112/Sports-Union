@@ -72,6 +72,10 @@ const Activities = () => {
     }
 
     const handleUnReserve = async (activityID) => {
+        if (!user) {
+            navigate('/signin');
+            return;
+        }
         await unReserveActivity(activityID);
     }
 
@@ -83,8 +87,8 @@ const Activities = () => {
         setIsAddModalOpen(false);
     }
 
-    const handleAddActivity = (activityData) => {
-        addActivity(activityData);
+    const handleAddActivity = async (activityData) => {
+        await addActivity(activityData);
     }
 
     const errorReload = () => {

@@ -67,6 +67,10 @@ const EventCardsList = () => {
     };
 
     const handleUnReserve = async (eventID) => {
+        if (!user) {
+            navigate('/signin');
+            return;
+        }
         await unReserveEvent(eventID);
     };
 
