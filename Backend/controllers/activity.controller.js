@@ -68,16 +68,20 @@ export const createActivity = async (req, res) => {
  * @returns {Promise<void>} Responds with the updated activity or an error message.
  */
 export const updateActivity = async (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
+    const { activityName, date, location, description, time, maxParticipants } = req.body;
+    console.log(req.body);
     try {
-        const updatedActivity = await Activity.findByIdAndUpdate(id, req.body, { new: true });
-        if (!updatedActivity) {
-            return res.status(404).json({ error: 'Activity not found' });
-        }
+        const updatedActivity = await Activity.findOneAndUpdate(
+            { _id: id },
+            { activityName, date, location, description, time, maxParticipants },
+            { new: true, runValidators: true }
+        );
+        console.log(updatedActivity);
         res.json(updatedActivity);
     } catch (error) {
-        console.error('Failed to update activity:', error);
-        res.status(500).json({ error: 'Failed to update activity' });
+        console.error('Error updating Activity:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
