@@ -17,7 +17,6 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { useAuthContext } from '../hooks/useAuthContext';
 
-
 const Member = (props) => {
     const { user } = useAuthContext();
     const { member, onEdit, onDelete } = props;
@@ -25,6 +24,7 @@ const Member = (props) => {
     const [editMode, setEditMode] = useState(false);
     const [editedMember, setEditedMember] = useState(member);
     const [error, setError] = useState(null);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
     const handleEditClick = () => {
         setEditedMember(member); // Populate with current member details
@@ -57,7 +57,11 @@ const Member = (props) => {
         }
     };
 
-    const handleDeleteClick = async () => {
+    const handleDeleteClick = () => {
+        setDeleteDialogOpen(true);
+    };
+
+    const handleConfirmDelete = async () => {
         try {
             const response = await fetch(`https://sports-union.onrender.com/api/v1/users/delete-user/${member._id}`, {
                 method: 'DELETE',
@@ -68,12 +72,17 @@ const Member = (props) => {
             });
             if (response.ok) {
                 onDelete(member._id);
+                setDeleteDialogOpen(false);
             } else {
                 console.error('Error deleting user:', response.statusText);
             }
         } catch (error) {
             console.error('Error deleting user:', error);
         }
+    };
+
+    const handleCancelDelete = () => {
+        setDeleteDialogOpen(false);
     };
 
     const handleInputChange = (e) => {
@@ -209,6 +218,30 @@ const Member = (props) => {
                     </Button>
                     <Button onClick={handleEditSave} color="primary">
                         Save
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog
+                open={deleteDialogOpen}
+                onClose={handleCancelDelete}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Confirm Delete"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description" sx={{color: 'black'}}>
+                        Are you sure you want to delete this member?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCancelDelete} sx={{color: 'red'}}>
+                        Cancel
+                    </Button>
+                    <Button onClick={handleConfirmDelete} sx={{color: 'green'}} autoFocus>
+                        Confirm
                     </Button>
                 </DialogActions>
             </Dialog>
