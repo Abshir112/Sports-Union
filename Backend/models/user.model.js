@@ -5,16 +5,16 @@ import validator from 'validator';
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true},
-    phone: { type: String, required: true, unique: true},
-    personalNumber: { type: String, required: false, unique: true},
+    phone: { type: String, required: true,},
+    personalNumber: { type: String, required: false},
     password: { type: String, required: true },
     role: { type: String, required: true, default: 'user'}
 }, { collection: 'User' });
 
 
 userSchema.statics.signup = async function (email, password, name, phone, personalNumber) {
-    if(!email || !password || !name || !phone || !personalNumber) {
-        throw new Error('Please fill all the fields');
+    if(!email || !password || !name || !phone) {
+        throw new Error('Please provide all the required fields');
     }
 
     if(!validator.isEmail(email)) {
@@ -37,6 +37,8 @@ userSchema.statics.signup = async function (email, password, name, phone, person
     if (exists) {
         throw new Error('Email already exists');
     }
+
+
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 

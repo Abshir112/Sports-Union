@@ -66,7 +66,7 @@ function SignUp() {
                 type={key === 'password' ? 'password' : 'text'} // Set type to 'password' for password field
                 value={values[key]}
                 onChange={handleChange}
-                placeholder={key === 'personnummer' ? 'YYYY-MM-DD' : ''}
+                placeholder={key === 'personnummer' ? 'YYYYMMDD-XXXX' : ''}
                 InputLabelProps={{
                   style: { color: theme.palette.primary.main }
                 }}
