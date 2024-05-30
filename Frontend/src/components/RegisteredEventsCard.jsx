@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import WarningIcon from '@mui/icons-material/Warning';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const RegisteredEventsCard = () => {
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
-  const { user } = useAuthContext();
+  const { user, dispatch } = useAuthContext();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -22,6 +23,16 @@ const RegisteredEventsCard = () => {
             }
           }
         );
+        if (response.status === 401) {
+          dispatch({ type: 'LOGOUT' });
+          localStorage.removeItem('userActivities');
+          localStorage.removeItem('activities');
+          localStorage.removeItem('userEvents');
+          localStorage.removeItem('events');
+          localStorage.removeItem('user');
+          navigate('/');
+          return;
+      }
         const userEvents = await response.json();
 
         const eventPromises = userEvents.map(event =>

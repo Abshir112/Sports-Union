@@ -16,9 +16,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Member = (props) => {
-    const { user } = useAuthContext();
+    const navigate = useNavigate();
+    const { user, dispatch } = useAuthContext();
     const { member, onEdit, onDelete } = props;
 
     const [editMode, setEditMode] = useState(false);
@@ -49,6 +51,16 @@ const Member = (props) => {
                 },
                 body: JSON.stringify(editedMember)
             });
+            if (response.status === 401) {
+                dispatch({ type: 'LOGOUT' });
+                localStorage.removeItem('userActivities');
+                localStorage.removeItem('activities');
+                localStorage.removeItem('userEvents');
+                localStorage.removeItem('events');
+                localStorage.removeItem('user');
+                navigate('/');
+                return;
+            }
             const data = await response.json();
             onEdit(data);
             setEditMode(false);

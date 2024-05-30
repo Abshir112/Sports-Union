@@ -6,10 +6,12 @@ import Box from '@mui/material/Box';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const RegisteredActivitiesCard = () => {
+  const navigate = useNavigate();
   const [activities, setActivities] = useState([]);
-  const { user } = useAuthContext();
+  const { user, dispatch } = useAuthContext();
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -21,6 +23,16 @@ const RegisteredActivitiesCard = () => {
           }
         }
         );
+        if (response.status === 401) {
+          dispatch({ type: 'LOGOUT' });
+          localStorage.removeItem('userActivities');
+          localStorage.removeItem('activities');
+          localStorage.removeItem('userEvents');
+          localStorage.removeItem('events');
+          localStorage.removeItem('user');
+          navigate('/');
+          return;
+      }
         const userActivities = await response.json();
 
         if (userActivities.length === 0) {

@@ -9,10 +9,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAuthContext } from '../hooks/useAuthContext';
 import NotificationModal from './AddNotificationModal';
+import {useNavigate} from 'react-router-dom';
 
 const NotificationCard = () => {
+  const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
-  const { user } = useAuthContext();
+  const { user, dispatch } = useAuthContext();
   const [editNotification, setEditNotification] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,7 +26,22 @@ const NotificationCard = () => {
         }
       }
     )
-      .then(response => response.json())
+      .then(response => {
+        if (response.status === 401) {
+          dispatch({ type: 'LOGOUT' });
+          localStorage.removeItem('userActivities');
+          localStorage.removeItem('activities');
+          localStorage.removeItem('userEvents');
+          localStorage.removeItem('events');
+          localStorage.removeItem('user');
+          navigate('/');
+          return;
+      }
+        if (!response.ok) {
+          throw new Error('Something went wrong!');
+        }
+        return response.json();
+      })
       .then(data => setNotifications(data))
       .catch(error => console.error('Error fetching notifications:', error));
   }, []);
@@ -67,6 +84,15 @@ const NotificationCard = () => {
             },
             body: JSON.stringify(notification)
         });
+        if (response.status === 401) {
+          dispatch({ type: 'LOGOUT' });
+          localStorage.removeItem('userActivities');
+          localStorage.removeItem('activities');
+          localStorage.removeItem('userEvents');
+          localStorage.removeItem('events');
+          localStorage.removeItem('user');
+          navigate('/');
+      }
 
         const savedNotification = await response.json();
         if (method === 'POST') {

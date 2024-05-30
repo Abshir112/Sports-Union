@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useAuthContext } from './useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 const useAddActivity = () => {
+    const navigate = useNavigate();
     const [addingActivityError, setError] = useState(null);
     const [addingActivityIsLoading, setIsLoading] = useState(null);
-    const { user } = useAuthContext();
+    const { user, dispatch } = useAuthContext();
 
     const addActivity = (activityData) => {
         try {
@@ -23,6 +25,16 @@ const useAddActivity = () => {
                 })
             })
             .then(response => {
+                if (response.status === 401) {
+                    dispatch({ type: 'LOGOUT' });
+                    localStorage.removeItem('userActivities');
+                    localStorage.removeItem('activities');
+                    localStorage.removeItem('userEvents');
+                    localStorage.removeItem('events');
+                    localStorage.removeItem('user');
+                    navigate('/');
+                    return;
+                }
                 if (!response.ok) {
                     throw new Error('Failed to add activity');
                 }

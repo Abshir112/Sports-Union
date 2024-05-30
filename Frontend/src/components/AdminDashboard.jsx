@@ -4,9 +4,11 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import UserTable from './UserTable';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
+import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
-    const { user } = useAuthContext();
+    const navigate = useNavigate();
+    const { user, dispatch } = useAuthContext();
     const [statistics, setStatistics] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -20,6 +22,17 @@ const AdminDashboard = () => {
                         'Authorization': `Bearer ${user.token}`
                     }
                 });
+                if (response.status === 401) {
+                    dispatch({ type: 'LOGOUT' });
+                    localStorage.removeItem('userActivities');
+                    localStorage.removeItem('activities');
+                    localStorage.removeItem('userEvents');
+                    localStorage.removeItem('events');
+                    localStorage.removeItem('user');
+                    navigate('/');
+                    return;
+                }
+
                 if (!response.ok) {
                     throw new Error('Failed to fetch statistics');
                 }

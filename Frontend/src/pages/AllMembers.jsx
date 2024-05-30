@@ -7,9 +7,11 @@ import Stack from '@mui/material/Stack';
 import { useTheme } from "@mui/material";
 import SearchBar from "../components/SearchBar";  
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from 'react-router-dom';
 
 const Members = () => {
-    const {user} = useAuthContext();
+    const navigate = useNavigate();
+    const {user, dispatch} = useAuthContext();
     const theme = useTheme();
     const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(null);
@@ -27,6 +29,17 @@ const Members = () => {
                         }
                     }
                 );
+                if (response.status === 401) {
+                    dispatch({ type: 'LOGOUT' });
+                    localStorage.removeItem('userActivities');
+                    localStorage.removeItem('activities');
+                    localStorage.removeItem('userEvents');
+                    localStorage.removeItem('events');
+                    localStorage.removeItem('user');
+                    navigate('/');
+                    return;
+                }
+
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
                 }

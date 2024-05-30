@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserTable.css';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const UserTable = () => {
+    const navigate = useNavigate();
+    const { dispatch } = useAuthContext();
     const [type, setType] = useState('');
     const [items, setItems] = useState([]);
     const [selectedItem, setSelectedItem] = useState('');
@@ -18,6 +22,16 @@ const UserTable = () => {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`  // Assuming token is stored in localStorage
                 }
             });
+            if (response.status === 401) {
+                dispatch({ type: 'LOGOUT' });
+                localStorage.removeItem('userActivities');
+                localStorage.removeItem('activities');
+                localStorage.removeItem('userEvents');
+                localStorage.removeItem('events');
+                localStorage.removeItem('user');
+                navigate('/');
+                return;
+            }
             console.log(`Fetched ${type}s:`, response.data);
             setItems(response.data);
         } catch (error) {
@@ -35,6 +49,15 @@ const UserTable = () => {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`  // Assuming token is stored in localStorage
                 }
             });
+            if (response.status === 401) {
+                dispatch({ type: 'LOGOUT' });
+                localStorage.removeItem('userActivities');
+                localStorage.removeItem('activities');
+                localStorage.removeItem('userEvents');
+                localStorage.removeItem('events');
+                localStorage.removeItem('user');
+                navigate('/');
+            }
             console.log(`Fetched users for ${type} ${id}:`, response.data);
 
             // Normalize user data

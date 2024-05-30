@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 const useReserveActivity = () => {
+    const navigate = useNavigate();
     const {user} = useAuthContext();
     const [reserveError, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
@@ -31,6 +33,16 @@ const useReserveActivity = () => {
             })
         })
         .then(response => {
+            if (response.status === 401) {
+                dispatch({ type: 'LOGOUT' });
+                localStorage.removeItem('userActivities');
+                localStorage.removeItem('activities');
+                localStorage.removeItem('userEvents');
+                localStorage.removeItem('events');
+                localStorage.removeItem('user');
+                navigate('/');
+                return;
+            }
             if (!response.ok) {
                 throw new Error('Failed to reserve activity');
             }
