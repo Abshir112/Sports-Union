@@ -5,7 +5,7 @@ const useFetchUserEvents = () => {
     const fetchUserEvents = async (id, token) => {
         console.log('Fetching user events...', id);
         try {
-            const response = await fetch(`https://sports-union.onrender.com/api/v1/users-events/${id}`, {
+            const response = await fetch(`/api/v1/users-events/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

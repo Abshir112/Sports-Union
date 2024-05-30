@@ -19,7 +19,7 @@ const useReserveActivity = () => {
             }
             return activity;
         });
-        fetch('https://sports-union.onrender.com/api/v1/users-activities/user-activity', {
+        fetch('/api/v1/users-activities/user-activity', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ const useReserveActivity = () => {
             }
             return activity;
         });
-        fetch(`https://sports-union.onrender.com/api/v1/users-activities`, {
+        fetch(`/api/v1/users-activities`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

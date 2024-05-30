@@ -11,8 +11,8 @@ const UserTable = () => {
     const fetchItems = async (type) => {
         try {
             const url = type === 'event' 
-                ? 'https://sports-union.onrender.com/api/v1/events' 
-                : 'https://sports-union.onrender.com/api/v1/activities';
+                ? '/api/v1/events' 
+                : '/api/v1/activities';
             const response = await axios.get(url, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`  // Assuming token is stored in localStorage
@@ -28,8 +28,8 @@ const UserTable = () => {
     const fetchUsers = async (id) => {
         try {
             const url = type === 'event' 
-                ? `https://sports-union.onrender.com/api/v1/users-events/get-users/${id}`
-                : `https://sports-union.onrender.com/api/v1/users-activities/same/${id}`;
+                ? `/api/v1/users-events/get-users/${id}`
+                : `/api/v1/users-activities/same/${id}`;
             const response = await axios.get(url, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`  // Assuming token is stored in localStorage

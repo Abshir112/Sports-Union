@@ -10,7 +10,7 @@ const useAddEvent = () => {
         setIsLoading(true);
         const requestData = { ...eventData, currentParticipants: 0, }; // Assuming event data structure is similar to activities
         try {
-            const response = await fetch('https://sports-union.onrender.com/api/v1/events', {
+            const response = await fetch('/api/v1/events', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

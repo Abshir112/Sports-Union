@@ -41,7 +41,7 @@ const Member = (props) => {
         }
 
         try {
-            const response = await fetch(`https://sports-union.onrender.com/api/v1/users/update-user/${editedMember._id}`, {
+            const response = await fetch(`/api/v1/users/update-user/${editedMember._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ const Member = (props) => {
 
     const handleConfirmDelete = async () => {
         try {
-            const response = await fetch(`https://sports-union.onrender.com/api/v1/users/delete-user/${member._id}`, {
+            const response = await fetch(`/api/v1/users/delete-user/${member._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

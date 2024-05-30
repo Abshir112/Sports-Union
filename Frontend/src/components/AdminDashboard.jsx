@@ -15,7 +15,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         const fetchStatistics = async () => {
             try {
-                const response = await fetch('https://sports-union.onrender.com/api/v1/admin', {
+                const response = await fetch('/api/v1/admin', {
                     headers: {
                         'Authorization': `Bearer ${user.token}`
                     }

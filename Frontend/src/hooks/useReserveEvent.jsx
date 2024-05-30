@@ -19,7 +19,7 @@ const useReserveEvent = () => {
             return event;
         });
 
-        fetch('https://sports-union.onrender.com/api/v1/users-events/user-event', {
+        fetch('/api/v1/users-events/user-event', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ const useReserveEvent = () => {
             return event;
         });
 
-        fetch(`https://sports-union.onrender.com/api/v1/users-events`, {
+        fetch(`/api/v1/users-events`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
