@@ -1,7 +1,11 @@
 import express from 'express';
 import { createUserActivity, getUserActivities, getUserActivity, getUsersWithSameActivity, deleteUserActivity } from '../controllers/users-activities.controller.js';
+import requireAuth from '../middlewares/requireAuth.js';
 
 const usersActivitiesRouter = express.Router();
+
+// Middleware to verify the token
+usersActivitiesRouter.use(requireAuth);
 
 /**
  * Route handler to get all users' activities.
