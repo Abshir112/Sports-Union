@@ -16,9 +16,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Member = (props) => {
-    const { user } = useAuthContext();
+    const navigate = useNavigate();
+    const { user, dispatch } = useAuthContext();
     const { member, onEdit, onDelete } = props;
 
     const [editMode, setEditMode] = useState(false);
@@ -41,7 +43,7 @@ const Member = (props) => {
         }
 
         try {
-            const response = await fetch(`https://sports-union.onrender.com/api/v1/users/update-user/${editedMember._id}`, {
+            const response = await fetch(`/api/v1/users/update-user/${editedMember._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -49,6 +51,16 @@ const Member = (props) => {
                 },
                 body: JSON.stringify(editedMember)
             });
+            if (response.status === 401) {
+                dispatch({ type: 'LOGOUT' });
+                localStorage.removeItem('userActivities');
+                localStorage.removeItem('activities');
+                localStorage.removeItem('userEvents');
+                localStorage.removeItem('events');
+                localStorage.removeItem('user');
+                navigate('/');
+                return;
+            }
             const data = await response.json();
             onEdit(data);
             setEditMode(false);
@@ -63,7 +75,7 @@ const Member = (props) => {
 
     const handleConfirmDelete = async () => {
         try {
-            const response = await fetch(`https://sports-union.onrender.com/api/v1/users/delete-user/${member._id}`, {
+            const response = await fetch(`/api/v1/users/delete-user/${member._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

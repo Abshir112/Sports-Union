@@ -15,7 +15,7 @@ export const useLogin = () => {
         setError(null);
 
         try {
-            const response = await fetch('https://sports-union.onrender.com/api/v1/users/sign-in', {
+            const response = await fetch('/api/v1/users/sign-in', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

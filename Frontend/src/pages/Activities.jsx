@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import AddActivityModal from "../components/AddActivityModal";
 import Box from '@mui/material/Box';
 import Loading from "../components/Loading";
-import Error from "../components/Error";
+import ErrorComp from "../components/Error";
 import useReserveActivity from "../hooks/useReserveActivity";
 import useAddActivity from "../hooks/useAddActivity";
 import { useTheme } from "@mui/material";
@@ -17,7 +17,7 @@ const Activities = () => {
     const {fetchUserActivities} = useFetchUserActivites();
     const theme = useTheme();
     const navigate = useNavigate();
-    const {user, dispatch} = useAuthContext();
+    const {user, userActivities, dispatch} = useAuthContext();
     const userRole =  user ? user.user.role : null;
     const [activities, setActivities] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -26,11 +26,12 @@ const Activities = () => {
     const { reserveActivity, reserveError, isLoading, unReserveActivity  } = useReserveActivity();
     const { addActivity, addingActivityError, addingActivityIsLoading } = useAddActivity();
 
-    
+
     useEffect(() => {
         const fetchActivities = async () => {
             try {
-                const response = await fetch('https://sports-union.onrender.com/api/v1/activities');
+                console.log('Fetching activities');
+                const response = await fetch('/api/v1/activities');
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
                 }
@@ -48,13 +49,12 @@ const Activities = () => {
         }
         fetchActivities();
     }
-    , []);
+    , [loading]);
 
     useEffect(() => {
-        const userData = JSON.parse(localStorage.getItem('user'));
-        if (!userData) return;
+        if (!user) return;
         const fetchUserActivitesWrapper = () => {
-            fetchUserActivities(userData.user._id, userData.token);
+            fetchUserActivities(user.user._id, user.token);
         };
         fetchUserActivitesWrapper();
         const intervalId = setInterval(fetchUserActivitesWrapper, 5000); // Fetch every 5 seconds
@@ -97,17 +97,16 @@ const Activities = () => {
     }
 
     const checkIfReserved = (activityID) => {
-        const userActivities = JSON.parse(localStorage.getItem('userActivities'));
         if (!userActivities) return false;
         return userActivities.some(activity => activity.activityId === activityID);
     }
 
     return ( <>
         {loading && <Loading />}
-        {error && <Error error={error} reload={errorReload} />}
-        {reserveError && <Error error={reserveError} />}
+        {error && <ErrorComp error={error} reload={errorReload} />}
+        {reserveError && <ErrorComp error={reserveError} />}
         {isLoading && <Loading />}
-        {addingActivityError && <Error error={addingActivityError} />}
+        {addingActivityError && <ErrorComp error={addingActivityError} />}
         {addingActivityIsLoading && <Loading />}
         <Box display="flex" flexDirection="column" alignItems="center" width="100%" backgroundColor={theme.palette.background.paper}>
         {

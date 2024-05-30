@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Button } from "@mui/material";
 import EventCard from "../components/EventCard";
 import Loading from "../components/Loading";
-import Error from "../components/Error";
+import ErrorComp from "../components/Error";
 import AddEventModal from "../components/AddEventModal"; 
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ const EventCardsList = () => {
     const { fetchUserEvents } = useFetchUserEvents(); 
     const theme = useTheme();
     const navigate = useNavigate();
-    const { user, dispatch } = useAuthContext();
+    const { user, userEvents, dispatch } = useAuthContext();
     const userRole = user ? user.user.role : null;
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -27,7 +27,7 @@ const EventCardsList = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await fetch('https://sports-union.onrender.com/api/v1/events');
+                const response = await fetch('/api/v1/events');
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
                 }
@@ -43,20 +43,19 @@ const EventCardsList = () => {
             }
         };
         fetchEvents();
-    }, [dispatch]);
+    }, []);
 
     useEffect(() => {
-        const userData = JSON.parse(localStorage.getItem('user'));
-        if (!userData) return;
+        if (!user) return;
         const fetchUserEventsWrapper = () => {
-            fetchUserEvents(userData.user._id, userData.token);
+            fetchUserEvents(user.user._id, user.token);
         };
         fetchUserEventsWrapper();
         const intervalId = setInterval(fetchUserEventsWrapper, 5000); // Fetch every 5 seconds
 
         return () => clearInterval(intervalId); // Cleanup on unmount
 
-    }, [fetchUserEvents]);
+    }, []);
 
     const handleReserve = async (eventID) => {
         if (!user) {
@@ -92,7 +91,6 @@ const EventCardsList = () => {
     };
 
     const checkIfReserved = (eventID) => {
-        const userEvents = JSON.parse(localStorage.getItem('userEvents'));
         if (!userEvents) return false;
         return userEvents.some(event => event.eventId === eventID);
     };
@@ -100,10 +98,10 @@ const EventCardsList = () => {
     return (
         <>
             {loading && <Loading />}
-            {error && <Error error={error} reload={errorReload} />}
-            {reserveError && <Error error={reserveError} />}
+            {error && <ErrorComp error={error} reload={errorReload} />}
+            {reserveError && <ErrorComp error={reserveError} reload={errorReload} />}
             {isLoading && <Loading />}
-            {addingEventError && <Error error={addingEventError} />}
+            {addingEventError && <ErrorComp error={addingEventError} reload={errorReload} />}
             {addingEventIsLoading && <Loading />}
             <Box display="flex" flexDirection="column" alignItems="center" width="100%" backgroundColor={theme.palette.background.paper}>
                 {userRole === 'admin' && 

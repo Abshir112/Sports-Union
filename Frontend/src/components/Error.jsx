@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-const Error = ({ error, reload }) => {  
+const ErrorComp = ({ error, reload }) => {  
     return (
         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
             <Box>
@@ -16,4 +16,4 @@ const Error = ({ error, reload }) => {
 }
 
 
-export default Error;
+export default ErrorComp;

@@ -1,7 +1,10 @@
 import express from "express";
 import { getUserEvents, getUserEvent, getEventUsers, addUserEvent, deleteUserEvent } from "../controllers/users-events.controller.js";
-
+import requireAuth from "../middlewares/requireAuth.js";
 const userEventRouter = express.Router();
+
+// Middleware to verify the token
+userEventRouter.use(requireAuth);
 
 /**
  * Route handler to get all user events.
