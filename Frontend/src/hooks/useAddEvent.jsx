@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { useAuthContext } from './useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const useAddEvent = () => {
+    const navigate = useNavigate();
     const [addingEventError, setError] = useState(null);
     const [addingEventIsLoading, setIsLoading] = useState(false);
-    const { user } = useAuthContext();
+    const { user, dispatch } = useAuthContext();
 
     const addEvent = async (eventData) => {
         setIsLoading(true);
         const requestData = { ...eventData, currentParticipants: 0, }; // Assuming event data structure is similar to activities
         try {
-            const response = await fetch('https://sports-union.onrender.com/api/v1/events', {
+            const response = await fetch('/api/v1/events', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -21,6 +23,16 @@ const useAddEvent = () => {
                     availableSpots: requestData.maxParticipants
                 })
             });
+            if (response.status === 401) {
+                dispatch({ type: 'LOGOUT' });
+                localStorage.removeItem('userActivities');
+                localStorage.removeItem('activities');
+                localStorage.removeItem('userEvents');
+                localStorage.removeItem('events');
+                localStorage.removeItem('user');
+                navigate('/');
+                return;
+            }
             if (!response.ok) {
                 throw new Error('Failed to add event');
             }

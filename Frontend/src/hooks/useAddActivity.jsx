@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { useAuthContext } from './useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 const useAddActivity = () => {
+    const navigate = useNavigate();
     const [addingActivityError, setError] = useState(null);
     const [addingActivityIsLoading, setIsLoading] = useState(null);
-    const { user } = useAuthContext();
+    const { user, dispatch } = useAuthContext();
 
     const addActivity = (activityData) => {
         try {
             setIsLoading(true);
             const requestData = { ...activityData, currentParticipants: 0 };
-            fetch('https://sports-union.onrender.com/api/v1/activities', {
+            fetch('/api/v1/activities', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,6 +25,16 @@ const useAddActivity = () => {
                 })
             })
             .then(response => {
+                if (response.status === 401) {
+                    dispatch({ type: 'LOGOUT' });
+                    localStorage.removeItem('userActivities');
+                    localStorage.removeItem('activities');
+                    localStorage.removeItem('userEvents');
+                    localStorage.removeItem('events');
+                    localStorage.removeItem('user');
+                    navigate('/');
+                    return;
+                }
                 if (!response.ok) {
                     throw new Error('Failed to add activity');
                 }

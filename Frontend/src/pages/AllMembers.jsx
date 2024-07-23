@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Loading from "../components/Loading";
-import Error from "../components/Error";
+import ErrorComp from "../components/Error";
 import Member from "../components/Member";
 import AdminDashboard from '../components/AdminDashboard';
 import Stack from '@mui/material/Stack';
 import { useTheme } from "@mui/material";
 import SearchBar from "../components/SearchBar";  
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from 'react-router-dom';
 
 const Members = () => {
-    const {user} = useAuthContext();
+    const navigate = useNavigate();
+    const {user, dispatch} = useAuthContext();
     const theme = useTheme();
     const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(null);
@@ -20,13 +22,24 @@ const Members = () => {
         setError(null);
         const fetchMembers = async () => {
             try {
-                const response = await fetch('https://sports-union.onrender.com/api/v1/users',
+                const response = await fetch('/api/v1/users',
                     {
                         headers: {
                             'Authorization': `Bearer ${user.token}`,
                         }
                     }
                 );
+                if (response.status === 401) {
+                    dispatch({ type: 'LOGOUT' });
+                    localStorage.removeItem('userActivities');
+                    localStorage.removeItem('activities');
+                    localStorage.removeItem('userEvents');
+                    localStorage.removeItem('events');
+                    localStorage.removeItem('user');
+                    navigate('/');
+                    return;
+                }
+
                 if (!response.ok) {
                     throw new Error('Something went wrong!');
                 }
@@ -65,7 +78,7 @@ const Members = () => {
     return (
         <>
             {loading && <Loading />}
-            {error && <Error message={error} reload={handleErrorReload} />}
+            {error && <ErrorComp message={error} reload={handleErrorReload} />}
             <AdminDashboard />
             <div style={{ padding: '2rem', backgroundColor: theme.palette.background.paper }}>
                 <Stack direction="row" spacing={2} alignItems="center" marginBottom="2rem">

@@ -6,21 +6,33 @@ import Box from '@mui/material/Box';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const RegisteredActivitiesCard = () => {
+  const navigate = useNavigate();
   const [activities, setActivities] = useState([]);
-  const { user } = useAuthContext();
+  const { user, dispatch } = useAuthContext();
 
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await fetch(`https://sports-union.onrender.com/api/v1/users-activities/${user.user._id}`,
+        const response = await fetch(`/api/v1/users-activities/${user.user._id}`,
         {
           headers:{
             'Authorization':  `Bearer ${user.token}`
           }
         }
         );
+        if (response.status === 401) {
+          dispatch({ type: 'LOGOUT' });
+          localStorage.removeItem('userActivities');
+          localStorage.removeItem('activities');
+          localStorage.removeItem('userEvents');
+          localStorage.removeItem('events');
+          localStorage.removeItem('user');
+          navigate('/');
+          return;
+      }
         const userActivities = await response.json();
 
         if (userActivities.length === 0) {
@@ -29,7 +41,7 @@ const RegisteredActivitiesCard = () => {
         }
 
         const activityPromises = userActivities.map(activity =>
-          fetch(`https://sports-union.onrender.com/api/v1/activities/${activity.activityId}`,
+          fetch(`/api/v1/activities/${activity.activityId}`,
           {
             headers:{
               'Authorization':  `Bearer ${user.token}`

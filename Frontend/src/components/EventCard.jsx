@@ -8,8 +8,10 @@ import ConfirmDelete from '../components/ConfirmDelete';
 import { useAuthContext } from '../hooks/useAuthContext';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const EventCard = (props) => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -18,7 +20,7 @@ const EventCard = (props) => {
   const card = storedCards.find(card => card._id === props.id) || {};
 
 
-  const {user} = useAuthContext();
+  const {user, dispatch} = useAuthContext();
 
   const handleEditModalOpen = () => {
     setIsEditModalOpen(true);
@@ -30,7 +32,7 @@ const EventCard = (props) => {
 
   const handleEdit = (editedData) => {
     try {
-      fetch(`https://sports-union.onrender.com/api/v1/${props.cardType}/${editedData.id}`, {
+      fetch(`/api/v1/${props.cardType}/${editedData.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -39,6 +41,16 @@ const EventCard = (props) => {
         body: JSON.stringify(editedData)
       })
       .then(response => {
+        if (response.status === 401) {
+          dispatch({ type: 'LOGOUT' });
+          localStorage.removeItem('userActivities');
+          localStorage.removeItem('activities');
+          localStorage.removeItem('userEvents');
+          localStorage.removeItem('events');
+          localStorage.removeItem('user');
+          navigate('/');
+          return;
+      }
         if (!response.ok) {
           throw new Error('Failed to update activity');
         }
@@ -61,7 +73,7 @@ const EventCard = (props) => {
   };
   const handleDelete = () => {
     try {
-      fetch(`https://sports-union.onrender.com/api/v1/${props.cardType}/${props.id}`, {
+      fetch(`/api/v1/${props.cardType}/${props.id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${user.token}`
